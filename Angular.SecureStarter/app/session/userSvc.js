@@ -12,7 +12,8 @@
             clear: clear,
             signedIn: false,
             username: "",
-            accessToken: ""
+            accessToken: "",
+            roles: []
         };
 
         var activities = [];
@@ -23,6 +24,7 @@
             service.username = user.username;
             service.accessToken = user.accessToken;
             service.signedIn = true;
+            service.roles = user.roles;
             raiseEvent();
         }
 

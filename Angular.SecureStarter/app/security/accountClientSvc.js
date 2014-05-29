@@ -18,6 +18,7 @@
         registerExternalUrl = baseUrl + "api/Account/RegisterExternal",
         removeLoginUrl = baseUrl + "api/Account/RemoveLogin",
         setPasswordUrl = baseUrl + "api/Account/setPassword",
+        authorizeUrl = baseUrl + "api/Account/Authorize",
         siteUrl = baseUrl,
         userInfoUrl = "api/Account/UserInfo";
 
@@ -26,7 +27,8 @@
             login: login,
             logout: logout,
             setPassword: setPassword,
-            changePassword: changePassword
+            changePassword: changePassword,
+            authorize: authorize
         };
 
         return service;
@@ -75,11 +77,9 @@
                 url: loginUrl,
                 data: xsrf,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }).success(function (data, status) {
-                //TODO: check out data returned and return only good user data from here
+            }).success(function (data, status) {                
                 deferred.resolve(data);
-            }).error(function (data, status) {
-                //TODO: check out data returned and return only useful safe errors
+            }).error(function (data, status) {                
                 deferred.reject(data);
             });
 
@@ -101,6 +101,25 @@
             });
 
             return deferred.promise;
+        }
+
+        //roles ["rolename"] roles required.        
+        function authorize(roles) {
+            var deferred = $q.defer();
+            
+            $http({
+                method: 'GET',
+                url: authorizeUrl,
+                params: { roles: roles },
+                
+            }).success(function (data, status) {                
+                deferred.resolve(true);
+            }).error(function (data, status) {                
+                deferred.reject(false);
+            });
+
+            return deferred.promise;
+
         }
 
         function setPassword() { }

@@ -12,7 +12,8 @@
         $routeProvider.when('/features', {
             templateUrl: 'app/content/features/features.html',
             controller: 'featuresCtrl',
-            showNav: 'features'
+            showNav: 'features',
+            requireRoles: ['administrator', 'testers']
         });
         $routeProvider.when('/register', {
             templateUrl: 'app/security/register.html',

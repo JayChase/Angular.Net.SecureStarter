@@ -26,6 +26,7 @@ namespace Angular.SecureStarter.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
+
         public AccountController()
         {
         }
@@ -33,7 +34,7 @@ namespace Angular.SecureStarter.Controllers
         public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
-            UserManager = userManager;
+            UserManager = userManager;            
             AccessTokenFormat = accessTokenFormat;
         }
 
@@ -65,6 +66,30 @@ namespace Angular.SecureStarter.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
         }
+
+        // GET api/Account/Authorize
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("Authorize")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IHttpActionResult Authorize([FromUri] List<string> roles)
+        {
+            return Ok();
+
+            if (roles != null)
+            {
+                foreach (var role in roles)
+                {
+                    if (User.IsInRole(role))
+                    {
+                        return Ok();
+                    }
+                }
+            }
+
+            return Unauthorized();
+        }
+
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -264,7 +289,9 @@ namespace Angular.SecureStarter.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                List<string> roles = await UserManager.GetRolesAsync(user.Id) as List<string>;
+
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName,roles);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else

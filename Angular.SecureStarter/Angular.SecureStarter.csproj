@@ -208,6 +208,7 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationDbInitializer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -226,6 +227,7 @@
     <Content Include="app\core\navigationSvc.js" />
     <Content Include="app\core\notifierSvc.js" />
     <Content Include="app\security\accountClientSvc.js" />
+    <Content Include="app\security\guardRouteSvc.js" />
     <Content Include="app\security\register.html" />
     <Content Include="app\security\registerCtrl.js" />
     <Content Include="app\security\secureHttpInterceptor.js" />

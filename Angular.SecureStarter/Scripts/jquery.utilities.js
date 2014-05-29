@@ -75,7 +75,7 @@
         } else {
             return {};
         }
-    };
+    };    
 
     $.parseQueryString = function (queryString) {
         var data = {},

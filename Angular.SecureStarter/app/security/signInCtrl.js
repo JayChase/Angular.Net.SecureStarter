@@ -32,7 +32,8 @@
                         //good
                         userSvc.set({
                             username: result.userName,
-                            accessToken: result.access_token
+                            accessToken: result.access_token,
+                            roles: result.userRoles.split(",")
                         });
 
                         notifierSvc.show({ message: "signed in as " + userSvc.username, type: "info" });

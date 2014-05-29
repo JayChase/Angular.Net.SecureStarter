@@ -84,4 +84,10 @@ namespace Angular.SecureStarter.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class RequredRolesBindingModel
+    {        
+        [Display(Name = "Required roles")]
+        public string[] RoleNames { get; set; }
+    }
 }
