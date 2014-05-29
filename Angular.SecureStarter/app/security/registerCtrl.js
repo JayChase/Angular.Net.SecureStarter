@@ -28,7 +28,7 @@
 				function (result) {
 				    //success		
 				    notifierSvc.show({ message: "sucessfully registered", type: "info" });
-
+				    always();
 				    signIn();
 				},
 				function (result) {
@@ -39,13 +39,14 @@
 				        errors += $.PropertyValuesToString(result.data.ModelState);
 				    }
 
-				    notifierSvc.show({ message: errors , type: "error" });
-				},
-				function (result) {
-				    //always
-				    appActivitySvc.idle("registerCtrl");
+				    notifierSvc.show({ message: errors, type: "error" });
+				    always();
 				}
 			);
+
+            function always(result) {
+                appActivitySvc.idle("signInCtrl");
+            }
         }
 
         function signIn() {      

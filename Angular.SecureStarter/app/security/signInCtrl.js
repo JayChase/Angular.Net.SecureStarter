@@ -24,7 +24,7 @@
                 
         function signIn() {
 
-            appActivitySvc.busy("signInCtrl");
+            appActivitySvc.busy("signInCtrl");    
                         
             accountClientSvc.login($scope.user)
                 .then(
@@ -36,6 +36,7 @@
                         });
 
                         notifierSvc.show({ message: "signed in as " + userSvc.username, type: "info" });
+                        always(result);
                     },
                     function (result) {
                         //bad
@@ -48,12 +49,13 @@
                         }
 
                         notifierSvc.show({ message: errors, type: "error" });
-                    },
-                    function (result) {
-                        //always
-                        appActivitySvc.idle("signInCtrl");
+                        always(result);
                     }
                 );
+
+            function always(result){
+                appActivitySvc.idle("signInCtrl");
+            }
         }
     }
 })();
