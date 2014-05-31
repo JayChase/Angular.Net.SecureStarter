@@ -1,8 +1,10 @@
-﻿<h2>features</h2>
-<ul class="list-unstyled">
-    <li data-ng-repeat="f in features">
-        <h3>{{f.name}}</h3>
-        <p>{{f.description}}</p>
-        <button type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
-    </li>
-</ul>
+﻿<section id="features" class="view">
+    <h2>features</h2>
+    <ul class="list-unstyled">
+        <li data-ng-repeat="f in features">
+            <h3>{{f.name}}</h3>
+            <p>{{f.description}}</p>
+            <button type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
+        </li>
+    </ul>
+</section>

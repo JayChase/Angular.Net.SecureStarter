@@ -13,5 +13,53 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 280px;    
+}
+
+/*#region spinner*/
+#sk-busy-indicator{
+    height:20px;
+    width:20px;    
+    padding:0px;
+}
+
+.spinner {
+height:100%;
+width:100%;
+margin:0px auto;
+position:relative;
+-webkit-animation: rotation .6s infinite linear;
+-moz-animation: rotation .6s infinite linear;
+-o-animation: rotation .6s infinite linear;
+animation: rotation .6s infinite linear;
+border-left:3px solid rgba(0,0,0,.15);
+border-right:3px solid rgba(0,0,0,.15);
+border-bottom:3px solid rgba(0,0,0,.15);
+border-top:3px solid rgba(0,0,0,.8);
+border-radius:100%;
+}
+
+@-webkit-keyframes rotation {
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(359deg);}
+}
+
+@-moz-keyframes rotation {
+from {-moz-transform: rotate(0deg);}
+to {-moz-transform: rotate(359deg);}
+}
+
+@-o-keyframes rotation {
+from {-o-transform: rotate(0deg);}
+to {-o-transform: rotate(359deg);}
+}
+
+@keyframes rotation {
+from {transform: rotate(0deg);}
+to {transform: rotate(359deg);}
+}
+/*#endregion */
+
+section.view {
+    margin-left:10px;
 }

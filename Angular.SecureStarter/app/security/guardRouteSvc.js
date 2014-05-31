@@ -37,7 +37,8 @@
                     }
                 } else {
                     notifierSvc.show({ message: "You need to sign in first." });
-                    //TODO reidrect to login
+                    //TODO this will load up a fresh sign in every time (annoying) cannot use $browser so get window.location and check is sign in already loaded
+                    $location.path("/signIn");
                 }
             }
         }

@@ -1,40 +1,26 @@
-﻿<h2>{{title}}</h2>
-<div class="row">
-    <section class="col-md-7">
-        <form class="form-horizontal" role="form" name="registrationForm">
-            <p>Create a new account.</p>
-            <hr />
-            <div class="form-group">
-                <label for="email" class="col-md-2 control-label">email</label>
-                <div class="col-md-10">
-                    <input type="text" id="email" name="email" class="form-control" ng-model="registration.email" required/>
-                    <span class="help-block" ng-show="registrationForm.email.$error.required && registrationForm.$dirty">required</span>            
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="registerUsername" class="col-md-2 control-label">username</label>
-                <div class="col-md-10">
-                    <input type="text" id="registerUsername" class="form-control" ng-model="registration.username"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="registerPassword" class="col-md-2 control-label">Password</label>
-                <div class="col-md-10">
-                    <input type="password" id="registerPassword" class="form-control" ng-model="registration.password"  required/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="registerConfirmPassword" class="col-md-2 control-label">Confirm password</label>
-                <div class="col-md-10">
-                    <input type="password" id="registerConfirmPassword" class="form-control" ng-model="registration.confirmPassword" required />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default" ng-disabled="registrationForm.$invalid && registrationForm.$dirty" ng-click="register()" >Register</button>
-                </div>
-            </div>
-            <p><a href="#/signIn">Log in</a> if you already have a local account.</p>
-        </form>
-    </section>
-</div>
+﻿<section class="view">
+    <h2>{{title}}</h2>        
+    <form class="form" role="form" name="registrationForm">
+        <p>Create a new account.</p>
+        <hr />
+        <div class="form-group">            
+            <label for="email">email</label>
+            <input type="text" id="email" name="email" class="form-control" ng-model="registration.email" required />
+            <span class="help-block" ng-show="registrationForm.email.$error.required && registrationForm.$dirty">required</span>            
+        </div>
+        <div class="form-group">
+            <label for="registerUsername">username</label>
+            <input type="text" id="registerUsername" class="form-control" ng-model="registration.username" />            
+        </div>
+        <div class="form-group">            
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" class="form-control" ng-model="registration.password" required />            
+        </div>
+        <div class="form-group">                        
+            <label for="registerConfirmPassword">Confirm password</label>
+            <input type="password" id="registerConfirmPassword" class="form-control" ng-model="registration.confirmPassword" required />            
+        </div>
+        <button type="submit" class="btn btn-default" ng-disabled="registrationForm.$invalid && registrationForm.$dirty" ng-click="register()">Register</button>
+        <p><a href="#/signIn">Log in</a> if you already have a local account.</p>
+    </form>        
+</section>

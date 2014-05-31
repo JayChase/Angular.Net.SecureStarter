@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">{{brand}}</a>           
+            <a class="navbar-brand" href="#" ng-bind="brand"></a>           
         </div>
 
         <div class="navbar-text">
@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li data-ng-repeat="l in links">
-                    <a ng-href="{{l.url}}">{{l.name}}</a>
+                    <a ng-href="{{l.url}}" ng-bind="l.name"></a>
                 </li>
             </ul>
             <div class="navbar-text navbar-right">

@@ -1,30 +1,19 @@
-﻿<h2>{{title}}</h2>
-<div class="row">
-    <section class="col-md-7">
-        <form class="form-horizontal" role="form" name="signInForm">
-            <hr />
-            <div class="form-group">
-                <label for="userId" class="col-md-2 control-label">email or username</label>
-                <div class="col-md-10">
-                    <input type="text" id="userId" name="userId" class="form-control" ng-model="user.id" required />
-                    <span class="help-block" ng-show="signInForm.userId.$error.required && signInForm.$dirty">required</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="userPassword" class="col-md-2 control-label">Password</label>
-                <div class="col-md-10">
-                    <input type="password" id="userPassword" class="form-control" ng-model="user.password" required />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="signIn()">Sign in</button>
-                </div>
-            </div>
-            <ul class="list-unstyled">
-                <li>Forgotten your password? Click <a href="#/reminder">here</a></li>
-                <li>New here? sign up <a href="#/register">here</a></li>
-            </ul>            
-        </form>
-    </section>
-</div>
+﻿<section id="signIn" class="view">
+    <h2>{{title}}</h2>
+    <form class="form" role="form" name="signInForm">
+        <div class="form-group">
+            <label for="userId">email or username</label>
+            <input type="text" id="userId" name="userId" class="form-control" ng-model="user.id" required />
+            <span class="help-block" ng-show="signInForm.userId.$error.required && signInForm.$dirty">required</span>
+        </div>
+        <div class="form-group">
+            <label for="userPassword">Password</label>
+            <input type="password" id="userPassword" class="form-control" ng-model="user.password" required />
+        </div>
+        <button type="submit" class="btn btn-default" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="signIn()">Sign in</button>
+        <ul class="list-unstyled">
+            <li>Forgotten your password? Click <a href="#/reminder">here</a></li>
+            <li>New here? sign up <a href="#/register">here</a></li>
+        </ul>
+    </form>
+</section>

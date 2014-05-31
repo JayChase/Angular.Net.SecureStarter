@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute','app.core','app.session','app.security']);
+    var app = angular.module('app', ['ngRoute','ngAnimate','app.core','app.session','app.security']);
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/welcome', {
@@ -12,8 +12,7 @@
         $routeProvider.when('/features', {
             templateUrl: 'app/content/features/features.html',
             controller: 'featuresCtrl',
-            showNav: 'features',
-            requireRoles: ['administrator', 'testers']
+            showNav: 'features'
         });
         $routeProvider.when('/register', {
             templateUrl: 'app/security/register.html',
