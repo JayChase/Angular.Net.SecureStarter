@@ -38,6 +38,7 @@ namespace Angular.SecureStarter
                 "~/app/core/appActivitySvc.js",
                 "~/app/core/notifierSvc.js",
                 "~/app/core/navigationSvc.js",
+                "~/app/core/skDisableWhenBusy.js",
                 "~/app/shell/shellCtrl.js",
                 "~/app/shell/topNavCtrl.js",
                 "~/app/shell/skBusyIndicator.js",

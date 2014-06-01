@@ -226,6 +226,7 @@
     <Content Include="app\core\core.js" />
     <Content Include="app\core\navigationSvc.js" />
     <Content Include="app\core\notifierSvc.js" />
+    <Content Include="app\core\skDisableWhenBusy.js" />
     <Content Include="app\security\accountClientSvc.js" />
     <Content Include="app\security\guardRouteSvc.js" />
     <Content Include="app\security\register.html" />

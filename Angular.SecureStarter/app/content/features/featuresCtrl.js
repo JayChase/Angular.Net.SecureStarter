@@ -29,7 +29,7 @@
 
             var appActivityFeature = {
                 name: "application activity service (appActivitySvc)",
-                description: "Allows the app to track whether it is busy or not. use the busy/idle methods let the app know.",                
+                description: "Allows the app to track whether it is busy or not. use the busy/idle methods let the app know. Also use the sk-disable-when-busy directive to disable elements whilst the app is busy.",
                 demo: function () {
                     if (busy) {
                         appActivitySvc.idle("demo");
