@@ -5,18 +5,49 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .factory(serviceId, ['$route','$location','userSvc','accountClientSvc','notifierSvc', guardRouteSvc]);
+        .factory(serviceId, ['$route','$location','$q', 'userSvc','notifierSvc','appStatusSvc', guardRouteSvc]);
 
-    function guardRouteSvc($route, $location, userSvc, accountClientSvc, notifierSvc) {
+    function guardRouteSvc($route, $location, $q, userSvc, notifierSvc, appStatusSvc) {
         var service = {
-            guard: guard
+            guard: guard,
+            authorize: authorize
         };
 
         return service;
 
-        function guard(event, url) {
+        function guard(requiredRoles) {
+            return appStatusSvc.whenReady().finally(function (requiredRoles) {
+                return authorize(requiredRoles);
+            });
+        }
 
-            var path = getOriginalPathFromUrl(url);
+        function authorize(requiredRoles) {
+            var deferred = $q.defer(), path = $location.path();
+
+            if (userSvc.signedIn) {
+                if (requiredRoles && requiredRoles.length > 0) {
+                    if ($.arrayIntersect(requireRoles, userSvc.roles).length > 0) {
+                        deferred.resolve(true);
+                    } else {
+                        notifierSvc.show({ message: "you do not have the required permissions to few this page." });
+                        $location.path("/");
+                        deferred.reject(false);
+                    }
+                } else {
+                    deferred.resolve(true);
+                }                
+            } else {
+                notifierSvc.show({ message: "You need to sign in first."});                
+                $location.path("/signIn");
+                deferred.reject(false);
+            }
+
+            return deferred.promise;            
+        }
+
+        function guardOld(event) {
+
+            var path = $location.path();
 
             var targetRoute = $route.routes[path];
 
@@ -41,24 +72,6 @@
                     $location.path("/signIn");
                 }
             }
-        }
-        
-        //function allowNavigation(roles) {            
-        //    accountClientSvc.authorize(roles)
-        //        .then(
-		//		    function (result) {
-		//		        return true;
-		//		    },
-		//		    function (result) {
-		//		        return false;
-		//		    }
-		//	    );            
-        //}
-
-        function getOriginalPathFromUrl(url) {
-            var splitUrl = url.split('/');
-
-            return "/" + splitUrl[splitUrl.length - 1];
-        }
+        }        
     }
 })();

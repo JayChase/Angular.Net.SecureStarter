@@ -11,7 +11,7 @@
             busy: busy,            
             idle: idle,
             isBusy: false,
-            reset: reset,            
+            reset: reset         
         };
 
         var activities = [];        

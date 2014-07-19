@@ -36,13 +36,20 @@ namespace Angular.SecureStarter
                 "~/app/app.js",
                 "~/app/core/core.js",
                 "~/app/core/appActivitySvc.js",
+                "~/app/core/appStatusSvc.js",
                 "~/app/core/notifierSvc.js",
                 "~/app/core/navigationSvc.js",
                 "~/app/core/skDisableWhenBusy.js",
+                "~/app/core/storageSvc.js",
+                "~/app/core/skAppReady.js",                       
+                "~/app/common/validation/skMatches.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/shell").Include(    
+                "~/app/shell/shell.js",
                 "~/app/shell/shellCtrl.js",
                 "~/app/shell/topNavCtrl.js",
-                "~/app/shell/skBusyIndicator.js",
-                "~/app/shell/skUserInfo.js"
+                "~/app/shell/skBusyIndicator.js"                         
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/security").Include(
@@ -52,9 +59,20 @@ namespace Angular.SecureStarter
                 "~/app/security/signInCtrl.js",
                 "~/app/security/registerCtrl.js",
                 "~/app/security/secureHttpInterceptor.js",
-                "~/app/security/guardRouteSvc.js",
-                "~/app/session/session.js",
-                "~/app/session/userSvc.js"
+                "~/app/security/guardRouteSvc.js",                
+                "~/app/security/userSvc.js",
+                "~/app/security/skUserInfo.js",
+                "~/app/security/externalSignInCtrl.js",
+                "~/app/security/externalRegisterCtrl.js",
+                "~/app/security/externalAuthSvc.js",
+                "~/app/security/restoreUserSvc.js",
+                "~/app/security/skChangePassword.js",
+                "~/app/security/skCreateLocalLogin.js",
+                "~/app/security/skLoginProvider.js",
+                "~/app/security/skUserLogin.js",
+                "~/app/security/manageCtrl.js",
+                "~/app/security/userManagementSvc.js",
+                "~/app/security/usedLoginProviderFilter.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/content").Include(
@@ -65,7 +83,7 @@ namespace Angular.SecureStarter
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/toastr.css",
-                       "~/Content/slideAnimation.css",
+                       "~/Content/fadeAnimation.css",
                       "~/Content/site.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,

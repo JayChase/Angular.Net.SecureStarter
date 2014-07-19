@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -32,21 +32,19 @@ namespace Angular.SecureStarter.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
-            
+
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
 
-            List<string> roles = await userManager.GetRolesAsync(user.Id) as List<string>;
-           
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName,roles);
+            AuthenticationProperties properties = CreateProperties(oAuthIdentity);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -78,8 +76,9 @@ namespace Angular.SecureStarter.Providers
             if (context.ClientId == _publicClientId)
             {
                 Uri expectedRootUri = new Uri(context.Request.Uri, "/");
+                Uri redirectUri = new Uri(context.RedirectUri);
 
-                if (expectedRootUri.AbsoluteUri == context.RedirectUri)
+                if (expectedRootUri.Authority == redirectUri.Authority)
                 {
                     context.Validated();
                 }
@@ -88,14 +87,17 @@ namespace Angular.SecureStarter.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName,List<string> roles)
+        public static AuthenticationProperties CreateProperties(ClaimsIdentity identity)
         {
+            var roleClaimValues = ((ClaimsIdentity)identity).FindAll(ClaimTypes.Role).Select(c => c.Value);
+
+            var roles = string.Join(",", roleClaimValues);
+
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName },
-                {"userRoles", string.Join(",",roles) }
+                { "userName", ((ClaimsIdentity) identity).FindFirstValue(ClaimTypes.Name) },
+                { "userRoles", roles }
             };
-
             return new AuthenticationProperties(data);
         }
     }

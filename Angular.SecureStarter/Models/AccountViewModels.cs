@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Angular.SecureStarter.Models
@@ -18,6 +18,8 @@ namespace Angular.SecureStarter.Models
     {
         public string LocalLoginProvider { get; set; }
 
+        public string UserName { get; set; }
+
         public string Email { get; set; }
 
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
@@ -27,11 +29,15 @@ namespace Angular.SecureStarter.Models
 
     public class UserInfoViewModel
     {
+        public string UserName { get; set; }
+
         public string Email { get; set; }
 
         public bool HasRegistered { get; set; }
 
         public string LoginProvider { get; set; }
+
+        public string UserRoles { get; set; }
     }
 
     public class UserLoginInfoViewModel

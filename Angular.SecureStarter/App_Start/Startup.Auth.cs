@@ -10,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Angular.SecureStarter.Providers;
 using Angular.SecureStarter.Models;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Angular.SecureStarter
 {
@@ -58,10 +60,26 @@ namespace Angular.SecureStarter
             //    appId: "",
             //    appSecret: "");
 
+            //TODO use one of these 2 to get the email from Google
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "73146260471-mg4u2oq0u7gh0nab3ktp0eoftk7g4eps.apps.googleusercontent.com",
+                ClientSecret = "Iz90z4FYJxXPDIsL3e1aONBX",
+                Provider = new GoogleOAuth2AuthenticationProvider()
+                {
+                    OnAuthenticated = (context) =>
+                    {                     
+                        context.Identity.AddClaim(new Claim("urn:google:email", context.Identity.FindFirstValue(ClaimTypes.Email)));
+                        context.Identity.AddClaim(new Claim("urn:google:name", context.Identity.FindFirstValue(ClaimTypes.Name)));
+                        return Task.FromResult(0);
+                    }
+                }
+            });
+
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
+            //    ClientId = "73146260471-mg4u2oq0u7gh0nab3ktp0eoftk7g4eps.apps.googleusercontent.com",
+            //    ClientSecret = "Iz90z4FYJxXPDIsL3e1aONBX"                
             //});
         }
     }

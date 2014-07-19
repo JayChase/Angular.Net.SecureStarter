@@ -16,25 +16,29 @@ using Microsoft.Owin.Security.OAuth;
 using Angular.SecureStarter.Models;
 using Angular.SecureStarter.Providers;
 using Angular.SecureStarter.Results;
+using System.Linq;
+using Angular.SecureStarter.Filters;
 
 namespace Angular.SecureStarter.Controllers
 {
+
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
+        private const string DefaultUserRole = "user";
+
         private ApplicationUserManager _userManager;
 
-
         public AccountController()
+            : this(Startup.OAuthOptions.AccessTokenFormat)
         {
         }
 
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public AccountController(ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
-            UserManager = userManager;            
+            //
             AccessTokenFormat = accessTokenFormat;
         }
 
@@ -59,37 +63,19 @@ namespace Angular.SecureStarter.Controllers
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
+            var roleClaimValues = ((ClaimsIdentity)User.Identity).FindAll(ClaimTypes.Role).Select(c => c.Value);
+
+            var roles = string.Join(",", roleClaimValues);
+
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                UserName = User.Identity.GetUserName(),
+                Email = ((ClaimsIdentity)User.Identity).FindFirstValue(ClaimTypes.Email),
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                UserRoles = roles
             };
         }
-
-        // GET api/Account/Authorize
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("Authorize")]
-        [HttpGet]
-        [AllowAnonymous]
-        public IHttpActionResult Authorize([FromUri] List<string> roles)
-        {
-            return Ok();
-
-            if (roles != null)
-            {
-                foreach (var role in roles)
-                {
-                    if (User.IsInRole(role))
-                    {
-                        return Ok();
-                    }
-                }
-            }
-
-            return Unauthorized();
-        }
-
 
         // POST api/Account/Logout
         [Route("Logout")]
@@ -133,7 +119,8 @@ namespace Angular.SecureStarter.Controllers
             return new ManageInfoViewModel
             {
                 LocalLoginProvider = LocalLoginProvider,
-                Email = user.UserName,
+                Email = user.Email,
+                UserName = user.UserName,
                 Logins = logins,
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
@@ -254,7 +241,8 @@ namespace Angular.SecureStarter.Controllers
         {
             if (error != null)
             {
-                return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
+                //TODO put something better here for grabbbing an                
+                return Redirect(Url.Content("~/externalauth") + "#error=" + Uri.EscapeDataString(error));
             }
 
             if (!User.Identity.IsAuthenticated)
@@ -289,9 +277,7 @@ namespace Angular.SecureStarter.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                List<string> roles = await UserManager.GetRolesAsync(user.Id) as List<string>;
-
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName,roles);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(oAuthIdentity);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -345,6 +331,48 @@ namespace Angular.SecureStarter.Controllers
             return logins;
         }
 
+        // GET api/Account/ExternalLogins?returnUrl=%2F&provider=name&generateState=true
+        [AllowAnonymous]
+        [Route("ExternalLogins")]
+        public IHttpActionResult GetExternalLogins(string returnUrl,string provider, bool generateState = false)
+        {
+            var description = Authentication.GetExternalAuthenticationTypes()                                    
+                                    .FirstOrDefault(ad => ad.AuthenticationType == provider);
+
+            if (description == null)
+            {
+                return NotFound();
+            }
+            
+            string state;
+
+            if (generateState)
+            {
+                const int strengthInBits = 256;
+                state = RandomOAuthStateGenerator.Generate(strengthInBits);
+            }
+            else
+            {
+                state = null;
+            }
+
+            ExternalLoginViewModel login = new ExternalLoginViewModel
+            {
+                Name = description.Caption,
+                Url = Url.Route("ExternalLogin", new
+                {
+                    provider = description.AuthenticationType,
+                    response_type = "token",
+                    client_id = Startup.PublicClientId,
+                    redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
+                    state = state
+                }),
+                State = state
+            };
+
+            return Ok(login);
+        }
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -355,18 +383,16 @@ namespace Angular.SecureStarter.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { Email = model.Email };
-            //JC change
-            if (!string.IsNullOrEmpty(model.Username))
-            {
-                user.UserName = model.Username;
-            }
-            else
-            {
-                user.UserName = model.Email;
-            }
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            result = await UserManager.AddToRoleAsync(user.Id, DefaultUserRole);
 
             if (!result.Succeeded)
             {
@@ -393,19 +419,29 @@ namespace Angular.SecureStarter.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email != null ? model.Email : "" };
 
             IdentityResult result = await UserManager.CreateAsync(user);
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+
+            result = await UserManager.AddToRoleAsync(user.Id, DefaultUserRole);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
             return Ok();
         }
 
@@ -460,6 +496,7 @@ namespace Angular.SecureStarter.Controllers
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
+            public string Email { get; set; }
 
             public IList<Claim> GetClaims()
             {
@@ -469,6 +506,11 @@ namespace Angular.SecureStarter.Controllers
                 if (UserName != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
+                }
+
+                if (Email != null)
+                {
+                    claims.Add(new Claim(ClaimTypes.Email, Email, null, LoginProvider));
                 }
 
                 return claims;
@@ -498,7 +540,8 @@ namespace Angular.SecureStarter.Controllers
                 {
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                    UserName = identity.FindFirstValue(ClaimTypes.Name),
+                    Email = identity.FindFirstValue(ClaimTypes.Email)
                 };
             }
         }

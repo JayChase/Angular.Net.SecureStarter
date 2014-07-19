@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -35,11 +35,12 @@ namespace Angular.SecureStarter.Models
     public class RegisterBindingModel
     {
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
-        [Display(Name = "Username")]
-        public string Username { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -55,6 +56,10 @@ namespace Angular.SecureStarter.Models
 
     public class RegisterExternalBindingModel
     {
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -83,11 +88,5 @@ namespace Angular.SecureStarter.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }
-
-    public class RequredRolesBindingModel
-    {        
-        [Display(Name = "Required roles")]
-        public string[] RoleNames { get; set; }
     }
 }

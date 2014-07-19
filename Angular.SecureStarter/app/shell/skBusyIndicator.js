@@ -2,7 +2,7 @@
     'use strict';
 
     // TODO: replace app with your module name
-    angular.module('app')
+    angular.module('app.shell')
         .directive('skBusyIndicator', [skBusyIndicator]);
     
     function skBusyIndicator () {        

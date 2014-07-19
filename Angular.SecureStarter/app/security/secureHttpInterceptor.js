@@ -5,9 +5,9 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .factory(id, ['userSvc', secureHttpInterceptor]);
+        .factory(id, ['storageSvc', secureHttpInterceptor]);
 
-    function secureHttpInterceptor(userSvc) {
+    function secureHttpInterceptor(storageSvc) {
         var interceptor = {
             request: request
         };
@@ -15,8 +15,10 @@
         return interceptor;
 
         function request(config) {
-            if (userSvc.signedIn) {
-                config.headers['Authorization'] = "Bearer " + userSvc.accessToken;        
+            var token = storageSvc.retrieve("accessToken");
+
+            if (token) {
+                config.headers['Authorization'] = "Bearer " + token;
             }
 
             return config;

@@ -35,8 +35,8 @@
 				    //error
 				    var errors = "error registering. ";
 
-				    if (result.data && result.data.ModelState) {
-				        errors += $.PropertyValuesToString(result.data.ModelState);
+				    if (result.data && result.data.modelState) {
+				        errors += $.PropertyValuesToString(result.data.modelState);
 				    }
 
 				    notifierSvc.show({ message: errors, type: "error" });

@@ -1,5 +1,5 @@
-﻿<div id="skUserInfo" ng-cloak>
+﻿<div id="skUserInfo" ng-cloak sk-disable-when-busy>    
     <a href="#/manage" class="navbar-link" ng-show="signedIn">{{username}}</a>
     <button type="button" class="btn btn-xs btn-default" ng-click="signOut()" ng-show="signedIn">sign out</button>
-    <a class="ng-binding" href="#/signIn" ng-hide="signedIn">sign in</a>
+    <a class="ng-binding" href="/signIn" ng-hide="signedIn">sign in</a>
 </div>

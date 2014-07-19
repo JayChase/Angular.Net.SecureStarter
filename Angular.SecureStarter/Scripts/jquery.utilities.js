@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    //arguments: array, comparison (value to compare against or function which should return true/false)
+    //arguments: array, comparison (value to compare against or function which should accept item from the array as param and return true/false)
     $.arrayContains = function (array, comparison) {
         if (Object.prototype.toString.call(array) === '[object Array]') {
 
@@ -29,6 +29,34 @@
             throw { name: "InvalidArgument", description: "array argument must be an array" };
         }
     };
+
+    $.arrayIndexOf = function (array, comparison) {
+        if (Object.prototype.toString.call(array) === '[object Array]') {
+            var res = -1;
+            var comparator;
+
+            if (typeof (comparison) === 'function') {
+                comparator = comparison;
+            } else {
+                comparator = function (v) {
+                    if (v === comparison) {
+                        return array.indexOf(v);
+                    } 
+                };
+            }
+
+            array.forEach(function (v) {
+                if (comparator(v) && res === -1) {
+                    res = array.indexOf(v);
+                }
+            });       
+
+            return res;
+
+        } else {
+            throw { name: "InvalidArgument", description: "array argument must be an array" };
+        }
+    }
 
     $.asyncEach = function (array, asyncFunction) {
 
@@ -144,6 +172,30 @@
         }
 
         return result.join(",");
+    }
+
+    $.isObject = function (value) {
+        if (value === null) {
+            return false;
+        } else if(typeof value === "object") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $.exists = function (value) {
+        if (typeof value === "undefined") {
+            return false;
+        } else if (value === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    $.arrayLast = function (array) {
+        return array.slice(-1)[0];
     }
 
 })(jQuery);

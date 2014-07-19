@@ -55,7 +55,7 @@
   <ItemGroup>
     <Content Include="css\jasmine.css" />
     <Content Include="BaseRunner.html" />
-    <Content Include="BaseSpec.js" />
+    <Content Include="Fakes\toastrFake.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -326,7 +326,17 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\sinon-1.9.1.js" />
-    <Content Include="Tests\BaseTest.js" />
+    <Content Include="Tests\Common\common.js" />
+    <Content Include="Tests\Core\appStatusSvcSpec.js" />
+    <Content Include="Tests\Core\appActivitySvcSpec.js" />
+    <Content Include="Tests\Core\navigationSvcSpec.js" />
+    <Content Include="Tests\Core\notifierSvcSpec.js" />
+    <Content Include="Tests\Security\signInCtrlSpec.js" />
+    <Content Include="Tests\Security\externalSignInCtrlSpec.js" />
+    <Content Include="Tests\Security\guardRouteSvcSpec.js" />
+    <Content Include="Tests\Core\storageSvcSpec.js" />
+    <Content Include="Tests\Shell\shellCtrlSpec.js" />
+    <Content Include="Tests\Shell\topNavCtrlSpec.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -342,7 +352,9 @@
     <None Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\version.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tests\Session\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

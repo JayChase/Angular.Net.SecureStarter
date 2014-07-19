@@ -1,26 +1,28 @@
 ﻿<section class="view">
     <h2>{{title}}</h2>        
-    <form class="form" role="form" name="registrationForm">
+    <form class="form" role="form" name="registrationForm" sk-disable-when-busy>
         <p>Create a new account.</p>
         <hr />
-        <div class="form-group">            
+        <div class="form-group">
             <label for="email">email</label>
-            <input type="text" id="email" name="email" class="form-control" ng-model="registration.email" required />
-            <span class="help-block" ng-show="registrationForm.email.$error.required && registrationForm.$dirty">required</span>            
+            <input type="email" id="email" name="email" class="form-control" ng-model="registration.email" required />
+            <span class="help-block" ng-show="registrationForm.email.$error.required && registrationForm.$dirty">required</span>
+            <span class="help-block" ng-show="registrationForm.email.$error.email && registrationForm.$dirty">required</span>
         </div>
         <div class="form-group">
             <label for="registerUsername">username</label>
-            <input type="text" id="registerUsername" class="form-control" ng-model="registration.username" />            
+            <input type="text" id="registerUsername" class="form-control" ng-model="registration.username" />
         </div>
-        <div class="form-group">            
+        <div class="form-group">
             <label for="registerPassword">Password</label>
             <input type="password" id="registerPassword" class="form-control" ng-model="registration.password" required />            
         </div>
-        <div class="form-group">                        
+        <div class="form-group">
             <label for="registerConfirmPassword">Confirm password</label>
-            <input type="password" id="registerConfirmPassword" class="form-control" ng-model="registration.confirmPassword" required />            
+            <input type="password" id="registerConfirmPassword" class="form-control" ng-model="registration.confirmPassword" sk-matches="registration.password" required />
+            <span class="help-block" ng-show="registrationForm.confirmPassword.$error.match && registrationForm.$dirty">passwords do not match</span>
         </div>
         <button type="submit" class="btn btn-default" ng-disabled="registrationForm.$invalid && registrationForm.$dirty" ng-click="register()">Register</button>
-        <p><a href="#/signIn">Log in</a> if you already have a local account.</p>
+        <p><a href="/signIn">Log in</a> if you already have a local account.</p>
     </form>        
 </section>

@@ -1,10 +1,10 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'shell';
+    var controllerId = 'shellCtrl';
 
     // TODO: replace app with your module name
-    angular.module('app').controller(controllerId,
+    angular.module('app.shell').controller(controllerId,
         ['$scope', shell]);
 
     function shell($scope) {
