@@ -19,7 +19,7 @@
                 name: "notifier service (notifierSvc)",
                 description: "wraps toastr to make creating user info popups from anywhere in your app easy. Click the demo button to send a message.",
                 demo: function () {
-                    notifierSvc.show({title: "demo", message: "A message from the notifierSvc", type: "info"});
+                    notifierSvc.show({message: "A message from the notifierSvc"});
                 }
             };
 

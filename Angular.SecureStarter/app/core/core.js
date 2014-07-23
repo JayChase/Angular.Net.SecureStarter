@@ -3,13 +3,13 @@
 
     var core = angular.module('app.core', ['ngRoute']);
 
-    core.config(function ($provide) {
-        $provide.decorator("$q", function ($delegate) {        
-            $delegate.defer = deferFactory($delegate.defer);
+    //core.config(function ($provide) {
+    //    $provide.decorator("$q", function ($delegate) {        
+    //        $delegate.defer = deferFactory($delegate.defer);
 
-            return $delegate;
-        });
-    });
+    //        return $delegate;
+    //    });
+    //});
 
     function deferFactory(originalDefer) {
         return function () {

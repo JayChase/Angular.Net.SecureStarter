@@ -9,15 +9,14 @@
    
     // Handle routing errors and success events
     security.run(['externalAuthSvc', 'restoreUserSvc', 'appStatusSvc', function (externalAuthSvc, restoreUserSvc, appStatusSvc) {
-        externalAuthSvc.handleAuthResponse()
-            .success(function () {
-                appStatusSvc.isReady(true);
+        externalAuthSvc.handleAuthResponse().then(
+            null,
+            function () {
+                return restoreUserSvc.restore();
             })
-            .error(function () {
-                restoreUserSvc.restore()
-                        .finally(function () {
-                            appStatusSvc.isReady(true);
-                        });
+            ['finally'](
+            function () {
+                appStatusSvc.isReady(true);
             });
     }]);
 
