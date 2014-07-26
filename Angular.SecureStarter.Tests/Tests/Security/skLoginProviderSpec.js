@@ -16,16 +16,19 @@
 /// <reference path="../../../angular.securestarter/app/security/usersvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/accountclientsvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/guardroutesvc.js" />
-/// <reference path="../../../angular.securestarter/app/security/signInCtrl.js" />
+/// <reference path="../../../angular.securestarter/app/security/skLoginProvider.js" />
+
 
 'use strict';
 
 //Test suite
-describe('security signInCtrl', function () {
-    var scope, controller, q, userSvcMock, externalAuthSvcMock;
+describe('security skLoginProvider', function () {
+    var scope, directive, template, userSvcMock, externalAuthSvcMock;
 
         beforeEach(function () {
             module('app.security');
+ 
+            //module("../../../angular.securestarter/app/security/skLoginProvider.html");           
             
             module(function ($provide) { 
                 externalAuthSvcMock = {
@@ -83,8 +86,6 @@ describe('security signInCtrl', function () {
                     isReady: function () { }
                 }));
 
-                $provide.value("userSvc", userSvcMock);
-
                 $provide.value("notifierSvc", sinon.stub({
                     show: function () { }
                 }));
@@ -93,56 +94,46 @@ describe('security signInCtrl', function () {
                     show: function () { }
                 }));
 
-                $provide.value("$location", sinon.stub(
-                    {
-                        path: function () { }
-                    }));
+                $provide.value("userManagementSvc", sinon.stub({
+                    addLogin: function () { }
+                }));
+
             });
 
-            inject(function ($rootScope, $controller,$q) {
-                scope = $rootScope.$new();                
+            //directive = angular.element('<tr sk-user-login="login"></tr>');
 
-                controller = $controller('signInCtrl', { $scope: scope });
+ 
+            //TODO: never going to work with Chutpah and external templates
+
+            inject(function ($rootScope, $compile, $templateCache) {
+                scope = $rootScope;                
+
+                scope.provider = {
+                    providerName: "testProvider",
+                    providerKey: "testKey"
+                };
+
+                //$templateCache.put("app/security/skLoginProvider.htmll", template);
+
+                directive = angular.element('<tr sk-login-provider="login"></tr>');
+
+                $compile(directive)(scope);
+
+                scope.$digest();
+
+                //TODO no code to test now but suppose should test bindings
+                //need to get to the isolated scope for this then check click calls addLogin etc..
             });
     });
 
 
-        it('if signIn calls userSvc.signIn with (user,password)', inject(function () {
-            spyOn(userSvcMock, 'signIn').and.callThrough();
+    it('no possible with Chutspah, move to karma', inject(function () {            
+       
 
-            scope.user = {
-                id: "user",
-                password: "password"
-            };
-
-            scope.remember = false;
-
-            scope.signIn();
-
-            expect(userSvcMock.signIn).toHaveBeenCalledWith({
-                id: "user",
-                password: "password"
-            },false);
-        }));
+        expect(true).toEqual(true);
+    }));
     
-        it('if signIn successful then redirect to default /', inject(function ($location) {
-            scope.signIn();
-
-            expect($location.path.calledWith('/')).toEqual(true);
-        }));
-
-        it('if signIn successful then show success message', inject(function (notifierSvc) {
-            scope.signIn();
-
-            expect(notifierSvc.show.calledWith({ message: "signed in as user", type: "info" })).toEqual(true);
-        }));
-
-        it('if signIn fails then show error', inject(function (notifierSvc) {
-            userSvcMock.succeed = false;
-            scope.signIn();
-
-            expect(notifierSvc.show.calledWith({message: "failure", type: "error"})).toEqual(true);
-        }));
+       
 
     //Teardown
     afterEach(function () {

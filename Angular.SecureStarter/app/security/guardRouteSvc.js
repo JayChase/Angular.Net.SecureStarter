@@ -16,9 +16,10 @@
         return service;
 
         function guard(requiredRoles) {
-            return appStatusSvc.whenReady().finally(function (requiredRoles) {
-                return authorize(requiredRoles);
-            });
+            return appStatusSvc.whenReady()
+                ['finally'](function (requiredRoles) {
+                    return authorize(requiredRoles);
+                });
         }
 
         function authorize(requiredRoles) {

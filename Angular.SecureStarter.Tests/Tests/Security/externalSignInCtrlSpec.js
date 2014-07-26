@@ -40,7 +40,7 @@ describe('security externalSignInCtrl', function () {
                 }));
         });
 
-        module('app.shell');
+        module('app.security');
 
         inject(function ($rootScope, $controller) {
             scope = $rootScope.$new();

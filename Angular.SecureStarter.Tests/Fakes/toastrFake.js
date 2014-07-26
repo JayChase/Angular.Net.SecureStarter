@@ -1,4 +1,4 @@
-﻿; (function (define) {
+﻿(function (define) {
     define(['jquery'], function ($) {
         return (function () {
             var $container;

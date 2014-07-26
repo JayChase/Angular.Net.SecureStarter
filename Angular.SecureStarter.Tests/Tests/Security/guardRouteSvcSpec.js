@@ -22,7 +22,7 @@
 //Test suite
 describe('security guardRouteSvc', function () {
     //mocks
-    var route, routeProvider, location, routes, mockNotifierSvc, mockUserSvc, mockStorageSvc, mockEvent;
+    var route, routeProvider, location, routes, mockNotifierSvc, mockUserSvc, mockStorageSvc, externalAuthSvcMock, mockEvent;
 
     //Setup
     beforeEach(function () {
@@ -45,6 +45,47 @@ describe('security guardRouteSvc', function () {
         });        
         
         module(function ($provide) {
+            externalAuthSvcMock = {
+                succeed: true,
+                handleAuthResponse: function () {
+                    var that = this;
+
+                    return {
+                        then: function (fn1, fn2, fn3) {
+                            if (that.succeed) {
+                                if (fn1) {
+                                    fn1();
+                                }
+                            } else {
+                                if (fn2) {
+                                    fn2();
+                                }
+                            }
+
+                            return this;
+                        },
+                        'finally': function () { }
+                    };
+                }
+            };
+
+            $provide.value("externalAuthSvc", externalAuthSvcMock);
+
+            $provide.value("restoreUserSvc", sinon.stub({
+                restore: function () { }
+            }));
+
+            var ass = sinon.stub({
+                isReady: function () { },
+                whenReady: function () { }
+            });
+
+            ass.whenReady.returns({
+                'finally': function(fn){return fn();}
+            });
+
+            $provide.value("appStatusSvc", ass);
+
             $provide.value('notifierSvc', mockNotifierSvc);
             $provide.value('userSvc', mockUserSvc);
         });
@@ -121,7 +162,7 @@ describe('security guardRouteSvc', function () {
 
         guardRouteSvc.guard(mockEvent);
 
-        expect(location.path.calledWith("/signIn")).toEqual(true);;
+        expect(location.path.calledWith("/signIn")).toEqual(true);
     }));
 
     //Teardown

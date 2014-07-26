@@ -15,28 +15,50 @@
 
 //Test suite
 describe('manage signInCtrl', function () {
-        var scope, controller, q, userSvcMock;
+    var scope, controller, externalAuthSvcMock;
 
         beforeEach(function () {
             module('app.security');
             
-            module(function ($provide) { 
-                              
+            module(function ($provide) {
+                externalAuthSvcMock = {
+                    succeed: true,
+                    handleAuthResponse: function () {
+                        var that = this;
 
-                $provide.value("userSvc", userSvcMock);
+                        return {
+                            then: function (fn1, fn2, fn3) {
+                                if (that.succeed) {
+                                    if (fn1) {
+                                        fn1();
+                                    }
+                                } else {
+                                    if (fn2) {
+                                        fn2();
+                                    }
+                                }
 
-                $provide.value("notifierSvc", sinon.stub({
-                    show: function () { }
+                                return this;
+                            },
+                            'finally': function () { }
+                        };
+                    }
+                };                  
+              
+                $provide.value("externalAuthSvc",externalAuthSvcMock);
+
+                $provide.value("restoreUserSvc", sinon.stub({
+                    restore: function () { }
                 }));
 
-                $provide.value("appActivitySvc", sinon.stub({
-                    show: function () { }
+                $provide.value("appStatusSvc", sinon.stub({
+                    isReady: function () { }
                 }));
 
-                $provide.value("$location", sinon.stub(
-                    {
-                        path: function () { }
-                    }));
+                $provide.value("userManagementSvc", sinon.stub({
+                    load: function () { }
+                }));
+
             });
 
             inject(function ($rootScope, $controller,$q) {
@@ -47,9 +69,8 @@ describe('manage signInCtrl', function () {
     });
 
 
-        it('manageCtrl does something', inject(function () {
-            
-            
+        it('manageCtrl calls userManagementSvc load', inject(function (userManagementSvc) {
+            expect(userManagementSvc.load.called).toEqual(true);
         }));   
 
     //Teardown
