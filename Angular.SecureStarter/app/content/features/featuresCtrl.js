@@ -14,8 +14,9 @@
         activate();
 
         function activate() {
+            var busy = false, notifierFeature, appActivityFeature, navigationFeature;
 
-            var notifierFeature = {
+            notifierFeature = {
                 name: "notifier service (notifierSvc)",
                 description: "wraps toastr to make creating user info popups from anywhere in your app easy. Click the demo button to send a message.",
                 demo: function () {
@@ -23,11 +24,9 @@
                 }
             };
 
-            $scope.features.push(notifierFeature);
+            $scope.features.push(notifierFeature);            
 
-            var busy = false;
-
-            var appActivityFeature = {
+            appActivityFeature = {
                 name: "application activity service (appActivitySvc)",
                 description: "Allows the app to track whether it is busy or not. use the busy/idle methods let the app know. Also use the sk-disable-when-busy directive to disable elements whilst the app is busy.",
                 demo: function () {
@@ -43,7 +42,7 @@
 
             $scope.features.push(appActivityFeature);
 
-            var navigationFeature = {
+            navigationFeature = {
                 name: "Dynamic navbar links",
                 description: "Add the property showNav to a route to show it as a link in the navbar. eg showNav: 'linkText'"
             };

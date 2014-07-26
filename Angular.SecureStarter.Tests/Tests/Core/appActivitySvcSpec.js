@@ -36,6 +36,14 @@ describe('Core appActivitySvc', function () {
         expect(appActivitySvc.isBusy).toBe(true);
     }));
 
+    it('busy(undefined or null) throws error', inject(function (appActivitySvc) {        
+        expect(appActivitySvc.busy).toThrow({ name: 'Error', message: 'A valid activity name must be provided.' });
+    }));
+
+    it('idel(undefined or null) throws error', inject(function (appActivitySvc) {
+        expect(appActivitySvc.idle).toThrow({ name: 'Error', message: 'A valid activity name must be provided.' });
+    }));
+
     it('isBusy false to true raises appActivitySvc:isBusyChanged', inject(function (appActivitySvc) {                      
         appActivitySvc.busy("test");
         expect(rootScope.$broadcast).toHaveBeenCalledWith('appActivitySvc:isBusyChanged', { busy: true });

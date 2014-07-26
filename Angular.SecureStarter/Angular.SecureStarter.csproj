@@ -231,7 +231,6 @@
     <Content Include="app\content\welcome\welcomeCtrl.js" />
     <Content Include="app\core\appActivitySvc.js" />
     <Content Include="app\core\appStatusSvc.js" />
-    <Content Include="app\core\appSvc.js" />
     <Content Include="app\core\core.js" />
     <Content Include="app\core\navigationSvc.js" />
     <Content Include="app\core\notifierSvc.js" />

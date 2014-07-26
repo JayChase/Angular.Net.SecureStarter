@@ -55,26 +55,12 @@
     }]);
 
     app.value('appSettingsSvc', {
-        brand: "StarterKit",
-        title: "Angular StarterKit"
+        brand: 'StarterKit',
+        title: 'Angular StarterKit',
+        siteUrl: ''
     });
-
-    // Handle routing errors and success events
-    app.run(['$route', function ($route) {
-        
-        //externalAuthSvc.handleAuthResponse().then(afterExternal, afterExternal);
-        
-        ////TODO: this nested promise thing needs to be sorted hate this format
-        //function afterExternal(handled){
-        //    if (!handled) {
-        //        restoreUserSvc.restore().then(afterRestore, afterRestore);
-        //    } else{
-        //        appStatusSvc.isReady(true);
-        //    }
-        //}
-
-        //function afterRestore(){
-        //    appStatusSvc.isReady(true);
-        //}
+    
+    app.run(['$route','$window', 'appSettingsSvc', function ($route, $window, appSettingsSvc) {
+        appSettingsSvc.siteUrl = $window.location.origin;
     }]);
 })();

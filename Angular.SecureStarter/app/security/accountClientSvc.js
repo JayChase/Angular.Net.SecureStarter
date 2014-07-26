@@ -2,28 +2,26 @@
     'use strict';
 
     var serviceId = 'accountClientSvc';
+    
+    angular.module('app.security')
+        .factory(serviceId, ['$http', '$q', 'appSettingsSvc', accountClientSvc]);
 
-    // TODO: replace app with your module name
-    angular.module('app')
-        .factory(serviceId, ['$http','$q','$window', accountClientSvc]);
-
-    function accountClientSvc($http,$q,$window) {
+    function accountClientSvc($http, $q, appSettingsSvc) {
         // Routes
         //TODO: the base url is NOT working. it needs to get a base url only id there is one and not add the current page name as the base. This is happpening because fo the change away from #
         //TODO move this stuff to constants on the app.security module
         var baseUrl = "/",
-        addExternalLoginUrl = baseUrl + "api/Account/AddExternalLogin",
-        changePasswordUrl = baseUrl + "api/Account/changePassword",
+        addExternalLoginUrl = baseUrl + "api/account/addexternallogin",
+        changePasswordUrl = baseUrl + "api/account/changepassword",
         loginUrl = baseUrl + "token",
-        logoutUrl = baseUrl + "api/Account/Logout",
-        registerUrl = baseUrl + "api/Account/Register",
-        registerExternalUrl = baseUrl + "api/Account/RegisterExternal",
-        removeLoginUrl = baseUrl + "api/Account/RemoveLogin",
-        setPasswordUrl = baseUrl + "api/Account/setPassword",
-        authorizeUrl = baseUrl + "api/Account/Authorize",
-        siteUrl = $window.location.origin,
-        manageInfoUrl = baseUrl + "api/Account/ManageInfo?returnUrl=",
-        userInfoUrl = baseUrl + "api/Account/UserInfo";
+        logoutUrl = baseUrl + "api/account/logout",
+        registerUrl = baseUrl + "api/account/register",
+        registerExternalUrl = baseUrl + "api/account/registerexternal",
+        externalLoginUrl = baseUrl + "api/Account/externallogins",
+        removeLoginUrl = baseUrl + "api/account/removelogin",
+        setPasswordUrl = baseUrl + "api/account/setpassword",        
+        manageInfoUrl = baseUrl + "api/account/manageinfo",
+        userInfoUrl = baseUrl + "api/account/userinfo";
 
         function createErrorString(result) {
 
@@ -43,7 +41,7 @@
         }
 
         function encodeUrlWithReturnUrl(url, returnUrl, generateState) {
-            return baseUrl + "api/Account/ManageInfo?returnUrl=" + (encodeURIComponent(returnUrl)) +
+            return url + (encodeURIComponent(returnUrl)) +
                 "&generateState=" + (generateState ? "true" : "false");
         }
 
@@ -52,8 +50,7 @@
             login: login,
             logout: logout,
             setPassword: setPassword,
-            changePassword: changePassword,
-            authorize: authorize,
+            changePassword: changePassword,            
             getExternalLogins: getExternalLogins,
             getExternalLogin: getExternalLogin,
             addExternalLogin: addExternalLogin,
@@ -160,7 +157,7 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(
 				function (result) {
-				    return result.data;
+				    return { result: "success" };
 				},
 				function (result) {
 				    return $q.reject({
@@ -187,26 +184,7 @@
 				}
 			);                          
         }
-
-        //roles ["rolename"] roles required.        
-        function authorize(roles) {     
-            return $http({
-                method: 'GET',
-                url: authorizeUrl,
-                params: { roles: roles }                
-            }).then(
-				function (result) {
-				    return { result: "success" };
-				},
-				function (result) {
-				    return $q.reject({
-				        result: "failure",
-				        error: "authorization failed. " + createErrorString(result)
-				    });
-				}
-			);                      
-        }
-
+        
         function setPassword(args) {            
             return $http({
                 method: 'POST',
@@ -249,20 +227,20 @@
                 returnUrl = "";
             }
 
-            var externalLoginUrl = baseUrl + "api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(siteUrl + returnUrl)) +
+            var url = externalLoginUrl + "?returnUrl=" + (encodeURIComponent(appSettingsSvc.siteUrl + returnUrl)) +
                 "&generateState=" + (generateState ? "true" : "false");
 
             return $http({
                 method: 'GET',
-                url: externalLoginUrl
+                url: url
             }).then(
 				function (result) {
-				    return result.data;
+				    return { result: "success" };
 				},
 				function (result) {
 				    return $q.reject({
 				        result: "failure",
-				        error: "failed to get external logins. " + createErrorString(result)
+				        error: "Failed to get external logins. " + createErrorString(result)
 				    });
 				}
 			);
@@ -273,21 +251,21 @@
                 returnUrl = "";
             }
 
-            var externalLoginUrl = baseUrl + "api/Account/ExternalLogins?returnUrl=" + (encodeURIComponent(siteUrl + returnUrl)) +
+            var url = externalLoginUrl + "?returnUrl=" + (encodeURIComponent(appSettingsSvc.siteUrl + returnUrl)) +
                 "&provider=" + provider +
                 "&generateState=" + (generateState ? "true" : "false");
 
             return $http({
                 method: 'GET',
-                url: externalLoginUrl
+                url: url
             }).then(
 				function (result) {
-				    return result.data;
+				    return { result: "success" };
 				},
 				function (result) {
 				    return $q.reject({
 				        result: "failure",
-				        error: "failed to get external login. " + createErrorString(result)
+				        error: "Failed to get external login. " + createErrorString(result)
 				    });
 				}
 			);                
@@ -300,29 +278,29 @@
                 url: userInfoUrl
             }).then(
 				function (result) {
-				    return result.data;
+				    return { result: "success" };
 				},
 				function (result) {
 				    return $q.reject({
 				        result: "failure",
-				        error: "failed to load data. " + createErrorString(result)
+				        error: "Failed to load data. " + createErrorString(result)
 				    });
 				}
 			);                  
         }
 
-        function getManageInfo(returnUrl, generateState) {            
+        function getManageInfo(returnUrl, generateState) {
             return $http({
                 method: 'GET',
-                url: encodeUrlWithReturnUrl(manageInfoUrl, returnUrl, generateState)
+                url: encodeUrlWithReturnUrl(manageInfoUrl + "?returnUrl=", returnUrl, generateState)
             }).then(
 				function (result) {
-				    return result.data;
+				    return { result: "success" };
 				},
 				function (result) {
 				    return $q.reject({
 				        result: "failure",
-				        error: "failed to load data. " + createErrorString(result)
+				        error: "Failed to load data. " + createErrorString(result)
 				    });
 				}
 			);

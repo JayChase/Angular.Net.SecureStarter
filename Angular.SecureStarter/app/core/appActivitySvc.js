@@ -20,7 +20,7 @@
 
         function busy(name) {
             if (!name) {
-                throw new Error('A valid activity name must be provided.');
+                throw {name:'Error', message:'A valid activity name must be provided.'};
             }
 
             if (!activities[name]) {
@@ -32,7 +32,7 @@
 
         function idle(name) {
             if (!name) {
-                throw new Error('A valid activity name must be provided.');
+                throw { name: 'Error', message: 'A valid activity name must be provided.' };
             }
 
             if (!activities[name]) {

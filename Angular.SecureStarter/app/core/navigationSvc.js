@@ -15,7 +15,6 @@
 
         activate();
 
-        //TODO maybe a bit broken had to change to single array instance as creating a new array everytime is bad for bindings
         function activate() {
             for (var route in $route.routes) {
                 if ($route.routes.hasOwnProperty(route) && $route.routes[route].showNav) {
@@ -28,7 +27,6 @@
             return links;
         }
 
-        return service;
-        
+        return service;        
     }
 })();
