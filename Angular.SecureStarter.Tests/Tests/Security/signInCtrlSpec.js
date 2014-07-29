@@ -18,10 +18,10 @@
 /// <reference path="../../../angular.securestarter/app/security/guardroutesvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/signInCtrl.js" />
 
-'use strict';
-
 //Test suite
 describe('security signInCtrl', function () {
+    'use strict';
+
     var scope, controller, q, userSvcMock, externalAuthSvcMock;
 
         beforeEach(function () {
@@ -90,7 +90,8 @@ describe('security signInCtrl', function () {
                 }));
 
                 $provide.value("appActivitySvc", sinon.stub({
-                    show: function () { }
+                    busy: function () { },
+                    idle: function () { }
                 }));
 
                 $provide.value("$location", sinon.stub(
@@ -101,10 +102,9 @@ describe('security signInCtrl', function () {
 
             inject(function ($rootScope, $controller,$q) {
                 scope = $rootScope.$new();                
-
                 controller = $controller('signInCtrl', { $scope: scope });
             });
-    });
+        });
 
 
         it('if signIn calls userSvc.signIn with (user,password)', inject(function () {

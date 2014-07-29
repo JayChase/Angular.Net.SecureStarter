@@ -331,7 +331,9 @@
     <Content Include="Tests\Core\appActivitySvcSpec.js" />
     <Content Include="Tests\Core\navigationSvcSpec.js" />
     <Content Include="Tests\Core\notifierSvcSpec.js" />
+    <Content Include="Tests\Security\externalAuthSvcSpec.js" />
     <Content Include="Tests\Security\accountClientSvcSpec.js" />
+    <Content Include="Tests\Security\externalRegisterCtrlSpec.js" />
     <Content Include="Tests\Security\manageCtrlSpec.js" />
     <Content Include="Tests\Security\skLoginProviderSpec.js" />
     <Content Include="Tests\Security\signInCtrlSpec.js" />

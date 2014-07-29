@@ -12,20 +12,15 @@
 /// <reference path="../../../angular.securestarter/app/security/securehttpinterceptor.js" />
 /// <reference path="../../../angular.securestarter/app/security/accountclientsvc.js" />
 
-'use strict';
-
 //Test suite
 describe('security accountClientSvc', function () {
+    'use strict';
+
     var  mockNotifierSvc, externalAuthSvcMock;
 
     //Setup
     beforeEach(function () {
         module('app.security');
-
-        //mockUserSvc = sinon.stub({
-        //    signedIn: true,
-        //    roles: []
-        //});
 
         module(function ($provide) {
             externalAuthSvcMock = {
@@ -34,7 +29,7 @@ describe('security accountClientSvc', function () {
                     var that = this;
 
                     return {
-                        then: function (fn1, fn2, fn3) {
+                        then: function (fn1, fn2) {
                             if (that.succeed) {
                                 if (fn1) {
                                     fn1();
@@ -73,9 +68,7 @@ describe('security accountClientSvc', function () {
             
             $provide.value('appSettingsSvc', {siteUrl: 'testUrl'});
         });
-        
-       
-
+              
         inject(function ($route, $location) {
            
         });
