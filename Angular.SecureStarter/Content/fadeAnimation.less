@@ -1,0 +1,25 @@
+﻿@fadeDuration: 0.2s;
+
+.fade-animation.ng-leave {
+    -moz-transition: @fadeDuration ease-in all;
+    -o-transition: @fadeDuration ease-in all;
+    -webkit-transition: @fadeDuration ease-in all;
+    transition: @fadeDuration ease-in all;
+    opacity: 1;
+}
+
+    .fade-animation.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
+.fade-animation.ng-enter {
+    -moz-transition: @fadeDuration ease-in all @fadeDuration;
+    -o-transition: @fadeDuration ease-in all @fadeDuration;
+    -webkit-transition: @fadeDuration ease-in all @fadeDuration;
+    transition: @fadeDuration ease-in all @fadeDuration;
+    opacity: 0;
+}
+
+    .fade-animation.ng-enter.ng-enter-active {
+        opacity: 1;
+    }

@@ -1,0 +1,23 @@
+﻿<section class="view row" sk-disable-when-busy>
+    <h2>{{title}}</h2>
+    <div class="row">
+        <div class="col-md-7">
+
+            <sk-change-password ng-if="manageInfo.hasLocalLogin"></sk-change-password>
+            <sk-create-local-login ng-if="!manageInfo.hasLocalLogin"></sk-create-local-login>
+        </div>        
+        <div class="col-md-2">
+            <table class="table table-condensed nolines">
+                <tr>
+                    <th>Registered logins</th>
+                </tr>
+                <tr ng-repeat="login in userLogins | orderBy: 'loginProvider'" sk-user-login="login" action="removeLogin(login)"></tr>
+            </table>
+            <table class="table table-condensed nolines">
+                <tr><th>Add another login</th></tr>
+                <tr ng-repeat="provider in loginProviders | usedLoginProviderFilter:userLogins | orderBy: 'name' " sk-login-provider="provider" action="addLogin(provider)"></tr>
+            </table>
+
+        </div>
+    </div>
+</section>
