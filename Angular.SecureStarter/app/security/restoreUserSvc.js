@@ -15,7 +15,9 @@
 
         return service;
 
-        function restore() {            
+        function restore() {
+            appActivitySvc.busy("restoreUserSvc");
+
             if (storageSvc.retrieve("accessToken")) {
                 return userSvc.getUserInfo().then(
                       function (result) {
@@ -35,6 +37,9 @@
             } else {
                 var deferred = $q.defer();
                 deferred.resolve(false);
+
+                appActivitySvc.idle("restoreUserSvc");
+
                 return deferred.promise;
             }
             

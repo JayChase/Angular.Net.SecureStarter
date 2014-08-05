@@ -94,10 +94,9 @@ describe('security signInCtrl', function () {
                     idle: function () { }
                 }));
 
-                $provide.value("$location", sinon.stub(
-                    {
-                        path: function () { }
-                    }));
+                $provide.value("$location", sinon.stub({
+                    path: function () { }
+                }));
             });
 
             inject(function ($rootScope, $controller,$q) {
