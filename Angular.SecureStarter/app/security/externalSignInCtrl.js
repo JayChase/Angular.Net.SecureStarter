@@ -26,7 +26,7 @@
 
             accountClientSvc.getExternalLogins("/externalauth/signin").then(
 				function (result) {
-				    $scope.authProviders = result;
+				    $scope.authProviders = result.data;
 				},
 				function (result) {
 				    notifierSvc.show({ message: "error retrieving external logins", type: "error" });

@@ -53,8 +53,8 @@
 
                     userSvc.getUserInfo().then(
 				        function (result) {
-				            if (result.hasRegistered) {
-				                userSvc.setUser(result);
+				            if (result.data.hasRegistered) {
+				                userSvc.setUser(result.data);
 
 				                if (associationInfo) {
 				                    associateLogin();
@@ -64,9 +64,9 @@
 				                }
 				            } else {
 				                registrationInfo = {
-				                    email: result.email,
-				                    loginProvider: result.loginProvider,
-				                    username: result.userName
+				                    email: result.data.email,
+				                    loginProvider: result.data.loginProvider,
+				                    username: result.data.userName
 				                };
 
 				                appActivitySvc.idle("externalAuthSvc");
@@ -77,7 +77,7 @@
 				        },
 				        function (result) {
 				            //error	
-				            notifierSvc.show({ message: "something went wrong", type: "error" });
+				            notifierSvc.show({ message: "something went wrong. " + result.error, type: "error" });
 				            appActivitySvc.idle("externalAuthSvc");
 				            $location.path("/signIn");
 
@@ -92,22 +92,23 @@
         }
 
         function associateLogin() {
-            userSvc.addExternalLogin(associationInfo).then(
-				function (result) {
-				    //success
-				    notifierSvc.show({ message: "login added successfully", type: "info" });
-				    always();
-				},
-				function (result) {
-				    //error
-				    notifierSvc.show({ message: "something went wrong associating login", type: "error" });
-				    always();
-				});
-
-            function always() {
-                appActivitySvc.idle("externalAuthSvc");
-                $location.path("/manage");
-            }
+            userSvc.addExternalLogin(associationInfo)
+                .then(
+				    function (result) {
+				        //success
+				        notifierSvc.show({ message: "login added successfully", type: "info" });
+				        return result;
+				    },
+				    function (result) {
+				        //error
+				        notifierSvc.show({ message: "something went wrong associating login", type: "error" });
+				        return $q.reject(result);
+				    })
+                ['finally'](
+                    function always() {
+                        appActivitySvc.idle("externalAuthSvc");
+                        $location.path("/manage");
+                    });
         }
 
         function cleanUp() {

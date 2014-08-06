@@ -57,7 +57,7 @@ describe('security registerCtrl', function () {
                   
             userSvcMock = {
                 succeed: true,
-                succeedsignIn: true,
+                succeedSignIn: true,
                 result: {},
                 signIn: function () {
                     var that = this;
@@ -150,6 +150,7 @@ describe('security registerCtrl', function () {
         spyOn(notifierSvc, "show");
         scope.register();
         
+        //expect(notifierSvc.show).toHaveBeenCalled();
         expect(notifierSvc.show).toHaveBeenCalledWith({ message: "sucessfully registered", type: "info" });
     }));
 
@@ -163,11 +164,20 @@ describe('security registerCtrl', function () {
         expect(notifierSvc.show).toHaveBeenCalledWith({ message: "error message", type: "error" });
     }));
 
-    it('register successful notifies success', inject(function (userSvc) {
-        spyOn(userSvc, "signIn");
+    it('register successful calls userSvc.signIn', inject(function (userSvc) {
+        spyOn(userSvc, "signIn").and.callThrough();
         scope.register();
 
         expect(userSvc.signIn).toHaveBeenCalledWith({ id: "test@test.com", password: "password" });
+    }));
+
+    it('register successful notifies success', inject(function (userSvc, notifierSvc) {
+        //spyOn(notifierSvc, "show");
+        userSvc.username = "test";
+
+        scope.register();
+
+        expect(notifierSvc.show.calledWith({ message: "signed in as test", type: "info" })).toEqual(true);
     }));
 
     it('register > signIn fail notifies error', inject(function (userSvc, notifierSvc) {

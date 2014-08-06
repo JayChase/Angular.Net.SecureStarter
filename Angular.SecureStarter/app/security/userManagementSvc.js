@@ -5,9 +5,9 @@
 
     // TODO: replace app with your module name
     angular.module('app')
-        .factory(serviceId, ['$q','$window','userSvc','accountClientSvc','appActivitySvc','notifierSvc', userManagementSvc]);
+        .factory(serviceId, ['$q','$window','userSvc','appActivitySvc','notifierSvc', userManagementSvc]);
 
-    function userManagementSvc($q, $window, userSvc, accountClientSvc, appActivitySvc, notifierSvc) {
+    function userManagementSvc($q, $window, userSvc, appActivitySvc, notifierSvc) {
         var loaded = false;
 
         var service = {
@@ -30,30 +30,27 @@
         function load() {
             appActivitySvc.busy("userManagementSvc");
 
-            var deferred = $q.defer();
-
-            return accountClientSvc.getManageInfo("/externalauth/association", false)
+            return userSvc.getManageInfo("/externalauth/association", false)
                 .then(
-                function (result) {
-                    service.userLogins.length = 0;
-                    service.loginProviders.length = 0;
+                    function (result) {
+                        service.userLogins.length = 0;
+                        service.loginProviders.length = 0;
 
-                    service.localLoginProvider = result.localLoginProvider;
+                        service.localLoginProvider = result.data.localLoginProvider;
 
-                    result.logins.forEach(function (l) {
-                        service.userLogins.push(l)
-                    });
+                        result.data.logins.forEach(function (l) {
+                            service.userLogins.push(l)
+                        });
 
-                    result.externalLoginProviders.forEach(function (lp) {
-                        service.loginProviders.push(lp);
-                    });
+                        result.data.externalLoginProviders.forEach(function (lp) {
+                            service.loginProviders.push(lp);
+                        });
 
-                    deferred.resolve(result);
-                },
-                function (result) {
-                    notifierSvc.show({ message: result.error, type: "error" });
-                    always(result);
-                    deferred.reject(result);
+                        return result;
+                    },
+                    function (result) {
+                        notifierSvc.show({ message: result.error, type: "error" });
+                        $q.reject(result);
                 })
                 ['finally'](function () {
                     updateInfo();
@@ -69,7 +66,7 @@
 
             var deferred = $q.defer();
 
-            accountClientSvc.setPassword(args)
+            userSvc.setPassword(args)
                 .then(
                     function (result) {
                         notifierSvc.show({ message: "your password has been changed" });
@@ -118,7 +115,7 @@
 
             var deferred = $q.defer();
 
-            accountClientSvc.removeLogin(userLogin)
+            userSvc.removeLogin(userLogin)
                 .then(
                     function (result) {
                         var i = $.arrayIndexOf(service.userLogins, function (ul) {

@@ -55,8 +55,10 @@
             return accountClientSvc.login(user)
                 .then(
                     function (result) {                        
-                        setUser(result);
-                        storageSvc.store("accessToken", result.access_token,remember)                        
+                        setUser(result.data);
+                        storageSvc.store("accessToken", result.data.access_token, remember);
+
+                        return result;
                     })
                 ['finally'](
                     function () {
@@ -142,61 +144,42 @@
 
         function removeLogin(data) {
             appActivitySvc.busy("userSvc");
-
-            var deferred = $q.defer();
-
-            accountClientSvc.removeLogin(data)
+     
+            return accountClientSvc.removeLogin(data)
                 .then(
+                    null,
                     function (result) {
-                        always(result);
-                        deferred.resolve(result);
-                    },
-                    function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        always(result);
-                        deferred.reject(result);
+                        notifierSvc.show({ message: result.error, type: "error" });                        
+                        return $q.reject(result);
                     }
                 );
-
-            return deferred.promise;
-
-            function always(result) {
-                appActivitySvc.idle("userSvc");
-            }
         }
 
         function getManageInfo() {
             appActivitySvc.busy("userSvc");
 
-            var deferred = $q.defer();
-
-            accountClientSvc.getManageInfo()
-                .then(
-                    function (result) {                        
-                        always(result);
-                        deferred.resolve(result);
-                    },
-                    function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        always(result);
-                        deferred.reject(result);
-                    }
-                );
-
-            return deferred.promise;
-
-            function always(result) {
-                appActivitySvc.idle("userSvc");
-            }
+            return accountClientSvc.getManageInfo("/externalauth/association")
+                    .then(
+                        null,
+                        function (result) {
+                            notifierSvc.show({ message: result.error, type: "error" });
+                            return $q.reject(result);
+                        }
+                    )
+                    ['finally'](function () {
+                        appActivitySvc.idle("userSvc");
+                    });
         }
 
         function getUserInfo() {
             appActivitySvc.busy("userSvc");
             
             return accountClientSvc.getUserInfo()
-                .then(null,
+                .then(
+                    null,
                     function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });           
+                        notifierSvc.show({ message: result.error, type: "error" });
+                        return $q.reject(result);
                     }
                 )['finally'](function () {
                     appActivitySvc.idle("userSvc");
@@ -208,20 +191,14 @@
 
             return accountClientSvc.setPassword(data)
                 .then(
-                    function (result) {
-                        always(result);
-                        return result;
-                    },
+                    null,
                     function (result) {
                         notifierSvc.show({ message: result.error, type: "error" });
-                        always(result);
                         return $q.reject(result);
                     }
-                );
-
-            function always(result) {
-                appActivitySvc.idle("userSvc");
-            }
+                )['finally'](function () {
+                    appActivitySvc.idle("userSvc");
+                });
         }
 
         //register a new user and if the registration is successful signIn
@@ -229,13 +206,9 @@
             appActivitySvc.busy("userSvc");
 
             return accountClientSvc.registerExternal(registration)
-                    .then(
-                        null,
-                        function (result) {                                                       
-                            appActivitySvc.idle("userSvc");
-                            return $q.reject(result);
-                        });
-
+                    ['finally'](function () {
+                        appActivitySvc.idle("userSvc");
+                    });
         }
 
         function register(registration) {
@@ -245,7 +218,9 @@
                 .then(
                     function (result) {
                         setUser(result);
-                        storageSvc.store("accessToken", result.access_token, remember)
+                        storageSvc.store("accessToken", result.access_token, remember);
+
+                        return result;
                     })
                 ['finally'](
                     function () {

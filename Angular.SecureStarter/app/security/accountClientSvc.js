@@ -157,7 +157,10 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({
@@ -235,7 +238,10 @@
                 url: url
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({
@@ -278,7 +284,10 @@
                 url: userInfoUrl
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({
@@ -290,12 +299,19 @@
         }
 
         function getManageInfo(returnUrl, generateState) {
+            if (!returnUrl) {
+                returnUrl = "";
+            }
+
             return $http({
                 method: 'GET',
                 url: encodeUrlWithReturnUrl(manageInfoUrl + "?returnUrl=", returnUrl, generateState)
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({

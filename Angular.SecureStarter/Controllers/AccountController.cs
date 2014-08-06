@@ -295,6 +295,7 @@ namespace Angular.SecureStarter.Controllers
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
+            //returnUrl = @"";
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
 
@@ -320,7 +321,7 @@ namespace Angular.SecureStarter.Controllers
                         provider = description.AuthenticationType,
                         response_type = "token",
                         client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
+                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,      
                         state = state
                     }),
                     State = state

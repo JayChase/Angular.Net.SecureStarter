@@ -21,8 +21,8 @@
             if (storageSvc.retrieve("accessToken")) {
                 return userSvc.getUserInfo().then(
                       function (result) {
-                          if (result.hasRegistered) {
-                              userSvc.setUser(result);
+                          if (result.data.hasRegistered) {
+                              userSvc.setUser(result.data);
                               appActivitySvc.idle("restoreUserSvc");                                                    
                           } else {
                               appActivitySvc.idle("restoreUserSvc");
