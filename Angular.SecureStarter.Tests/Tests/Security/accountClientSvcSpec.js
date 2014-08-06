@@ -194,7 +194,7 @@ describe('security accountClientSvc', function () {
 
         $httpBackend.flush();
 
-        expect(result).toEqual({ result: "success" });
+        expect(result.result).toEqual("success");
     }));
 
     it('login error rejects with result { result: "failure" }', inject(function (accountClientSvc, $httpBackend) {
@@ -302,7 +302,7 @@ describe('security accountClientSvc', function () {
 
         $httpBackend.flush();
 
-        expect(result).toEqual({ result: "success" });
+        expect(result.result).toEqual("success");
     }));
 
     it('getExternalLogins error rejects with result { result: "failure" }', inject(function (accountClientSvc, $httpBackend) {
@@ -356,7 +356,7 @@ describe('security accountClientSvc', function () {
 
         $httpBackend.flush();
 
-        expect(result).toEqual({ result: "success" });
+        expect(result.result).toEqual("success");
     }));
 
     it('getUserInfo error rejects with result { result: "failure" }', inject(function (accountClientSvc, $httpBackend) {
@@ -383,7 +383,7 @@ describe('security accountClientSvc', function () {
 
         $httpBackend.flush();
 
-        expect(result).toEqual({ result: "success" });
+        expect(result.result).toEqual("success");
     }));
 
     it('getManageInfo error rejects with result { result: "failure" }', inject(function (accountClientSvc, $httpBackend) {

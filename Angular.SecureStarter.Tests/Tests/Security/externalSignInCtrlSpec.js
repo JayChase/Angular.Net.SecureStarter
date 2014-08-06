@@ -84,7 +84,7 @@ describe('security externalSignInCtrl', function () {
 
             accountClientSvcMock = {
                 succeed: true,
-                result: 'test',
+                result: { result: "success", data: 'test' },
                 getExternalLogins: function () {
                     var that = this;
 

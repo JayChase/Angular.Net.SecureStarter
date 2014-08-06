@@ -159,8 +159,13 @@ describe('security restoreUserSvc', function () {
 
     it('restore calls userSvc.getUserInfo if storageSvc.retrieve returns a token', inject(function (restoreUserSvc, storageSvc, userSvc) {
         storageSvc.retrieve.returns("testToken");
+
+        var fakeUser = {
+            userName: "test",
+            hasRegistered: true
+        };
         
-        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, {}));
+        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, { result: "success", data: fakeUser }));
         
         restoreUserSvc.restore();
 
@@ -175,7 +180,7 @@ describe('security restoreUserSvc', function () {
             hasRegistered: true
         };
 
-        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, fakeUser));
+        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, { result: "success", data: fakeUser }));
 
         spyOn(userSvc, 'setUser');       
 
@@ -192,7 +197,7 @@ describe('security restoreUserSvc', function () {
             hasRegistered: true
         };
 
-        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, fakeUser));
+        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, { result: "success", data: fakeUser }));
 
         spyOn(userSvc, 'setUser');
 
@@ -209,7 +214,7 @@ describe('security restoreUserSvc', function () {
             hasRegistered: false
         };
 
-        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, fakeUser));
+        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, { result: "success", data: fakeUser }));
 
         restoreUserSvc.restore();
 
@@ -224,7 +229,7 @@ describe('security restoreUserSvc', function () {
             hasRegistered: false
         };
 
-        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, fakeUser));
+        spyOn(userSvc, "getUserInfo").and.callFake(testHelpers.fakePromise(true, { result: "success", data: fakeUser }));
 
         spyOn(userSvc, 'setUser');
 

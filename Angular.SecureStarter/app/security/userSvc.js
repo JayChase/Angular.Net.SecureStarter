@@ -67,21 +67,15 @@
         }
 
         function signOut() {
-            accountClientSvc.logout().then(
-				function (result) {
-				    //success
-				    always(result);
-				},
-				function (result) {
-				    //error										
-				    always(result);
-				});
+            appActivitySvc.busy("userSvc");
 
-            function always(result) {
-                storageSvc.remove("accessToken");
-                setUser();
-            };
-            
+            accountClientSvc.logout()
+                ['finally'](
+                    function () {
+                        storageSvc.remove("accessToken");
+                        setUser();
+                        appActivitySvc.idle("userSvc");
+                    });
         }
 
         //returns a promise
@@ -151,8 +145,11 @@
                     function (result) {
                         notifierSvc.show({ message: result.error, type: "error" });                        
                         return $q.reject(result);
-                    }
-                );
+                    })
+                ['finally'](
+                    function () {
+                        appActivitySvc.idle("userSvc");
+                    });
         }
 
         function getManageInfo() {

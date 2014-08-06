@@ -14,6 +14,8 @@ testHelpers.fakePromise = function(resolve, result) {
                     failure(result);
                 }
             }
+
+            return this;
         },
         'finally': function (finallyFn) {
             if (finallyFn) {
