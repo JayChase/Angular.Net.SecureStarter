@@ -9,25 +9,31 @@
     //TODO: these user details need to go onto an object
     function userSvc($rootScope, $q, $window, storageSvc, accountClientSvc, appActivitySvc, notifierSvc) {
         var service = {                       
-            signedIn: false,
+            //signedIn: false,
             signIn: signIn,
             signInExternal: signInExternal,
             signOut: signOut,
             username: "",
-            email: "",
-            accessToken: "",
-            roles: [],
-            setUser: setUser,
-            addLogin: addLogin,
+            //email: "",
+            //accessToken: "",
+            //roles: [],
+            //setUser: setUser,
+            //addLogin: addLogin,
             addLocalLogin: addLocalLogin,
             removeLogin: removeLogin,
-            changePassword: changePassword,
             setPassword: setPassword,
             getManageInfo: getManageInfo,
             getUserInfo: getUserInfo,
             addExternalLogin: addExternalLogin,
             registerExternal: registerExternal,
-            register: register
+            register: register,
+            info: {
+                username: "",
+                email: "",
+                accessToken: "",
+                roles: [],
+                signedIn: false
+            }
         };
 
         var activities = [];
@@ -36,14 +42,19 @@
 
         function setUser(user) {
             if (user) {
-                service.username = user.userName;
-                service.email = user.email;
-                service.signedIn = true;
-                service.roles = user.userRoles.split(",");
+                service.info.username = user.userName;
+                service.info.email = user.email;
+                service.info.signedIn = true;
+
+                if (user.userRoles && angular.isArray(user.userRoles)) {
+                    service.info.roles = user.userRoles.split(",");
+                } else {
+                    service.info.roles = [];
+                }
             } else {
-                service.username = "";                
-                service.signedIn = false;
-                service.roles = [];
+                service.info.username = "";                
+                service.info.signedIn = false;
+                service.info.roles = [];
             }
 
             raiseEvent();
@@ -77,64 +88,56 @@
                         appActivitySvc.idle("userSvc");
                     });
         }
-
-        //returns a promise
-        function changePassword(args) {
-            appActivitySvc.busy("userSvc");
-
-            var deferred = $q.defer();
-
-            accountClientSvc.setPassword(args)
-                .then(
-                    function (result) {                      
-                        notifierSvc.show({ message: "your password has been changed" });
-                        always(result);
-                        deferred.resolve();
-                    },
-                    function (result) {                        
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        always(result);
-                        deferred.reject();
-                    }
-                );
-
-            return deferred.promise;
-
-            function always(result) {
-                appActivitySvc.idle("userSvc");
-            }
-        }
-
-        //returns a promise
+     
         function setPassword(args) {
             appActivitySvc.busy("userSvc");
 
-            var deferred = $q.defer();
-
-            accountClientSvc.setPassword(args)
+            return accountClientSvc.setPassword(args)
                 .then(
-                    function (result) {
+                    function (result) {                      
                         notifierSvc.show({ message: "your password has been set" });
-                        always(result);
-                        deferred.resolve();
+                        return result;
                     },
-                    function (result) {
+                    function (result) {                        
                         notifierSvc.show({ message: result.error, type: "error" });
-                        always(result);
-                        deferred.reject();
-                    }
-                );
-
-            return deferred.promise;
-
-            function always(result) {
-                appActivitySvc.idle("userSvc");
-            }
+                        return $q.reject(result);
+                    })
+                ['finally'](
+                    function () {
+                        appActivitySvc.idle("userSvc");
+                    });
         }
 
-        function addLogin() {
+        //returns a promise
+        //function setPassword(args) {
+        //    appActivitySvc.busy("userSvc");
 
-        }
+        //    var deferred = $q.defer();
+
+        //    accountClientSvc.setPassword(args)
+        //        .then(
+        //            function (result) {
+        //                notifierSvc.show({ message: "your password has been set" });
+        //                always(result);
+        //                deferred.resolve();
+        //            },
+        //            function (result) {
+        //                notifierSvc.show({ message: result.error, type: "error" });
+        //                always(result);
+        //                deferred.reject();
+        //            }
+        //        );
+
+        //    return deferred.promise;
+
+        //    function always(result) {
+        //        appActivitySvc.idle("userSvc");
+        //    }
+        //}
+
+        //function addLogin() {
+
+        //}
 
         function removeLogin(data) {
             appActivitySvc.busy("userSvc");
@@ -183,19 +186,8 @@
                 });
         }
 
-        function addLocalLogin(data) {
-            appActivitySvc.busy("userSvc");
-
-            return accountClientSvc.setPassword(data)
-                .then(
-                    null,
-                    function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        return $q.reject(result);
-                    }
-                )['finally'](function () {
-                    appActivitySvc.idle("userSvc");
-                });
+        function addLocalLogin(data) {            
+            return setPassword(data);
         }
 
         //register a new user and if the registration is successful signIn
@@ -208,14 +200,14 @@
                     });
         }
 
-        function register(registration) {
+        function register(registration,remember) {
             appActivitySvc.busy("userSvc");
 
             return accountClientSvc.register(registration)
                 .then(
                     function (result) {
-                        setUser(result);
-                        storageSvc.store("accessToken", result.access_token, remember);
+                        setUser(result.data);
+                        storageSvc.store("accessToken", result.data.access_token, remember);
 
                         return result;
                     })
@@ -229,17 +221,11 @@
             appActivitySvc.busy("userSvc");
             
             //TODO: return url needs to be a constant somewhere too
-            return accountClientSvc.getExternalLogin("/externalauth",provider).then(
-				function (result) {
-				    //success
-				    $window.location.href = result.url;
-				},
-				function (result) {
-				    //error
-				    appActivitySvc.idle("userSvc");
-				    return result;
-				}
-			);
+            return accountClientSvc.getExternalLogin("/externalauth", provider)
+                ['finally'](
+                    function () {
+                        appActivitySvc.idle("userSvc");
+                    });
             
         }
 
@@ -247,24 +233,18 @@
             appActivitySvc.busy("userSvc");
 
             return accountClientSvc.addExternalLogin(externalLogin)
-              .then(
-                  function (result) {                  
-                      always(result);
-                      return result;
-                  },
-                  function (result) {                      
-                      always(result);
-                      return $q.reject();
-                  }
-              );
-            
-            function always(result) {
-                appActivitySvc.idle("userSvc");
-            }
+                .then(
+                    function (result) {
+                        $window.location.href = result.data.url;
+                    })
+                  ['finally'](
+                    function () {
+                        appActivitySvc.idle("userSvc");
+                    });
         }
 
         function raiseEvent() {
-            $rootScope.$broadcast("userSvc:signedInChanged", { signedIn: service.signedIn });
+            $rootScope.$broadcast("userSvc:signedInChanged", { signedIn: service.info.signedIn });
         }
     }
 })();

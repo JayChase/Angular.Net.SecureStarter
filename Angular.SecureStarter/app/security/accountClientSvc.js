@@ -69,7 +69,10 @@
                 data: data
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({
@@ -108,7 +111,10 @@
                 data: user
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({
@@ -129,7 +135,10 @@
                 data: user
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+                        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({
