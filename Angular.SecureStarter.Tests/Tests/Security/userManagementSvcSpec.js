@@ -310,6 +310,9 @@ describe('security userManagementSvc', function () {
     it('removeLogin userSvc.removeLogin success removes login from userLogins', inject(function (userManagementSvc, userSvc) {
         var args = { loginProvider: "prov3" };
         spyOn(userSvc, "removeLogin").and.callFake(testHelpers.fakePromise(true, args));
+        spyOn(userSvc, "getManageInfo").and.callFake(testHelpers.fakePromise(true, manageInfoResult));
+
+        userManagementSvc.load();
 
         userManagementSvc.removeLogin(args);
 
@@ -320,7 +323,10 @@ describe('security userManagementSvc', function () {
         manageInfoResult.data.logins.push({ loginProvider: "localLoginProviderName" });
 
         var args = { loginProvider: "localLoginProviderName" };
-        spyOn(userSvc, "removeLogin").and.callFake(testHelpers.fakePromise(true, args));        
+        spyOn(userSvc, "removeLogin").and.callFake(testHelpers.fakePromise(true, args));
+        spyOn(userSvc, "getManageInfo").and.callFake(testHelpers.fakePromise(true, manageInfoResult));
+
+        userManagementSvc.load();
 
         var before = userManagementSvc.info.hasLocalLogin;
 
@@ -338,7 +344,7 @@ describe('security userManagementSvc', function () {
         expect(notifierSvc.show.called).toEqual(true);
     }));
 
-    it('removeLogin userSvc.removeLogin fail notifies', inject(function (userManagementSvc, notifierSvc) {
+    it('removeLogin userSvc.removeLogin fail notifies', inject(function (userManagementSvc,userSvc, notifierSvc) {
         var args = { loginProvider: "prov3" };
         spyOn(userSvc, "removeLogin").and.callFake(testHelpers.fakePromise(true, args));
 

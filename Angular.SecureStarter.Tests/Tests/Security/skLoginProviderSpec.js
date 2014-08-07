@@ -127,11 +127,11 @@ describe('security skLoginProvider', function () {
     });
 
 
-    it('no possible with Chutspah, move to karma', inject(function () {            
+    //it('no possible with Chutspah, move to karma', inject(function () {            
        
 
-        expect(true).toEqual(true);
-    }));
+    //    expect(true).toEqual(true);
+    //}));
     
        
 

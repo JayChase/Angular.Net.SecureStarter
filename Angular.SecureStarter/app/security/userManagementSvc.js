@@ -72,7 +72,7 @@
                 .then(
                     function (result) {
                         notifierSvc.show({ message: "your password has been set" });
-                        service.userLogins.push({ loginProvider: service.localLoginProvider, providerKey: userSvc.username })
+                        service.userLogins.push({ loginProvider: service.localLoginProvider, providerKey: userSvc.info.username })
                         service.info.hasLocalLogin = true;
 
                         return result;

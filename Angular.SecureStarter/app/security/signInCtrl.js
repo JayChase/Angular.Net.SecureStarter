@@ -7,7 +7,7 @@
     angular.module('app.security')
         .controller(controllerId, ['$scope','$location', 'userSvc','notifierSvc', signInCtrl]);
 
-    function signInCtrl($scope, $location, userSvc,notifierSvc) {
+    function signInCtrl($scope, $location, userSvc, notifierSvc) {
         $scope.title = 'Sign in';
         $scope.user = {
             id: "",
@@ -27,7 +27,7 @@
             userSvc.signIn($scope.user,$scope.remember)
                 .then(
                     function (result) {
-                        notifierSvc.show({ message: "signed in as " + userSvc.username, type: "info" });
+                        notifierSvc.show({ message: "signed in as " + userSvc.info.username, type: "info" });
                         $location.path('/');
                     },
                     function (result) {                        

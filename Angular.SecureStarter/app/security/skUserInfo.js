@@ -17,16 +17,16 @@
 
         //TODO: evaluate whether it is best just to watch the sigedIn and user properties
         function link($scope, $element, attrs, ctrl) {
-            $scope.username = userSvc.username;
-            $scope.signedIn = userSvc.signedIn;
+            $scope.username = userSvc.info.username;
+            $scope.signedIn = userSvc.info.signedIn;
             $scope.signOut = function () {
                 userSvc.signOut();
                 $location.path('/');
             };
 
             $rootScope.$on("userSvc:signedInChanged", function (event, args) {
-                $scope.signedIn = userSvc.signedIn;
-                $scope.username = userSvc.username;
+                $scope.signedIn = userSvc.info.signedIn;
+                $scope.username = userSvc.info.username;
             });                
         }
         

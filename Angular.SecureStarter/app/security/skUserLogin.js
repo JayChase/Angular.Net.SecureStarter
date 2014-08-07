@@ -3,7 +3,7 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .directive('skUserLogin', ['userManagementSvc', skUserLogin]);
+        .directive('skUserLogin', [skUserLogin]);
     
     function skUserLogin() {
         var directive = {

@@ -8,17 +8,11 @@
 
     //TODO: these user details need to go onto an object
     function userSvc($rootScope, $q, $window, storageSvc, accountClientSvc, appActivitySvc, notifierSvc) {
-        var service = {                       
-            //signedIn: false,
+        var service = {                                   
             signIn: signIn,
             signInExternal: signInExternal,
-            signOut: signOut,
-            username: "",
-            //email: "",
-            //accessToken: "",
-            //roles: [],
-            //setUser: setUser,
-            //addLogin: addLogin,
+            signOut: signOut,            
+            setUser: setUser,            
             addLocalLogin: addLocalLogin,
             removeLogin: removeLogin,
             setPassword: setPassword,
