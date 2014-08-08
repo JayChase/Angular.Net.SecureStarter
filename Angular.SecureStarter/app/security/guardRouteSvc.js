@@ -25,7 +25,7 @@
         function authorize(requiredRoles) {
             var deferred = $q.defer(), path = $location.path();
 
-            if (userSvc.signedIn) {
+            if (userSvc.info.signedIn) {
                 if (requiredRoles && requiredRoles.length > 0) {
                     if ($.arrayIntersect(requireRoles, userSvc.roles).length > 0) {
                         deferred.resolve(true);
@@ -38,41 +38,12 @@
                     deferred.resolve(true);
                 }                
             } else {
-                notifierSvc.show({ message: "You need to sign in first."});                
+                notifierSvc.show({ message: "you need to sign in first"});                
                 $location.path("/signIn");
                 deferred.reject(false);
             }
 
             return deferred.promise;            
-        }
-
-        function guardOld(event) {
-
-            var path = $location.path();
-
-            var targetRoute = $route.routes[path];
-
-            if (targetRoute && targetRoute.requireRoles) {
-                if (userSvc.signedIn) {
-                    //var res = allowNavigation(targetRoute.requireRoles);
-                    var res = false;
-
-                    if (targetRoute.requireRoles.length === 0) {
-                        res = true;
-                    } else if ($.arrayIntersect(targetRoute.requireRoles,userSvc.roles).length > 0){
-                        res = true;
-                    }
-
-                    if (res !== true) {
-                        notifierSvc.show({ message: "you do not have the required permissions to few this page." });
-                        event.preventDefault();
-                    }
-                } else {
-                    notifierSvc.show({ message: "You need to sign in first." });
-                    //TODO this will load up a fresh sign in every time (annoying) cannot use $browser so get window.location and check is sign in already loaded
-                    $location.path("/signIn");
-                }
-            }
-        }        
+        }      
     }
 })();

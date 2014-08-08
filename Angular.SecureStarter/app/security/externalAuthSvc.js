@@ -51,43 +51,47 @@
                         redirectPath = "/manage";
                     }
 
-                    userSvc.getUserInfo().then(
-				        function (result) {
-				            if (result.data.hasRegistered) {
-				                userSvc.setUser(result.data);
+                    userSvc.getUserInfo()
+                        .then(
+				            function (result) {
+				                if (result.data.hasRegistered) {
+				                    userSvc.setUser(result.data);
 
-				                if (associationInfo) {
-				                    associateLogin();
+				                    if (associationInfo) {
+				                        associateLogin();
+				                    } else {				                        
+				                        $location.path(redirectPath);
+				                    }
 				                } else {
-				                    appActivitySvc.idle("externalAuthSvc");
-				                    $location.path(redirectPath);
+				                    registrationInfo = {
+				                        email: result.data.email,
+				                        loginProvider: result.data.loginProvider,
+				                        username: result.data.userName
+				                    };
+				                    
+				                    $location.path("/externalRegister");
 				                }
-				            } else {
-				                registrationInfo = {
-				                    email: result.data.email,
-				                    loginProvider: result.data.loginProvider,
-				                    username: result.data.userName
-				                };
 
-				                appActivitySvc.idle("externalAuthSvc");
-				                $location.path("/externalRegister");
-				            }
+				                deferred.resolve(true);
+				            },
+				            function (result) {
+				                //error	
+				                notifierSvc.show({ message: "something went wrong. " + result.error, type: "error" });
+				                
+				                $location.path("/signIn");
 
-				            deferred.resolve(true);
-				        },
-				        function (result) {
-				            //error	
-				            notifierSvc.show({ message: "something went wrong. " + result.error, type: "error" });
-				            appActivitySvc.idle("externalAuthSvc");
-				            $location.path("/signIn");
-
-				            deferred.reject(true);
-				        });
+				                deferred.reject(true);
+				            })
+                        ['finally'](
+                            function () {
+                                appActivitySvc.idle("externalAuthSvc");
+                            });
                 }
             } else {
                 deferred.reject(false);
+                appActivitySvc.idle("externalAuthSvc");
             }
-
+            
             return deferred.promise;
         }
 

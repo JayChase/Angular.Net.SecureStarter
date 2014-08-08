@@ -5,9 +5,9 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .controller(controllerId, ['$scope', 'accountClientSvc','userSvc','notifierSvc', 'appActivitySvc', signInCtrl]);
+        .controller(controllerId, ['$scope','$location', 'userSvc','notifierSvc', signInCtrl]);
 
-    function signInCtrl($scope, accountClientSvc, userSvc,notifierSvc, appActivitySvc) {
+    function signInCtrl($scope, $location, userSvc, notifierSvc) {
         $scope.title = 'Sign in';
         $scope.user = {
             id: "",
@@ -15,6 +15,7 @@
         };
         $scope.signIn = signIn;
         $scope.result = "";
+        $scope.remember = false;
       
         activate();
 
@@ -23,40 +24,20 @@
         }
                 
         function signIn() {
-
-            appActivitySvc.busy("signInCtrl");    
-                        
-            accountClientSvc.login($scope.user)
+            userSvc.signIn($scope.user,$scope.remember)
                 .then(
                     function (result) {
-                        //good
-                        userSvc.set({
-                            username: result.userName,
-                            accessToken: result.access_token,
-                            roles: result.userRoles.split(",")
-                        });
-
-                        notifierSvc.show({ message: "signed in as " + userSvc.username, type: "info" });
-                        always(result);
+                        notifierSvc.show({ message: "signed in as " + userSvc.info.username, type: "info" });
+                        $location.path('/');
                     },
-                    function (result) {
-                        //bad
-                        var errors = "error signing in. ";
+                    function (result) {                        
+                        //TODO: set focus back here
+                        $scope.user.id = ""; 
+                        $scope.user.password = "";
 
-                        if (result.data && result.data.ModelState) {
-                            errors += $.PropertyValuesToString(result.data.ModelState);
-                        } else if (result.error){
-                            errors += " " + result.error;
-                        }
-
-                        notifierSvc.show({ message: errors, type: "error" });
-                        always(result);
+                        notifierSvc.show({ message: result.error, type: "error" });
                     }
                 );
-
-            function always(result){
-                appActivitySvc.idle("signInCtrl");
-            }
         }
     }
 })();

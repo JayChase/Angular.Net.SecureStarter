@@ -16,17 +16,25 @@
         activate();
 
         function activate() {
-            for (var route in $route.routes) {
-                if ($route.routes.hasOwnProperty(route) && $route.routes[route].showNav) {
-                    links.push({ name: $route.routes[route].showNav, url: ($route.routes[route].navPath || route) });
+            angular.forEach($route.routes, function (route) {
+                if (route.showNav) {
+                    links.push({ name: route.showNav, url: (removeStartSlash(route.navPath) || removeStartSlash(route.originalPath)) });
                 }
-            }
+            });
         }
 
         function getLinks() {
             return links;
         }
 
-        return service;        
+        return service;
+
+        function removeStartSlash(path) {
+            if (path && path.charAt(0) === '/') {
+                path = path.substring(1);
+            }
+
+            return path;
+        }
     }
 })();

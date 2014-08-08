@@ -37,7 +37,7 @@
         function register() {
             userSvc.registerExternal($scope.registration).then(
 				function (result) {
-				    notifierSvc.show({ message: "registered successfully as " + userSvc.username, type: "info" });
+				    notifierSvc.show({ message: "registered successfully as " + userSvc.info.username, type: "info" });
 				    userSvc.signInExternal($scope.registration.loginProvider).then(
 				            null,
 				            function (result) {

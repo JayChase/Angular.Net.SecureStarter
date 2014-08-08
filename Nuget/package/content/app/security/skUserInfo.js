@@ -3,45 +3,34 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .directive('skUserInfo', ['$rootScope','userSvc','appStatusSvc',skUserInfo]);
+        .directive('skUserInfo', ['$rootScope','$location','userSvc','appStatusSvc',skUserInfo]);
     
-    function skUserInfo($rootScope, userSvc, appStatusSvc) {
+    function skUserInfo($rootScope,$location, userSvc, appStatusSvc) {
         var directive = {
             //controller: controller,
             restrict: 'E',
             replace: true,
             templateUrl: 'app/security/skUserInfo.html',
-            link: function ($scope, $element, attrs, ctrl) {
-                $scope.username = "";
-                $scope.signedIn = false;
-                $scope.signOut = signOut;
-
-                $rootScope.$on("userSvc:signedInChanged", function (event, args) {
-                    $scope.signedIn = args.signedIn;
-                    $scope.username = userSvc.username;
-                });
-
-                //appStatusSvc.isReady(true);
-            }
+            link: link
 
         };
 
-        function signOut() {
-            userSvc.signOut();
-        }
-
-        return directive;
-
-        function controller($rootScope, $scope, userSvc, accountClientSvc) {
-            $scope.username = "";
-            $scope.signedIn = false;
-            $scope.signOut = signOut;
+        //TODO: evaluate whether it is best just to watch the sigedIn and user properties
+        function link($scope, $element, attrs, ctrl) {
+            $scope.username = userSvc.info.username;
+            $scope.signedIn = userSvc.info.signedIn;
+            $scope.signOut = function () {
+                userSvc.signOut();
+                $location.path('/');
+            };
 
             $rootScope.$on("userSvc:signedInChanged", function (event, args) {
-                $scope.signedIn = args.signedIn;
-                $scope.username = userSvc.username;                
-            });
+                $scope.signedIn = userSvc.info.signedIn;
+                $scope.username = userSvc.info.username;
+            });                
         }
+        
+        return directive;
     }
 
 })();

@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute', 'app.core', 'app.shell', 'app.security']);
+    var app = angular.module('app', ['ngRoute','ngAnimate','app.shell', 'app.core', 'app.security']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
@@ -28,6 +28,16 @@
             controller: 'signInCtrl',
             caseInsensitiveMatch: true
         });
+        $routeProvider.when('/manage', {
+            templateUrl: 'app/security/manage.html',
+            controller: 'manageCtrl',
+            resolve: {             
+                guard: function (guardRouteSvc) {
+                    return guardRouteSvc.guard();
+                }
+            },
+            caseInsensitiveMatch: true
+        });
         $routeProvider.when('/externalregister', {
             templateUrl: 'app/security/externalRegister.html',
             controller: 'externalRegisterCtrl',
@@ -37,7 +47,7 @@
                     return appStatusSvc.whenReady();
                 }
             },
-            caseInsensitiveMatch: true,
+            caseInsensitiveMatch: true
         });
         $routeProvider.otherwise({
             redirectTo: '/welcome'
@@ -45,12 +55,12 @@
     }]);
 
     app.value('appSettingsSvc', {
-        brand: "StarterKit",
-        title: "Angular StarterKit"
+        brand: 'StarterKit',
+        title: 'Angular StarterKit',
+        siteUrl: ''
     });
-
-    // Handle routing errors and success events
-    app.run(['externalAuthSvc', 'appStatusSvc', function (externalAuthSvc, appStatusSvc) {        
-        externalAuthSvc.handleAuthResponse();        
+    
+    app.run(['$route','$window', 'appSettingsSvc', function ($route, $window, appSettingsSvc) {
+        appSettingsSvc.siteUrl = $window.location.origin;
     }]);
 })();

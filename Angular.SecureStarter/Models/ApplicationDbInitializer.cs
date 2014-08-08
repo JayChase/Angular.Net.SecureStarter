@@ -18,7 +18,7 @@ namespace Angular.SecureStarter.Models
             context.Roles.Add(adminRole);
             context.Roles.Add(userRole);
 
-            var hash = Crypto.HashPassword("Administrator451");
+            var hash = Crypto.HashPassword("Administrator55");
 
             var adminUser = new ApplicationUser { UserName = "Administrator", Email = "Administrator@acme.com", SecurityStamp="dummyStamp", PasswordHash = hash };
 
