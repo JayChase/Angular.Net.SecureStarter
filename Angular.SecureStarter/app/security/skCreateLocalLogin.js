@@ -10,7 +10,7 @@
         var directive = {
             restrict: 'E',
             replace: true,
-            controller: controller,
+            controller: ['$scope', 'userManagementSvc', controller],
             templateUrl: 'app/security/skCreateLocalLogin.html'
         };
 

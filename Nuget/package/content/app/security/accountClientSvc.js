@@ -32,6 +32,8 @@
 
                 if (result.data && result.data.modelState) {
                     errors += $.PropertyValuesToString(result.data.modelState);
+                } else if (result.data && result.data.error_description) {
+                    errors += result.data.error_description;
                 } else if (result.error) {
                     errors += " " + result.error_description;
                 }

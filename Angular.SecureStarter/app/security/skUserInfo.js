@@ -6,8 +6,7 @@
         .directive('skUserInfo', ['$rootScope','$location','userSvc','appStatusSvc',skUserInfo]);
     
     function skUserInfo($rootScope,$location, userSvc, appStatusSvc) {
-        var directive = {
-            //controller: controller,
+        var directive = {            
             restrict: 'E',
             replace: true,
             templateUrl: 'app/security/skUserInfo.html',

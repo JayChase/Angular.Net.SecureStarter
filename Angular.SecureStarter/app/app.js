@@ -32,9 +32,9 @@
             templateUrl: 'app/security/manage.html',
             controller: 'manageCtrl',
             resolve: {             
-                guard: function (guardRouteSvc) {
+                guard: ['guardRouteSvc', function (guardRouteSvc) {
                     return guardRouteSvc.guard();
-                }
+                }]
             },
             caseInsensitiveMatch: true
         });

@@ -4,7 +4,7 @@
         <li data-ng-repeat="f in features">
             <h3>{{f.name}}</h3>
             <p>{{f.description}}</p>
-            <button type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
+            <button class="btn btn-default" type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
         </li>
     </ul>
 </section>

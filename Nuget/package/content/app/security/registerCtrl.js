@@ -4,9 +4,9 @@
     var controllerId = 'registerCtrl';
 
     angular.module('app.security')
-        .controller(controllerId, ['$scope', 'notifierSvc', 'userSvc', registerCtrl]);
+        .controller(controllerId, ['$scope', '$location', 'notifierSvc', 'userSvc', registerCtrl]);
 
-    function registerCtrl($scope, notifierSvc,userSvc) {
+    function registerCtrl($scope, $location, notifierSvc,userSvc) {
         $scope.title = 'Register';
         $scope.registration = {
             email: "",
@@ -41,7 +41,8 @@
             userSvc.signIn(user)
                 .then(
                     function (result) {                      
-                        notifierSvc.show({ message: "signed in as " + userSvc.username, type: "info" });
+                        notifierSvc.show({ message: "signed in as " + userSvc.info.username, type: "info" });
+                        $location.path("/");
                     },
                     function (result) {                        
                         notifierSvc.show({ message: result.error, type: "error" });                        

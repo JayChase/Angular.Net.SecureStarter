@@ -7,7 +7,7 @@
     
     function skBusyIndicator () {        
         var directive = {
-            controller: controller,
+            controller: ['$rootScope', '$scope', controller],
             restrict: 'E',
             replace: true,
             templateUrl: 'app/shell/skBusyIndicator.html'
