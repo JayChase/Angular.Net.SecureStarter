@@ -24,8 +24,14 @@ To get familiar with configuring security on the SPA side of things see the foll
 ##Installation
 
 You can fork or download the this repo. 
-It is also available as a Nuget package (you find it [here](https://www.nuget.org/packages/Angular.SecureStarter/)).
+It is also available as a Nuget package (you find it [here](https://www.nuget.org/packages/Angular.SecureStarter)).
 To install from the Package Manager Console:
 
 Install-Package Angular.SecureStarter
 
+##Current status
+
+The starter kit currently implements the basic authentication funcionality equivalent to that found in the Visual Studio 2013 ASP.NET 'Single Page Application'. Future enhandements will (hopefully) include: 
+* two-factor authentication
+* password reset by email
+* basic user management
