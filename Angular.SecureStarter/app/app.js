@@ -42,10 +42,10 @@
             templateUrl: 'app/security/externalRegister.html',
             controller: 'externalRegisterCtrl',
             resolve: {
-                appReady: function (appStatusSvc)
+                appReady: ['appStatusSvc', function (appStatusSvc)
                 {
                     return appStatusSvc.whenReady();
-                }
+                }]
             },
             caseInsensitiveMatch: true
         });

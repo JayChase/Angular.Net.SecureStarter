@@ -13,12 +13,12 @@ namespace Angular.SecureStarter.Models
         protected override void Seed(ApplicationDbContext context)
         {
             var adminRole = new IdentityRole { Name = "administrator" };
-            var userRole = new IdentityRole { Name = "users" };
+            var userRole = new IdentityRole { Name = "user" };
 
             context.Roles.Add(adminRole);
             context.Roles.Add(userRole);
 
-            var hash = Crypto.HashPassword("Administrator55");
+            var hash = Crypto.HashPassword("Administrator55$");
 
             var adminUser = new ApplicationUser { UserName = "Administrator", Email = "Administrator@acme.com", SecurityStamp="dummyStamp", PasswordHash = hash };
 
