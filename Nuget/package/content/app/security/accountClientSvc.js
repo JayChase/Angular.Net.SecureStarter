@@ -10,18 +10,18 @@
         // Routes
         //TODO: the base url is NOT working. it needs to get a base url only id there is one and not add the current page name as the base. This is happpening because fo the change away from #
         //TODO move this stuff to constants on the app.security module
-        var baseUrl = "/",
-        addExternalLoginUrl = baseUrl + "api/account/addexternallogin",
-        changePasswordUrl = baseUrl + "api/account/changepassword",
+        var baseUrl = "/", apiUrl = baseUrl + "api/account/",
+        addExternalLoginUrl = apiUrl + "addexternallogin",
+        changePasswordUrl = apiUrl + "changepassword",
         loginUrl = baseUrl + "token",
-        logoutUrl = baseUrl + "api/account/logout",
-        registerUrl = baseUrl + "api/account/register",
-        registerExternalUrl = baseUrl + "api/account/registerexternal",
-        externalLoginUrl = baseUrl + "api/Account/externallogins",
-        removeLoginUrl = baseUrl + "api/account/removelogin",
-        setPasswordUrl = baseUrl + "api/account/setpassword",        
-        manageInfoUrl = baseUrl + "api/account/manageinfo",
-        userInfoUrl = baseUrl + "api/account/userinfo";
+        logoutUrl = apiUrl + "logout",
+        registerUrl = apiUrl + "register",
+        registerExternalUrl = apiUrl + "registerexternal",
+        externalLoginUrl = apiUrl + "externallogins",
+        removeLoginUrl = apiUrl + "removelogin",
+        setPasswordUrl = apiUrl + "setpassword",
+        manageInfoUrl = apiUrl + "manageinfo",
+        userInfoUrl = apiUrl + "userinfo";
 
         function createErrorString(result) {
 

@@ -28,7 +28,7 @@ You can fork or download the this repo.
 It is also available as a Nuget package (you find it [here](https://www.nuget.org/packages/Angular.SecureStarter)).
 To install from the Package Manager Console:
 
-Install-Package Angular.SecureStarter
+    Install-Package Angular.SecureStarter
 
 ##Current status
 
