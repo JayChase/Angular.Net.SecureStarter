@@ -15,9 +15,11 @@ During the database initialization ([ApplicationDbInitializer](https://github.co
 A user called **Administrator** is also created with the password '**Administrator55$**' and added to both roles. 
 Edit initializer if you need to change this, or add more roles and users.
 
-###Common tasks:
-[Securing a route](Securing-a-route)
-[Configuring role based content](Role-based-content)
+To get familiar with configuring security on the SPA side of things see the following wiki pages:
+* [securing a route](wiki/Securing-a-route)
+* [configuring role based content](wiki/Role-based-content)
+* [setting up an external authentication provider walkthrough](wiki/Setting-up-an-external-authentication-provider)
+
 
 ##Installation
 
