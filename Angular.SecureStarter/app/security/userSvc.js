@@ -16,6 +16,7 @@
             addLocalLogin: addLocalLogin,
             removeLogin: removeLogin,
             setPassword: setPassword,
+            changePassword: changePassword,
             getManageInfo: getManageInfo,
             getUserInfo: getUserInfo,
             addExternalLogin: addExternalLogin,
@@ -93,6 +94,25 @@
                         return result;
                     },
                     function (result) {                        
+                        notifierSvc.show({ message: result.error, type: "error" });
+                        return $q.reject(result);
+                    })
+                ['finally'](
+                    function () {
+                        appActivitySvc.idle("userSvc");
+                    });
+        }
+
+        function changePassword(args) {
+            appActivitySvc.busy("userSvc");
+
+            return accountClientSvc.changePassword(args)
+                .then(
+                    function (result) {
+                        notifierSvc.show({ message: "your password has been changed" });
+                        return result;
+                    },
+                    function (result) {
                         notifierSvc.show({ message: result.error, type: "error" });
                         return $q.reject(result);
                     })

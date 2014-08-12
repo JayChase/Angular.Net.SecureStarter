@@ -63,7 +63,7 @@
 
         //returns a promise
         function changePassword(args) {
-            return userSvc.setPassword(args);
+            return userSvc.changePassword(args);
         }
 
         //returns a promise

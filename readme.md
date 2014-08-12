@@ -20,15 +20,16 @@ To get familiar with configuring security on the SPA side of things see the foll
 * [configuring role based content](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Role-based-content)
 * [setting up an external authentication provider walkthrough](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Setting-up-an-external-authentication-provider)
 
-There are a few other features to make life a bit easier which you can read about [here](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Setting-up-an-external-authentication-provider/Other-features)
+There are a few other features to make life a bit easier which you can read about [here](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Setting-up-an-external-authentication-provider/Other-features).
 
 ##Installation
 
 You can fork or download the this repo. 
 It is also available as a Nuget package (you find it [here](https://www.nuget.org/packages/Angular.SecureStarter)).
 To install from the Package Manager Console:
-
-    Install-Package Angular.SecureStarter
+```
+Install-Package Angular.SecureStarter
+```
 
 ##Current status
 
