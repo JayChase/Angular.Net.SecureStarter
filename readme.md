@@ -16,9 +16,9 @@ A user called **Administrator** is also created with the password '**Administrat
 Edit initializer if you need to change this, or add more roles and users.
 
 To get familiar with configuring security on the SPA side of things see the following wiki pages:
-* [securing a route](wiki/Securing-a-route)
-* [configuring role based content](wiki/Role-based-content)
-* [setting up an external authentication provider walkthrough](wiki/Setting-up-an-external-authentication-provider)
+* [securing a route](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Securing-a-route)
+* [configuring role based content](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Role-based-content)
+* [setting up an external authentication provider walkthrough](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Setting-up-an-external-authentication-provider)
 
 
 ##Installation
