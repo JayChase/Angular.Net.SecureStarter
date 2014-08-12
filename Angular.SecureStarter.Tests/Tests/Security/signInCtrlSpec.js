@@ -70,7 +70,9 @@ describe('security signInCtrl', function () {
                             then: thenF
                         };
                     },
-                    username: "user"
+                    info: {
+                        username: "user"
+                    }
                 };               
 
                 $provide.value("externalAuthSvc", externalAuthSvcMock);

@@ -59,6 +59,9 @@ describe('security registerCtrl', function () {
                 succeed: true,
                 succeedSignIn: true,
                 result: {},
+                info: {
+                    username:"test"
+                },
                 signIn: function () {
                     var that = this;
 

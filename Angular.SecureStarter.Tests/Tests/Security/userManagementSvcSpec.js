@@ -58,7 +58,9 @@ describe('security userManagementSvc', function () {
                         then: thenF
                     };
                 },
-                username: "user"
+                info: {
+                    username: "user"
+                }
             };
 
             var ass = sinon.stub({

@@ -97,6 +97,7 @@ describe('security accountClientSvc', function () {
         accountClientSvc.addExternalLogin({}).then(null,function (r) {
             result = r;
         });
+
         $httpBackend.flush();
 
         expect(result).toEqual({ result: 'failure', error: 'Add external login failed. ' });
@@ -292,8 +293,8 @@ describe('security accountClientSvc', function () {
     }));
 
     it('getExternalLogins success resolves with result { result: "success" }', inject(function (accountClientSvc, $httpBackend) {
-        $httpBackend.when('GET', '/api/Account/externallogins?returnUrl=testUrl%2Ftest&generateState=false').respond({ status: 200 });
-
+        $httpBackend.when('GET', '/api/account/externallogins?returnUrl=testUrl%2Ftest&generateState=false').respond({ status: 200 });
+        //"/api/account/externallogins?returnUrl=testUrl%2Ftest&generateState=false"
         var result;
 
         accountClientSvc.getExternalLogins("/test").then(function (r) {
@@ -306,7 +307,7 @@ describe('security accountClientSvc', function () {
     }));
 
     it('getExternalLogins error rejects with result { result: "failure" }', inject(function (accountClientSvc, $httpBackend) {
-        $httpBackend.when('GET', '/api/Account/externallogins?returnUrl=testUrl%2Ftest&generateState=false').respond(400);
+        $httpBackend.when('GET', '/api/account/externallogins?returnUrl=testUrl%2Ftest&generateState=false').respond(400);
 
         var result;
 
@@ -319,8 +320,8 @@ describe('security accountClientSvc', function () {
     }));
 
     it('getExternalLogin success resolves with result { result: "success" }', inject(function (accountClientSvc, $httpBackend) {
-        $httpBackend.when('GET', '/api/Account/externallogins?returnUrl=testUrl%2Ftest&provider=test&generateState=false').respond({ status: 200 });
-
+        $httpBackend.when('GET', '/api/account/externallogins?returnUrl=testUrl%2Ftest&provider=test&generateState=false').respond({ status: 200 });
+        
         var result;
 
         accountClientSvc.getExternalLogin("/test","test").then(function (r) {
@@ -333,8 +334,8 @@ describe('security accountClientSvc', function () {
     }));
 
     it('getExternalLogin error rejects with result { result: "failure" }', inject(function (accountClientSvc, $httpBackend) {
-        $httpBackend.when('GET', '/api/Account/externallogins?returnUrl=testUrl%2Ftest&provider=test&generateState=false').respond(400);
-
+        $httpBackend.when('GET', '/api/account/externallogins?returnUrl=testUrl%2Ftest&provider=test&generateState=false').respond(400);
+       
         var result;
 
         accountClientSvc.getExternalLogin("/test","test").then(null, function (r) {

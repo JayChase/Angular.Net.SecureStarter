@@ -33,8 +33,10 @@ describe('security guardSvc', function () {
         mockNotifierSvc = sinon.stub({ show: function (args) { } });
 
         mockUserSvc = sinon.stub({
-            signedIn: true,
-            roles: []
+            info: {
+                signedIn: true,
+                roles: []
+            }
         });
 
 
@@ -108,59 +110,59 @@ describe('security guardSvc', function () {
     });
 
     //Spec - 1
-    it('if path does not match any routes does not re-route', inject(function (guardSvc) {
+    it('guardRoute if path does not match any routes does not re-route', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/fakeUnknownRoute"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(location.path).not.toHaveBeenCalledWith("/signIn");;
     }));
 
-    it('if path does not match any routes does not prevent navigation', inject(function (guardSvc) {
+    it('guardRoute if path does not match any routes does not prevent navigation', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/fakeUnknownRoute"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(mockEvent.preventDefault.called).toEqual(false);
     }));
 
-    it('if path route does not have requiredRoles does not re-route', inject(function (guardSvc) {
+    it('guardRoute if path route does not have requiredRoles does not re-route', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/welcome"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(location.path).not.toHaveBeenCalledWith("/signIn");;
     }));
 
-    it('if path route does not have requiredRoles does not prevent navigation', inject(function (guardSvc) {
+    it('guardRoute if path route does not have requiredRoles does not prevent navigation', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/welcome"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(mockEvent.preventDefault.called).toEqual(false);
     }));
 
-    it('if path route has empty requiredRoles and user signed in does not re-route', inject(function (guardSvc) {
+    it('guardRoute if path route has empty requiredRoles and user signed in does not re-route', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/register"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(location.path).not.toHaveBeenCalledWith("/signIn");;
     }));
 
-    it('if path route has empty requiredRoles and user signed in does not prevent navigation', inject(function (guardSvc) {
+    it('guardRoute if path route has empty requiredRoles and user signed in does not prevent navigation', inject(function (guardSvc) {
         sinon.stub(location, "path", function (newPath) { return "/register"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(mockEvent.preventDefault.called).toEqual(false);
     }));
 
-    it('if path route has empty requiredRoles and user NOT signed in re-route', inject(function (guardSvc) {        
-        mockUserSvc.signedIn = false;
+    it('guardRoute if path route has empty requiredRoles and user NOT signed in re-route', inject(function (guardSvc) {
+        mockUserSvc.info.signedIn = false;
         sinon.stub(location, "path", function (newPath) { return "/register"; });
 
-        guardSvc.guard(mockEvent);
+        guardSvc.guardRoute(mockEvent);
 
         expect(location.path.calledWith("/signIn")).toEqual(true);
     }));

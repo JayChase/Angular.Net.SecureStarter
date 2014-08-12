@@ -59,6 +59,9 @@ describe('security externalRegisterCtrl', function () {
                 succeed: true,
                 succeedsignIn: true,
                 result: {},
+                info: {
+                    username: "test"
+                },
                 signInExternal: function () {
                     var that = this;
 
