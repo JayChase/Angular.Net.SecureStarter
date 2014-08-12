@@ -12,8 +12,7 @@
 /// <reference path="../../../angular.securestarter/app/shell/shell.js" />
 /// <reference path="../../../angular.securestarter/app/shell/shellCtrl.js" />
 /// <reference path="../../../angular.securestarter/app/security/security.js" />
-/// <reference path="../../../angular.securestarter/app/security/guardRouteSvc.js" />
-/// <reference path="../../../angular.securestarter/app/security/userSvc.js" />
+/// <reference path="../../../angular.securestarter/app/security/guardSvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/userSvc.js" />
 
 'use strict';

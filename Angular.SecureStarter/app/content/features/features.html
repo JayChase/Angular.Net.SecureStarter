@@ -7,4 +7,5 @@
             <button class="btn btn-default" type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
         </li>
     </ul>
+    <p ng-if="guardSvc.authorized()">This paragraph will only show is you are currently signed in.</p>
 </section>

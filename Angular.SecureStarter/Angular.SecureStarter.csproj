@@ -242,7 +242,7 @@
     <Content Include="app\security\externalRegisterCtrl.js" />
     <Content Include="app\security\externalSignIn.html" />
     <Content Include="app\security\externalSignInCtrl.js" />
-    <Content Include="app\security\guardRouteSvc.js" />
+    <Content Include="app\security\guardSvc.js" />
     <Content Include="app\security\manage.html" />
     <Content Include="app\security\register.html" />
     <Content Include="app\security\manageCtrl.js" />

@@ -15,7 +15,7 @@
 /// <reference path="../../../angular.securestarter/app/security/securehttpinterceptor.js" />
 /// <reference path="../../../angular.securestarter/app/security/usersvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/accountclientsvc.js" />
-/// <reference path="../../../angular.securestarter/app/security/guardroutesvc.js" />
+/// <reference path="../../../angular.securestarter/app/security/guardSvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/signInCtrl.js" />
 
 //Test suite

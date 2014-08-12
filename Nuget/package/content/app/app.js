@@ -32,8 +32,8 @@
             templateUrl: 'app/security/manage.html',
             controller: 'manageCtrl',
             resolve: {             
-                guard: ['guardRouteSvc', function (guardRouteSvc) {
-                    return guardRouteSvc.guard();
+                guard: ['guardSvc', function (guardSvc) {
+                    return guardSvc.guardRoute();
                 }]
             },
             caseInsensitiveMatch: true
@@ -42,10 +42,10 @@
             templateUrl: 'app/security/externalRegister.html',
             controller: 'externalRegisterCtrl',
             resolve: {
-                appReady: function (appStatusSvc)
+                appReady: ['appStatusSvc', function (appStatusSvc)
                 {
                     return appStatusSvc.whenReady();
-                }
+                }]
             },
             caseInsensitiveMatch: true
         });

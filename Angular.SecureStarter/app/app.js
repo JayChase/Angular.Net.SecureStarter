@@ -32,8 +32,8 @@
             templateUrl: 'app/security/manage.html',
             controller: 'manageCtrl',
             resolve: {             
-                guard: ['guardRouteSvc', function (guardRouteSvc) {
-                    return guardRouteSvc.guard();
+                guard: ['guardSvc', function (guardSvc) {
+                    return guardSvc.guardRoute();
                 }]
             },
             caseInsensitiveMatch: true

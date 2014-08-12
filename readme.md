@@ -20,6 +20,7 @@ To get familiar with configuring security on the SPA side of things see the foll
 * [configuring role based content](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Role-based-content)
 * [setting up an external authentication provider walkthrough](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Setting-up-an-external-authentication-provider)
 
+There are a few other features to make life a bit easier which you can read about [here](https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/wiki/Setting-up-an-external-authentication-provider/Other-features)
 
 ##Installation
 

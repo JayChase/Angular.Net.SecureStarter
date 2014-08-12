@@ -5,16 +5,17 @@
 
     // TODO: replace app with your module name
     angular.module('app')
-        .controller(controllerId, ['$scope', 'notifierSvc', 'appActivitySvc', featuresCtrl]);
+        .controller(controllerId, ['$scope', 'notifierSvc', 'appActivitySvc', 'guardSvc', featuresCtrl]);
 
-    function featuresCtrl($scope, notifierSvc, appActivitySvc) {
+    function featuresCtrl($scope, notifierSvc, appActivitySvc, guardSvc) {
         $scope.title = 'features:';
         $scope.features = [];
+        $scope.guardSvc = guardSvc
 
         activate();
 
         function activate() {
-            var busy = false, notifierFeature, appActivityFeature, navigationFeature;
+            var busy = false, notifierFeature, appActivityFeature, navigationFeature, authorizationFeature;
 
             notifierFeature = {
                 name: "notifier service (notifierSvc)",
@@ -48,6 +49,15 @@
             };
 
             $scope.features.push(navigationFeature);
+
+            authorizationFeature = {
+                name: "Render content based on authentication and authorization",
+                description: "Render content dependent on whether a user has been authenticated and is a member of one or more required roles. Use the guardSvc.authorize function with ngIf to control whether content is rendered. If no arguments are passed to the function authorize will return true for any authenticated user. To specify roles pass in an array of all role names ['user','administrator']." 
+                    + "For example: "
+                    + "<p ng-if='guardSvc.authorize()'>This paragraph will only show is you are currently signed in.</p>"                    
+            };
+
+            $scope.features.push(authorizationFeature);
         }
     }
 })();

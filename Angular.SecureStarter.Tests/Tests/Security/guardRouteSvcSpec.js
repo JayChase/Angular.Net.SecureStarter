@@ -15,12 +15,12 @@
 /// <reference path="../../../angular.securestarter/app/security/securehttpinterceptor.js" />
 /// <reference path="../../../angular.securestarter/app/security/usersvc.js" />
 /// <reference path="../../../angular.securestarter/app/security/accountclientsvc.js" />
-/// <reference path="../../../angular.securestarter/app/security/guardroutesvc.js" />
+/// <reference path="../../../angular.securestarter/app/security/guardsvc.js" />
 
 'use strict';
 
 //Test suite
-describe('security guardRouteSvc', function () {
+describe('security guardSvc', function () {
     //mocks
     var route, routeProvider, location, routes, mockNotifierSvc, mockUserSvc, mockStorageSvc, externalAuthSvcMock, mockEvent;
 
@@ -108,59 +108,59 @@ describe('security guardRouteSvc', function () {
     });
 
     //Spec - 1
-    it('if path does not match any routes does not re-route', inject(function (guardRouteSvc) {
+    it('if path does not match any routes does not re-route', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/fakeUnknownRoute"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(location.path).not.toHaveBeenCalledWith("/signIn");;
     }));
 
-    it('if path does not match any routes does not prevent navigation', inject(function (guardRouteSvc) {
+    it('if path does not match any routes does not prevent navigation', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/fakeUnknownRoute"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(mockEvent.preventDefault.called).toEqual(false);
     }));
 
-    it('if path route does not have requiredRoles does not re-route', inject(function (guardRouteSvc) {
+    it('if path route does not have requiredRoles does not re-route', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/welcome"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(location.path).not.toHaveBeenCalledWith("/signIn");;
     }));
 
-    it('if path route does not have requiredRoles does not prevent navigation', inject(function (guardRouteSvc) {
+    it('if path route does not have requiredRoles does not prevent navigation', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/welcome"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(mockEvent.preventDefault.called).toEqual(false);
     }));
 
-    it('if path route has empty requiredRoles and user signed in does not re-route', inject(function (guardRouteSvc) {
+    it('if path route has empty requiredRoles and user signed in does not re-route', inject(function (guardSvc) {
         sinon.stub(location, "path", function () { return "/register"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(location.path).not.toHaveBeenCalledWith("/signIn");;
     }));
 
-    it('if path route has empty requiredRoles and user signed in does not prevent navigation', inject(function (guardRouteSvc) {
+    it('if path route has empty requiredRoles and user signed in does not prevent navigation', inject(function (guardSvc) {
         sinon.stub(location, "path", function (newPath) { return "/register"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(mockEvent.preventDefault.called).toEqual(false);
     }));
 
-    it('if path route has empty requiredRoles and user NOT signed in re-route', inject(function (guardRouteSvc) {        
+    it('if path route has empty requiredRoles and user NOT signed in re-route', inject(function (guardSvc) {        
         mockUserSvc.signedIn = false;
         sinon.stub(location, "path", function (newPath) { return "/register"; });
 
-        guardRouteSvc.guard(mockEvent);
+        guardSvc.guard(mockEvent);
 
         expect(location.path.calledWith("/signIn")).toEqual(true);
     }));

@@ -59,7 +59,7 @@ namespace Angular.SecureStarter
                 "~/app/security/signInCtrl.js",
                 "~/app/security/registerCtrl.js",
                 "~/app/security/secureHttpInterceptor.js",
-                "~/app/security/guardRouteSvc.js",                
+                "~/app/security/guardSvc.js",                
                 "~/app/security/userSvc.js",
                 "~/app/security/skUserInfo.js",
                 "~/app/security/externalSignInCtrl.js",

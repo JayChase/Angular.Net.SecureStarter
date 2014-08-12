@@ -102,37 +102,6 @@
                     });
         }
 
-        //returns a promise
-        //function setPassword(args) {
-        //    appActivitySvc.busy("userSvc");
-
-        //    var deferred = $q.defer();
-
-        //    accountClientSvc.setPassword(args)
-        //        .then(
-        //            function (result) {
-        //                notifierSvc.show({ message: "your password has been set" });
-        //                always(result);
-        //                deferred.resolve();
-        //            },
-        //            function (result) {
-        //                notifierSvc.show({ message: result.error, type: "error" });
-        //                always(result);
-        //                deferred.reject();
-        //            }
-        //        );
-
-        //    return deferred.promise;
-
-        //    function always(result) {
-        //        appActivitySvc.idle("userSvc");
-        //    }
-        //}
-
-        //function addLogin() {
-
-        //}
-
         function removeLogin(data) {
             appActivitySvc.busy("userSvc");
      
@@ -219,8 +188,7 @@
                 ['finally'](
                     function () {
                         appActivitySvc.idle("userSvc");
-                    });
-            
+                    });            
         }
 
         function addExternalLogin(externalLogin) {
