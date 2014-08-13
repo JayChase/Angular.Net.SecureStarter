@@ -13,7 +13,7 @@
     <description>An Angular starter kit with Authentication (ASP.NET Identity 2.0.0). To get started create a new Web Api project with individual user account authentication, then install the package. For more information please see the wiki under the project site.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2014 Useful Software Solutions Ltd</copyright>
-    <tags>AngularJS Authentication OAuth OWIN "ASP.NET Identity 2.0.0"</tags>	 
+    <tags>AngularJS Angular SPA Authentication OAuth OWIN "ASP.NET Identity 2.0.0"</tags>	 
 	 <dependencies>
 		<dependency id="toastr" version="2.0.3"/>
 		<dependency id="angularjs" version="1.2.21"/>

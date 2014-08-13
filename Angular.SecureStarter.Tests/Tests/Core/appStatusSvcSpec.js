@@ -108,7 +108,7 @@ describe('Core appStatusSvc', function () {
     it('isReady sets ready = arg', inject(function (appStatusSvc) {
         appStatusSvc.isReady(true);
 
-        expect(appStatusSvc.ready).toBe(true);
+        expect(appStatusSvc.info.ready).toBe(true);
     }));
 
     it('isReady does nothing if ready === arg', inject(function (appStatusSvc) {

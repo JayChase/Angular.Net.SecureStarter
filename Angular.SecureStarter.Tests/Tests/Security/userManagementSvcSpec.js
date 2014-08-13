@@ -217,13 +217,13 @@ describe('security userManagementSvc', function () {
         expect(userManagementSvc.info.moreLoginsAvailable).toEqual(true);
     }));
 
-    it('changePassword calls userSvc.setPassword with args', inject(function (userManagementSvc, userSvc) {
+    it('changePassword calls userSvc.changePassword with args', inject(function (userManagementSvc, userSvc) {
         var args = { name: "test" };
-        spyOn(userSvc, "setPassword").and.callFake(testHelpers.fakePromise(true, args));
+        spyOn(userSvc, "changePassword").and.callFake(testHelpers.fakePromise(true, args));
 
         userManagementSvc.changePassword(args);
 
-        expect(userSvc.setPassword).toHaveBeenCalledWith(args);
+        expect(userSvc.changePassword).toHaveBeenCalledWith(args);
     }));
 
     it('addLocalLogin calls userSvc.addLocalLogin with externalLogin', inject(function (userManagementSvc, userSvc) {

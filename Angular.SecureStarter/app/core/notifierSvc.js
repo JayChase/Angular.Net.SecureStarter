@@ -6,7 +6,7 @@
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.options.backgroundpositionClass = 'toast-bottom-right';
-    toastr.options.fadeOut = 300;
+    toastr.options.fadeOut = 200;
 
     var defaults = {
         source: "app",

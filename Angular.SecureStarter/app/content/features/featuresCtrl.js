@@ -10,7 +10,7 @@
     function featuresCtrl($scope, notifierSvc, appActivitySvc, guardSvc) {
         $scope.title = 'features:';
         $scope.features = [];
-        $scope.guardSvc = guardSvc
+        $scope.guardSvc = guardSvc;
 
         activate();
 
@@ -29,7 +29,7 @@
 
             appActivityFeature = {
                 name: "application activity service (appActivitySvc)",
-                description: "Allows the app to track whether it is busy or not. use the busy/idle methods let the app know. Also use the sk-disable-when-busy directive to disable elements whilst the app is busy.",
+                description: "Allows the app to track whether it is busy or not. Use the busy/idle methods let the app know. Also use the sk-disable-when-busy directive to disable elements whilst the app is busy.",
                 demo: function () {
                     if (busy) {
                         appActivitySvc.idle("demo");

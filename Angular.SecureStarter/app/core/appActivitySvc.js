@@ -10,7 +10,9 @@
         var service = {
             busy: busy,            
             idle: idle,
-            isBusy: false,
+            info:{
+                isBusy: false
+            },
             reset: reset         
         };
 
@@ -46,9 +48,9 @@
 
             var newStatus = activities.length > 0;
 
-            if(service.isBusy !== newStatus){
-                service.isBusy = newStatus;
-                $rootScope.$broadcast("appActivitySvc:isBusyChanged", { busy: service.isBusy });
+            if(service.info.isBusy !== newStatus){
+                service.info.isBusy = newStatus;
+                $rootScope.$broadcast("appActivitySvc:isBusyChanged", { busy: service.info.isBusy });
             }
         }
 

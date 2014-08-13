@@ -11,18 +11,20 @@
         var deferreds = [];
 
         var service = {
-            whenReady:whenReady,
-            ready: false,
+            whenReady: whenReady,
+            info:{
+                ready: false
+            },            
             isReady: isReady
         };
 
         return service;
 
         function isReady(value) {
-            if (service.ready != value) {
-                service.ready = value;
+            if (service.info.ready !== value) {
+                service.info.ready = value;
 
-                if (service.ready) {
+                if (service.info.ready) {
                     resolvePromises();
                 }
             }
@@ -31,7 +33,7 @@
         function whenReady() {
             var deferred = $q.defer();
              
-            if (service.ready) {
+            if (service.info.ready) {
                 deferred.resolve();
             } else {
                 deferreds.push(deferred);

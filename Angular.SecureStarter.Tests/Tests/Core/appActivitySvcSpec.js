@@ -28,12 +28,12 @@ describe('Core appActivitySvc', function () {
     });
     
     it('Initially isBusy is false', inject(function (appActivitySvc) {        
-        expect(appActivitySvc.isBusy).toBe(false);
+        expect(appActivitySvc.info.isBusy).toBe(false);
     }));
 
     it('After calling busy(value) isBusy is true', inject(function (appActivitySvc) {
         appActivitySvc.busy("test");
-        expect(appActivitySvc.isBusy).toBe(true);
+        expect(appActivitySvc.info.isBusy).toBe(true);
     }));
 
     it('busy(undefined or null) throws error', inject(function (appActivitySvc) {        
@@ -68,7 +68,7 @@ describe('Core appActivitySvc', function () {
         appActivitySvc.busy("test1");
         appActivitySvc.idle("test1");
 
-        expect(appActivitySvc.isBusy).toBe(true);
+        expect(appActivitySvc.info.isBusy).toBe(true);
     }));
 
     it('All of many busy activities set to idle isBusy now false', inject(function (appActivitySvc) {
@@ -77,7 +77,7 @@ describe('Core appActivitySvc', function () {
         appActivitySvc.idle("test1");
         appActivitySvc.idle("test2");
 
-        expect(appActivitySvc.isBusy).toBe(false);
+        expect(appActivitySvc.info.isBusy).toBe(false);
     }));
 
     it('Reset resets to false', inject(function (appActivitySvc) {
@@ -85,7 +85,7 @@ describe('Core appActivitySvc', function () {
         appActivitySvc.busy("test1");
         appActivitySvc.reset();
 
-        expect(appActivitySvc.isBusy).toBe(false);
+        expect(appActivitySvc.info.isBusy).toBe(false);
     }));
 
     //Teardown
