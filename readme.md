@@ -24,7 +24,7 @@ There are a few other features to make life a bit easier which you can read abou
 
 ##Installation
 
-You can fork or download the this repo. 
+You can fork or download this repo. 
 
 It is also available as a Nuget package (you find it [here](https://www.nuget.org/packages/Angular.SecureStarter)). 
 In Visual Studio create a new Web API project with the authentication option set to 'individual user accounts'. Then either install the package using the package manager or from to install from the Package Manager Console enter the following command:
@@ -35,7 +35,7 @@ Install-Package Angular.SecureStarter
 
 ##Current status
 
-The starter kit currently implements the basic authentication funcionality equivalent to that found in the Visual Studio 2013 ASP.NET 'Single Page Application'. Future enhandements will (hopefully) include: 
+The starter kit currently implements the basic authentication functionality equivalent to that found in the Visual Studio 2013 ASP.NET 'Single Page Application'. Future enhancements will (hopefully) include: 
 * two-factor authentication
 * password reset by email
 * basic user management
