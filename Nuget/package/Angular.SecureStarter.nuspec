@@ -2,18 +2,18 @@
 <package >
   <metadata>
     <id>Angular.SecureStarter</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <title>Angular secure starter kit</title>
     <authors>JayChase</authors>
     <owners>JayChase</owners>
     <licenseUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/blob/master/License.txt</licenseUrl>
     <projectUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-	<summary>An Angular starter kit with Authentication (ASP.NET Identity 2.0.0).</summary>
+	<summary>An AngularJS starter kit secured with ASP.NET Identity 2.0.0</summary>
     <description>An Angular starter kit with Authentication (ASP.NET Identity 2.0.0). To get started create a new Web Api project with individual user account authentication, then install the package. For more information please see the wiki under the project site.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2014 Useful Software Solutions Ltd</copyright>
-    <tags>AngularJS Angular SPA Authentication OAuth OWIN "ASP.NET Identity 2.0.0"</tags>	 
+    <tags>angularjs angular spa authentication OAuth OWIN "ASP.NET Identity 2.0.0"</tags>	 
 	 <dependencies>
 		<dependency id="toastr" version="2.0.3"/>
 		<dependency id="angularjs" version="1.2.21"/>
