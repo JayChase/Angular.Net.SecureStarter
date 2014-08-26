@@ -2,8 +2,8 @@
 
 An AngularJS starter kit for ASP.NET which implements authentication and authorization (ASP.NET Identity 2.0.0) to provide:
 
-•site based and 3rd party user authentication,
-•local SPA authorization and customization based on role membership.
+* site based and 3rd party user authentication
+* local SPA authorization and customization based on role membership
 
 ##Getting started
 
