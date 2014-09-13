@@ -33,6 +33,17 @@ namespace Angular.SecureStarter.Providers
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
+            //TODO: move this func into userManager
+            if (user == null)
+            {
+                user = await userManager.FindByEmailAsync(context.UserName);
+
+                if(user != null)
+                {
+                    user = await userManager.FindAsync(user.UserName, context.Password);
+                }
+            }
+
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");

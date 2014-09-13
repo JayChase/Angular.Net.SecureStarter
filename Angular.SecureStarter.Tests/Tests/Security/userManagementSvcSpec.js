@@ -40,6 +40,7 @@ describe('security userManagementSvc', function () {
                 getUserInfo: function () { },
                 setUser: function () { },
                 setPassword: function () { },
+                changePassword: function () { },
                 addLocalLogin: function () { },
                 removeLogin: function () { },
                 signIn: function () {
