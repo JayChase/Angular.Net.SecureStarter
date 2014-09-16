@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute','ngAnimate','app.shell', 'app.core', 'app.security']);
+    var app = angular.module('app', ['ngRoute','ngAnimate', 'ngResource', 'app.shell', 'app.core', 'app.security']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
@@ -17,6 +17,12 @@
             controller: 'featuresCtrl',
             caseInsensitiveMatch: true,
             showNav: 'features'
+        });
+        $routeProvider.when('/securedWebapiDemo', {
+            templateUrl: 'app/content/securedWebapiDemo/securedWebapiDemo.html',
+            controller: 'securedWebapiDemoCtrl',
+            caseInsensitiveMatch: true,
+            showNav: 'Secured Web API demo'
         });
         $routeProvider.when('/register', {
             templateUrl: 'app/security/register.html',

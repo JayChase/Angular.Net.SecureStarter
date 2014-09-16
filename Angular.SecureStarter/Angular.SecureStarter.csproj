@@ -208,6 +208,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SecuredController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -227,6 +228,8 @@
     <Content Include="app\common\validation\skMatches.js" />
     <Content Include="app\content\features\features.html" />
     <Content Include="app\content\features\featuresCtrl.js" />
+    <Content Include="app\content\securedWebapiDemo\securedWebapiDemo.html" />
+    <Content Include="app\content\securedWebapiDemo\securedWebapiDemoCtrl.js" />
     <Content Include="app\content\welcome\welcome.html" />
     <Content Include="app\content\welcome\welcomeCtrl.js" />
     <Content Include="app\core\appActivitySvc.js" />

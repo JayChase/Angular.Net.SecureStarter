@@ -21,6 +21,7 @@ namespace Angular.SecureStarter
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
+                "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-sanitize.js",
                 "~/Scripts/angular-animate.js"
                 ));
@@ -77,7 +78,8 @@ namespace Angular.SecureStarter
 
             bundles.Add(new ScriptBundle("~/bundles/content").Include(
                 "~/app/content/welcome/welcomeCtrl.js",
-                "~/app/content/features/featuresCtrl.js"
+                "~/app/content/features/featuresCtrl.js",
+                "~/app/content/securedWebapiDemo/securedWebapiDemoCtrl.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

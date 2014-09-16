@@ -24,6 +24,7 @@ echo F | xcopy /Y ..\%sourceDir%\Content\fadeAnimation.css "%destinationDir%\Con
 echo F | xcopy /Y ..\%sourceDir%\Content\site.css "%destinationDir%\Content\site.css"
 
 echo F | xcopy /Y ..\%sourceDir%\Controllers\AccountController.cs "%destinationDir%\Controllers\AccountController.cs.pp"
+echo F | xcopy /Y ..\%sourceDir%\Controllers\SecuredController.cs "%destinationDir%\Controllers\SecuredController.cs.pp"
 
 echo F | xcopy /Y ..\%sourceDir%\Filters\RequireHttpsAttribute.cs "%destinationDir%\Filters\RequireHttpsAttribute.cs.pp"
 
