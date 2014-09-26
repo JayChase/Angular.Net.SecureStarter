@@ -60,9 +60,9 @@ to {transform: rotate(359deg);}
 }
 /*#endregion */
 
-section.view {
+/*section.view {
     margin-left:10px;
-}
+}*/
 
 .table.nolines th, .table.nolines td { 
      border-top: none; 
