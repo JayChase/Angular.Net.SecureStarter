@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Angular.SecureStarter</id>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <title>Angular secure starter kit</title>
     <authors>JayChase</authors>
     <owners>JayChase</owners>
@@ -16,9 +16,7 @@
     <tags>angularjs angular spa authentication OAuth OWIN "ASP.NET Identity"</tags>	 
 	 <dependencies>
 		<dependency id="toastr" version="2.0.3"/>
-		<dependency id="angularjs" version="1.2.24"/>
-		<dependency id="AngularJS.Core" version="1.2.24"/>
-		<dependency id="AngularJS.Route" version="1.2.24"/>
+		<dependency id="angularjs" version="1.2.26"/>>
 		<dependency id="jQuery" version="2.1.1"/>
 	 </dependencies>
   </metadata>

@@ -29,7 +29,7 @@
                 activities.push(name);
             }
 
-            updateStatus()
+            updateStatus();
         }
 
         function idle(name) {
@@ -41,7 +41,7 @@
                 activities.pop(name);
             }
 
-            updateStatus()
+            updateStatus();
         }        
 
         function updateStatus() {
