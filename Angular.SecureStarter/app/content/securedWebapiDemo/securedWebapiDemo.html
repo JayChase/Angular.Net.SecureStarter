@@ -1,16 +1,20 @@
-﻿<section id="securedWebapiDemo" class="view">
-    <h2>{{title}}</h2>
-    <p>{{description}}</p>
-    <ul class="list-unstyled">
-        <li data-ng-repeat="kp in keyPoints">
-            <p>{{kp}}</p>
-        </li>
-    </ul>
-    <button class="btn btn-primary" type="button" ng-click="getValues()">Get values</button>
-    <h3>Response</h3>
-    <div class="panel panel-default col-md-5">
-        <div class="panel-body">
-            {{result}}
+﻿<section id="securedWebapiDemo" class="view row">
+    <div class="col-md-12">
+        <h2>{{title}}</h2>
+        <p>{{description}}</p>
+        <ul class="list-unstyled">
+            <li data-ng-repeat="kp in keyPoints">
+                <p>{{kp}}</p>
+            </li>
+        </ul>
+        <button class="btn btn-primary" type="button" ng-click="getValues()">Get values</button>
+        <h3>Response</h3>
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {{result}}
+            </div>
         </div>
     </div>
 </section>

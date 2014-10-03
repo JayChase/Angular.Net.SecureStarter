@@ -7,16 +7,46 @@
     function skDisableWhenBusy($rootScope) {
         var directive = {
             link: link,
-            restrict: 'A'
+            restrict: 'A',
+            scope: {
+                disableOn: '='
+            }
         };
+
         return directive;
 
         function link(scope, element, attrs) {
-            var target = element;
-            $rootScope.$on("appActivitySvc:isBusyChanged", function (event, args) {
-                angular.element(target).prop('disabled', args.busy);
+            var target = element,
+              disable = setDisable(scope.disableOn),
+              busy = false;
+
+            scope.$watch("disableOn", function (value) {
+                setDisable(value);
+                updateDisabled();
             });
+
+            $rootScope.$on("appActivitySvc:isBusyChanged", function (event, args) {
+                busy = args.busy;
+                updateDisabled();
+            });
+
+            function updateDisabled() {
+                angular.element(target).prop('disabled', disable || busy);
+            }
+
+            function setDisable(boolArray) {
+                var result = false;
+
+                if (boolArray) {
+                    boolArray.forEach(function (b) {
+                        if (b) {
+                            result = true;
+                        }
+                    });
+                }
+
+                disable = result;
+            }
         }
     }
-
 })();
