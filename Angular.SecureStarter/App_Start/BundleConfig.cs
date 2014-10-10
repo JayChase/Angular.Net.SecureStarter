@@ -50,6 +50,7 @@ namespace Angular.SecureStarter
                 "~/app/shell/shell.js",
                 "~/app/shell/shellCtrl.js",
                 "~/app/shell/topNavCtrl.js",
+                "~/app/shell/skNavLinks.js",
                 "~/app/shell/skBusyIndicator.js"                         
                 ));
 

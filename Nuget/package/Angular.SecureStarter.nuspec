@@ -2,8 +2,8 @@
 <package >
   <metadata>
     <id>Angular.SecureStarter</id>
-    <version>1.1.0</version>
-    <title>Angular secure starter kit</title>
+    <version>1.1.1</version>
+    <title>AngularJS secure starter kit</title>
     <authors>JayChase</authors>
     <owners>JayChase</owners>
     <licenseUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/blob/master/License.txt</licenseUrl>

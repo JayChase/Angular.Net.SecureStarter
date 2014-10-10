@@ -275,6 +275,8 @@
     <Content Include="app\shell\skBusyIndicator.js" />
     <Content Include="app\security\skUserInfo.html" />
     <Content Include="app\security\skUserInfo.js" />
+    <Content Include="app\shell\skNavLinks.html" />
+    <Content Include="app\shell\skNavLinks.js" />
     <Content Include="app\shell\topNav.html" />
     <Content Include="app\shell\topNavCtrl.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />

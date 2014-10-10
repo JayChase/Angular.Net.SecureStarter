@@ -16,11 +16,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li ng-repeat="l in links">
-                    <a ng-href="{{l.url}}" ng-bind="l.name"></a>
-                </li>
-            </ul>
+            <sk-nav-links links="links"></sk-nav-links>
             <div class="navbar-text navbar-right">
                 <sk-user-info></sk-user-info>
             </div>
