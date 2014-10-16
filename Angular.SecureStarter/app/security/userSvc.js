@@ -22,6 +22,8 @@
             addExternalLogin: addExternalLogin,
             registerExternal: registerExternal,
             register: register,
+            checkUsernameAvailable: checkUsernameAvailable,
+            checkEmailAvailable: checkEmailAvailable,
             info: {
                 username: "",
                 email: "",
@@ -223,6 +225,30 @@
                     function () {
                         appActivitySvc.idle("userSvc");
                     });
+        }
+
+        function checkEmailAvailable(modelValue, viewValue) {
+            var dfd = $q.defer(), email = modelValue || viewValue;
+
+            if (email) {
+                dfd.promise = accountClientSvc.checkEmailAvailable(email);
+            } else {
+                dfd.resolve();
+            }
+
+            return dfd.promise;
+        }
+
+        function checkUsernameAvailable(modelValue, viewValue) {
+            var dfd = $q.defer(), username = modelValue || viewValue;
+
+            if (username) {
+                dfd.promise = accountClientSvc.checkUsernameAvailable(username);
+            } else {
+                dfd.resolve();
+            }
+
+            return dfd.promise;
         }
 
         function raiseEvent() {

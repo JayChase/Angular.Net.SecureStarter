@@ -21,7 +21,9 @@
         removeLoginUrl = apiUrl + "removelogin",
         setPasswordUrl = apiUrl + "setpassword",
         manageInfoUrl = apiUrl + "manageinfo",
-        userInfoUrl = apiUrl + "userinfo";
+        userInfoUrl = apiUrl + "userinfo",
+        checkEmailAvailableUrl = apiUrl + "checkEmailAvailable",
+        checkUsernameAvailableUrl = apiUrl + "checkUsernameAvailable";
 
         function createErrorString(result) {
 
@@ -59,7 +61,9 @@
             getUserInfo: getUserInfo,
             registerExternal: registerExternal,
             getManageInfo: getManageInfo,
-            removeLogin: removeLogin            
+            removeLogin: removeLogin,
+            checkEmailAvailable: checkEmailAvailable,
+            checkUsernameAvailable: checkUsernameAvailable
         };
 
         return service;
@@ -331,6 +335,22 @@
 				    });
 				}
 			);
+        }
+
+        function checkEmailAvailable(email) {
+            return $http({
+                method: 'POST',
+                data:{email: email},
+                url: checkEmailAvailableUrl
+            });
+        }
+
+        function checkUsernameAvailable(username) {
+            return $http({
+                method: 'POST',
+                data:{username: username},
+                url: checkUsernameAvailableUrl
+            });
         }
     }
 })();

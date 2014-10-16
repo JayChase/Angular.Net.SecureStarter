@@ -3,15 +3,16 @@
     <form class="form" role="form" name="registrationForm" sk-disable-when-busy>
         <p>Create a new account.</p>
         <hr />
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': registrationForm.email.$error.unique}">
             <label for="email">email</label>
-            <input type="email" id="email" name="email" class="form-control" ng-model="registration.email" required />
+            <input type="email" name="email" class="form-control" ng-model="registration.email" sk-async-validators="{'unique': checkEmailAvailable}" required />
             <span class="help-block" ng-show="registrationForm.email.$error.required && registrationForm.$dirty">required</span>
-            <span class="help-block" ng-show="registrationForm.email.$error.email && registrationForm.$dirty">required</span>
+            <span class="help-block" ng-show="registrationForm.email.$error.unique && registrationForm.$dirty">a user already exists with this email</span>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-class="{'has-error': registrationForm.registerUsername.$error.unique}">
             <label for="registerUsername">username</label>
-            <input type="text" id="registerUsername" class="form-control" ng-model="registration.username" />
+            <input type="text" name="registerUsername" class="form-control" ng-model="registration.username" sk-async-validators="{'unique': checkUsernameAvailable}" />
+            <span class="help-block" ng-show="registrationForm.registerUsername.$error.unique && registrationForm.$dirty">username already taken</span>
         </div>
         <div class="form-group">
             <label for="registerPassword">Password</label>

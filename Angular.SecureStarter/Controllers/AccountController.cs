@@ -401,6 +401,40 @@ namespace Angular.SecureStarter.Controllers
             }
 
             return Ok();
+        }        
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("checkEmailAvailable")]
+        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] emailArgs args)
+        {
+            var user = await UserManager.FindByEmailAsync(args.Email);
+
+            if (user == null)
+            {
+                return Ok("email available");             
+            }
+            else
+            {
+                return BadRequest("email already in use");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("checkUsernameAvailable")]
+        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] string username)
+        {
+            var user = await UserManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return Ok("username available");
+            }
+            else
+            {
+                return BadRequest("username already in use");
+            }
         }
 
         // POST api/Account/RegisterExternal
@@ -569,5 +603,10 @@ namespace Angular.SecureStarter.Controllers
         }
 
         #endregion
+    }
+
+    public class emailArgs
+    {
+        public string Email { get; set; }
     }
 }
