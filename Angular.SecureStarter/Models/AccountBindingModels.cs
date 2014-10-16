@@ -89,4 +89,14 @@ namespace Angular.SecureStarter.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class emailQueryBindingModel
+    {
+        public string Email { get; set; }
+    }
+
+    public class usernameQueryBindingModel
+    {
+        public string Username { get; set; }
+    }
 }

@@ -406,9 +406,9 @@ namespace Angular.SecureStarter.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("checkEmailAvailable")]
-        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] emailArgs args)
+        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] emailQueryBindingModel query)
         {
-            var user = await UserManager.FindByEmailAsync(args.Email);
+            var user = await UserManager.FindByEmailAsync(query.Email);
 
             if (user == null)
             {
@@ -423,9 +423,9 @@ namespace Angular.SecureStarter.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("checkUsernameAvailable")]
-        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] string username)
+        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] usernameQueryBindingModel query)
         {
-            var user = await UserManager.FindByNameAsync(username);
+            var user = await UserManager.FindByNameAsync(query.Username);
 
             if (user == null)
             {
@@ -603,10 +603,5 @@ namespace Angular.SecureStarter.Controllers
         }
 
         #endregion
-    }
-
-    public class emailArgs
-    {
-        public string Email { get; set; }
     }
 }
