@@ -1,66 +1,18 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute','ngAnimate', 'ngResource', 'app.shell', 'app.core', 'app.security']);
+    var app = angular.module('app', ['ngRoute', 'ngAnimate', 'app.core', 'app.shell', 'app.content', 'app.security']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
-
-        $routeProvider.when('/welcome', {
-            templateUrl: 'app/content/welcome/welcome.html',
-            controller: 'welcomeCtrl',
-            caseInsensitiveMatch: true,
-            showNav: 'welcome'
-        });
-        $routeProvider.when('/features', {
-            templateUrl: 'app/content/features/features.html',
-            controller: 'featuresCtrl',
-            caseInsensitiveMatch: true,
-            showNav: 'features'
-        });
-        $routeProvider.when('/securedWebapiDemo', {
-            templateUrl: 'app/content/securedWebapiDemo/securedWebapiDemo.html',
-            controller: 'securedWebapiDemoCtrl',
-            caseInsensitiveMatch: true,
-            showNav: 'Secured Web API demo'
-        });
-        $routeProvider.when('/register', {
-            templateUrl: 'app/security/register.html',
-            controller: 'registerCtrl',
-            caseInsensitiveMatch: true
-        });
-        $routeProvider.when('/signIn', {
-            templateUrl: 'app/security/signIn.html',
-            controller: 'signInCtrl',
-            caseInsensitiveMatch: true
-        });
-        $routeProvider.when('/manage', {
-            templateUrl: 'app/security/manage.html',
-            controller: 'manageCtrl',
-            resolve: {             
-                guard: ['guardSvc', function (guardSvc) {
-                    return guardSvc.guardRoute();
-                }]
-            },
-            caseInsensitiveMatch: true
-        });
-        $routeProvider.when('/externalregister', {
-            templateUrl: 'app/security/externalRegister.html',
-            controller: 'externalRegisterCtrl',
-            resolve: {
-                appReady: ['appStatusSvc', function (appStatusSvc)
-                {
-                    return appStatusSvc.whenReady();
-                }]
-            },
-            caseInsensitiveMatch: true
-        });
+                
         $routeProvider.otherwise({
-            redirectTo: '/welcome'
+            redirectTo: 'welcome'
         });
     }]);
 
     app.value('appSettingsSvc', {
+        base: '',
         brand: 'StarterKit',
         title: 'Angular StarterKit',
         siteUrl: ''

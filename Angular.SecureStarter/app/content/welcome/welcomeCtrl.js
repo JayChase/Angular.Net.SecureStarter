@@ -4,7 +4,7 @@
     var controllerId = 'welcomeCtrl';
 
     // TODO: replace app with your module name
-    angular.module('app')
+    angular.module('app.content')
         .controller(controllerId, ['$scope', weclomeCtrl]);
 
     function weclomeCtrl($scope) {

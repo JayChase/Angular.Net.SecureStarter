@@ -361,9 +361,7 @@
     <None Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\version.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\Session\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -52,7 +52,7 @@ namespace Angular.SecureStarter
                 "~/app/shell/shellCtrl.js",
                 "~/app/shell/topNavCtrl.js",
                 "~/app/shell/skNavLinks.js",
-                "~/app/shell/skBusyIndicator.js"                         
+                "~/app/shell/skBusyIndicator.js"                       
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/security").Include(
@@ -79,6 +79,7 @@ namespace Angular.SecureStarter
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/content").Include(
+                "~/app/content/content.js",
                 "~/app/content/welcome/welcomeCtrl.js",
                 "~/app/content/features/featuresCtrl.js",
                 "~/app/content/securedWebapiDemo/securedWebapiDemoCtrl.js"

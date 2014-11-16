@@ -1,5 +1,5 @@
 ::make sure nuget is up to date
-::nuget Update -self
+nuget Update -self
 
 SET sourceDir=Angular.SecureStarter
 SET destinationDir=package\content

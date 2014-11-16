@@ -22,7 +22,7 @@
 
             var locationPath = $location.path(), redirectPath = "/", deferred = $q.defer();
 
-            if (locationPath.indexOf("/externalauth") === 0) {
+            if (locationPath && locationPath.indexOf("/externalauth") === 0) {
                
                 var externalActionResult = parseResponse($location.hash());
 

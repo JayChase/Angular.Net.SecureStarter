@@ -20,6 +20,8 @@ describe('shell topNavCtrl tests', function () {
     var scope, controller, navigationSvcMock;
 
     beforeEach(function () {
+        
+
         module(function ($provide) {
 
             navigationSvcMock = sinon.stub(

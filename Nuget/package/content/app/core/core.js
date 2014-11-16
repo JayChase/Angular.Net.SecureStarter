@@ -1,4 +1,4 @@
 ﻿(function () {
     'use strict';
-    var core = angular.module('app.core', ['ngRoute']);
+    var core = angular.module('app.core',[]);
 })();

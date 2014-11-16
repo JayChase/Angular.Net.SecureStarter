@@ -227,6 +227,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\common\validation\skAsyncValidators.js" />
     <Content Include="app\common\validation\skMatches.js" />
+    <Content Include="app\content\content.js" />
     <Content Include="app\content\features\features.html" />
     <Content Include="app\content\features\featuresCtrl.js" />
     <Content Include="app\content\securedWebapiDemo\securedWebapiDemo.html" />
@@ -266,7 +267,6 @@
     <Content Include="app\security\skLoginProvider.html" />
     <Content Include="app\security\usedLoginProviderFilter.js" />
     <Content Include="app\security\userManagementSvc.js" />
-    <Content Include="app\session\session.js" />
     <Content Include="app\core\storageSvc.js" />
     <Content Include="app\security\userSvc.js" />
     <Content Include="app\shell\shell.js" />

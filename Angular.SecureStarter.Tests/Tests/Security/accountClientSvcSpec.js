@@ -20,6 +20,8 @@ describe('security accountClientSvc', function () {
 
     //Setup
     beforeEach(function () {
+        angular.mock.module('ngRoute');
+
         module('app.security');
 
         module(function ($provide) {
@@ -66,10 +68,10 @@ describe('security accountClientSvc', function () {
 
             $provide.value('notifierSvc', mockNotifierSvc);
             
-            $provide.value('appSettingsSvc', {siteUrl: 'testUrl'});
+            $provide.value('appSettingsSvc', { siteUrl: 'testUrl' });
         });
               
-        inject(function ($route, $location) {
+        inject(function ($route, $location, $routeProvider) {
            
         });
     });

@@ -4,7 +4,7 @@
     var controllerId = 'featuresCtrl';
 
     // TODO: replace app with your module name
-    angular.module('app')
+    angular.module('app.content')
         .controller(controllerId, ['$scope', 'notifierSvc', 'appActivitySvc', 'guardSvc', featuresCtrl]);
 
     function featuresCtrl($scope, notifierSvc, appActivitySvc, guardSvc) {

@@ -2,7 +2,7 @@
     'use strict';
 
     //create the securedSvc resource.
-    angular.module('app')
+    angular.module('app.content')
         .factory('securedSvc', function ($resource) {
             return $resource(
                 '/api/secured/:Id',

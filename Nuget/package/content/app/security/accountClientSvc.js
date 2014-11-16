@@ -8,9 +8,7 @@
 
     function accountClientSvc($http, $q, appSettingsSvc) {
         // Routes
-        //TODO: the base url is NOT working. it needs to get a base url only id there is one and not add the current page name as the base. This is happpening because fo the change away from #
-        //TODO move this stuff to constants on the app.security module
-        var baseUrl = "/", apiUrl = baseUrl + "api/account/",
+        var baseUrl = "", apiUrl = baseUrl + "api/account/",
         addExternalLoginUrl = apiUrl + "addexternallogin",
         changePasswordUrl = apiUrl + "changepassword",
         loginUrl = baseUrl + "token",
@@ -21,7 +19,9 @@
         removeLoginUrl = apiUrl + "removelogin",
         setPasswordUrl = apiUrl + "setpassword",
         manageInfoUrl = apiUrl + "manageinfo",
-        userInfoUrl = apiUrl + "userinfo";
+        userInfoUrl = apiUrl + "userinfo",
+        checkEmailAvailableUrl = apiUrl + "checkEmailAvailable",
+        checkUsernameAvailableUrl = apiUrl + "checkUsernameAvailable";
 
         function createErrorString(result) {
 
@@ -59,7 +59,9 @@
             getUserInfo: getUserInfo,
             registerExternal: registerExternal,
             getManageInfo: getManageInfo,
-            removeLogin: removeLogin            
+            removeLogin: removeLogin,
+            checkEmailAvailable: checkEmailAvailable,
+            checkUsernameAvailable: checkUsernameAvailable
         };
 
         return service;
@@ -331,6 +333,22 @@
 				    });
 				}
 			);
+        }
+
+        function checkEmailAvailable(email) {
+            return $http({
+                method: 'POST',
+                data:{email: email},
+                url: checkEmailAvailableUrl
+            });
+        }
+
+        function checkUsernameAvailable(username) {
+            return $http({
+                method: 'POST',
+                data:{username: username},
+                url: checkUsernameAvailableUrl
+            });
         }
     }
 })();

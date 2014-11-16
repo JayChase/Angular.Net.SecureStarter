@@ -36,7 +36,9 @@
                         service.userLogins.length = 0;
                         service.loginProviders.length = 0;
 
-                        service.localLoginProvider = result.data.localLoginProvider;
+                        if (result.data) {
+                            service.localLoginProvider = result.data.localLoginProvider;
+                        }
 
                         result.data.logins.forEach(function (l) {
                             service.userLogins.push(l)

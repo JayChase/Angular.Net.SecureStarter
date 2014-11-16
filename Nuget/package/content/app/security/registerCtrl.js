@@ -15,6 +15,8 @@
             confirmPassword: ""            
         };
         $scope.register = register;
+        $scope.checkUsernameAvailable = userSvc.checkUsernameAvailable;
+        $scope.checkEmailAvailable = userSvc.checkEmailAvailable;
 
         function register() {            
             userSvc.register($scope.registration)
