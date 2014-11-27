@@ -33,9 +33,7 @@
                     function (result) {                        
                         //TODO: set focus back here
                         $scope.user.id = ""; 
-                        $scope.user.password = "";
-
-                        notifierSvc.show({ message: result.error, type: "error" });
+                        $scope.user.password = "";                        
                     }
                 );
         }

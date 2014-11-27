@@ -31,13 +31,13 @@
                 if (!externalActionResult || !externalActionResult.access_token) {
                     notifierSvc.show({ message: "something went wrong. Error: rereiving access token", type: "error" });
                     appActivitySvc.idle("externalAuthSvc");                    
-                    $location.path("/signIn");
+                    $location.path("/signIn").hash('');
                     deferred.resolve(true);
 
                 } else if (externalActionResult.error) {
                     notifierSvc.show({ message: "something went wrong. Error: " + externalActionResult.error, type: "error" });
                     appActivitySvc.idle("externalAuthSvc");
-                    $location.path("/signIn");
+                    $location.path("/signIn").hash('');
                     deferred.resolve(true);
                 } else {
 
@@ -54,19 +54,19 @@
                     userSvc.getUserInfo()
                         .then(
 				            function (result) {
-				                if (result.data.hasRegistered) {
-				                    userSvc.setUser(result.data);
+				                if (result.hasRegistered) {
+				                    userSvc.setUser(result);
 
 				                    if (associationInfo) {
 				                        associateLogin();
 				                    } else {				                        
-				                        $location.path(redirectPath);
+				                        $location.path(redirectPath).hash('');
 				                    }
 				                } else {
 				                    registrationInfo = {
-				                        email: result.data.email,
-				                        loginProvider: result.data.loginProvider,
-				                        username: result.data.userName
+				                        email: result.email,
+				                        loginProvider: result.loginProvider,
+				                        username: result.userName
 				                    };
 				                    
 				                    $location.path("/externalRegister");
@@ -78,7 +78,7 @@
 				                //error	
 				                notifierSvc.show({ message: "something went wrong. " + result.error, type: "error" });
 				                
-				                $location.path("/signIn");
+				                $location.path("/signIn").hash('');
 
 				                deferred.reject(true);
 				            })
@@ -116,7 +116,7 @@
         }
 
         function cleanUp() {
-            $location.hash("");
+            //$location.hash("");
             storageSvc.remove("registrationInfo");            
         }
 

@@ -5,9 +5,9 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .factory(serviceId, ['$location','$q', 'storageSvc', 'appActivitySvc', 'notifierSvc', 'userSvc', restoreUserSvc]);
+        .factory(serviceId, ['$location','$q', 'storageSvc', 'appActivitySvc', 'userSvc', restoreUserSvc]);
 
-    function restoreUserSvc($location, $q, storageSvc, appActivitySvc, notifierSvc, userSvc) {        
+    function restoreUserSvc($location, $q, storageSvc, appActivitySvc, userSvc) {        
 
         var service = {
             restore: restore
@@ -21,8 +21,8 @@
             if (storageSvc.retrieve("accessToken")) {
                 return userSvc.getUserInfo().then(
                       function (result) {
-                          if (result.data.hasRegistered) {
-                              userSvc.setUser(result.data);
+                          if (result.hasRegistered) {
+                              userSvc.setUser(result);
                               appActivitySvc.idle("restoreUserSvc");                                                    
                           } else {
                               appActivitySvc.idle("restoreUserSvc");

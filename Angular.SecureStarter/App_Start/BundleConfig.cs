@@ -35,7 +35,7 @@ namespace Angular.SecureStarter
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/app/app.js",
-                "~/app/core/core.js",
+                "~/app/core/core.module.js",
                 "~/app/core/appActivitySvc.js",
                 "~/app/core/appStatusSvc.js",
                 "~/app/core/notifierSvc.js",
@@ -48,7 +48,7 @@ namespace Angular.SecureStarter
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/shell").Include(    
-                "~/app/shell/shell.js",
+                "~/app/shell/shell.module.js",
                 "~/app/shell/shellCtrl.js",
                 "~/app/shell/topNavCtrl.js",
                 "~/app/shell/skNavLinks.js",
@@ -56,8 +56,9 @@ namespace Angular.SecureStarter
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/security").Include(
-                "~/app/security/security.js",
+                "~/app/security/security.module.js",
                 "~/app/security/accountClientSvc.js",
+                "~/app/security/accountResource.js",
                 "~/app/security/signIn.js",
                 "~/app/security/signInCtrl.js",
                 "~/app/security/registerCtrl.js",
@@ -79,7 +80,7 @@ namespace Angular.SecureStarter
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/content").Include(
-                "~/app/content/content.js",
+                "~/app/content/content.module.js",
                 "~/app/content/welcome/welcomeCtrl.js",
                 "~/app/content/features/featuresCtrl.js",
                 "~/app/content/securedWebapiDemo/securedWebapiDemoCtrl.js"

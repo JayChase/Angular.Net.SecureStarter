@@ -36,15 +36,15 @@
                         service.userLogins.length = 0;
                         service.loginProviders.length = 0;
 
-                        if (result.data) {
-                            service.localLoginProvider = result.data.localLoginProvider;
+                        if (result) {
+                            service.localLoginProvider = result.localLoginProvider;
                         }
 
-                        result.data.logins.forEach(function (l) {
+                        result.logins.forEach(function (l) {
                             service.userLogins.push(l)
                         });
 
-                        result.data.externalLoginProviders.forEach(function (lp) {
+                        result.externalLoginProviders.forEach(function (lp) {
                             service.loginProviders.push(lp);
                         });
 

@@ -4,10 +4,10 @@
     var serviceId = 'userSvc';
 
     angular.module('app.security')
-        .factory(serviceId, ['$rootScope','$q','$window', 'storageSvc', 'accountClientSvc','appActivitySvc','notifierSvc', userSvc]);
+        .factory(serviceId, ['$rootScope','$q','$window', 'storageSvc', 'accountClientSvc','appActivitySvc','notifierSvc','accountResource', userSvc]);
 
     //TODO: these user details need to go onto an object
-    function userSvc($rootScope, $q, $window, storageSvc, accountClientSvc, appActivitySvc, notifierSvc) {
+    function userSvc($rootScope, $q, $window, storageSvc, accountClientSvc, appActivitySvc, notifierSvc, accountResource) {
         var service = {                                   
             signIn: signIn,
             signInExternal: signInExternal,
@@ -19,6 +19,8 @@
             changePassword: changePassword,
             getManageInfo: getManageInfo,
             getUserInfo: getUserInfo,
+            getExternalLogin: getExternalLogin,
+            getExternalLogins: getExternalLogins,
             addExternalLogin: addExternalLogin,
             registerExternal: registerExternal,
             register: register,
@@ -60,115 +62,157 @@
         function signIn(user,remember) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.login(user)
-                .then(
-                    function (result) {                        
-                        setUser(result.data);
-                        storageSvc.store("accessToken", result.data.access_token, remember);
+            var args = {
+                username: user.id,
+                password: user.password,
+                grant_type: "password"
+            };
 
-                        return result;
-                    })
-                ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            args = $.param(args);
+
+            return accountResource.login(args)
+                                    .$promise
+                                        .then(
+                                            function (result) {                        
+                                                setUser(result);
+                                                storageSvc.store("accessToken", result.access_token, remember);
+
+                                                return result;
+                                            },
+                                            function (result) {                                               
+                                                notifierSvc.show({
+                                                    message: createErrorString(result),
+                                                    type: "error"
+                                                });
+
+                                                return $q.reject(result);
+                                            })
+                                            ['finally'](
+                                                function () {
+                                                    appActivitySvc.idle("userSvc");
+                                                });
         }
 
         function signOut() {
             appActivitySvc.busy("userSvc");
 
-            accountClientSvc.logout()
-                ['finally'](
-                    function () {
-                        storageSvc.remove("accessToken");
-                        setUser();
-                        appActivitySvc.idle("userSvc");
-                    });
+            return accountResource.logout()
+                                    .$promise
+                                        ['finally'](
+                                            function () {
+                                                storageSvc.remove("accessToken");
+                                                setUser();
+                                                appActivitySvc.idle("userSvc");
+                                            });
         }
      
         function setPassword(args) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.setPassword(args)
-                .then(
-                    function (result) {                      
-                        notifierSvc.show({ message: "your password has been set" });
-                        return result;
-                    },
-                    function (result) {                        
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        return $q.reject(result);
-                    })
-                ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            return accountResource.setPassword(args)
+                                    .$promise
+                                    .then(
+                                        function (result) {                      
+                                            notifierSvc.show({ message: "your password has been set" });
+                                            return result;
+                                        },
+                                        function (result) {                        
+                                            notifierSvc.show({
+                                                message: createErrorString(result),
+                                                type: "error"
+                                            });
+
+                                            return $q.reject(result);
+                                        })
+                                    ['finally'](
+                                        function () {
+                                            appActivitySvc.idle("userSvc");
+                                        });
         }
 
         function changePassword(args) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.changePassword(args)
-                .then(
-                    function (result) {
-                        notifierSvc.show({ message: "your password has been changed" });
-                        return result;
-                    },
-                    function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        return $q.reject(result);
-                    })
-                ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            return accountResource.changePassword(args)
+                                        .$promise
+                                        .then(
+                                            function (result) {
+                                                notifierSvc.show({ message: "your password has been changed" });
+                                                return result;
+                                            },
+                                            function (result) {
+                                                notifierSvc.show({ message: createErrorString(result), type: "error" });
+                                                return $q.reject(result);
+                                            })
+                                        ['finally'](
+                                            function () {
+                                                appActivitySvc.idle("userSvc");
+                                            });
         }
 
         function removeLogin(data) {
             appActivitySvc.busy("userSvc");
      
-            return accountClientSvc.removeLogin(data)
-                .then(
-                    null,
-                    function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });                        
-                        return $q.reject(result);
-                    })
-                ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            return accountResource.removeLogin(data)
+                                    .$promise
+                                    .then(
+                                        null,
+                                        function (result) {
+                                            notifierSvc.show({
+                                                message: createErrorString(result),
+                                                type: "error"
+                                            });
+                                            return $q.reject(result);
+                                        })
+                                    ['finally'](
+                                        function () {
+                                            appActivitySvc.idle("userSvc");
+                                        });
         }
 
-        function getManageInfo() {
+        function getManageInfo(returnUrl, generateState) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.getManageInfo("/externalauth/association")
-                    .then(
-                        null,
-                        function (result) {
-                            notifierSvc.show({ message: result.error, type: "error" });
-                            return $q.reject(result);
-                        }
-                    )
-                    ['finally'](function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            if (!returnUrl) {
+                returnUrl = "";
+            }
+
+            var returnUrl = encodeURIComponent(returnUrl);
+
+            return accountResource.getManageInfo({returnUrl: "/externalauth/association", generateState: generateState})
+                                        .$promise
+                                        .then(
+                                            null,
+                                            function (result) {
+                                                notifierSvc.show({
+                                                    message: createErrorString(result),
+                                                    type: "error"
+                                                });
+                                                return $q.reject(result);
+                                            }
+                                        )
+                                        ['finally'](function () {
+                                            appActivitySvc.idle("userSvc");
+                                        });
         }
 
         function getUserInfo() {
             appActivitySvc.busy("userSvc");
             
-            return accountClientSvc.getUserInfo()
-                .then(
-                    null,
-                    function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
-                        return $q.reject(result);
-                    }
-                )['finally'](function () {
-                    appActivitySvc.idle("userSvc");
-                });
+            return accountResource.getUserInfo()
+                                    .$promise
+                                    .then(
+                                        null,
+                                        function (result) {
+                                            notifierSvc.show({
+                                                message: createErrorString(result),
+                                                type: "error"
+                                            });
+                                            return $q.reject(result);
+                                        }
+                                    )['finally'](function () {
+                                        appActivitySvc.idle("userSvc");
+                                    });
         }
 
         function addLocalLogin(data) {            
@@ -179,34 +223,46 @@
         function registerExternal(registration) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.registerExternal(registration)
-                    ['finally'](function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            return accountResource.registerExternal(registration)
+                                        .$promise
+                                        ['finally'](function () {
+                                            appActivitySvc.idle("userSvc");
+                                        });
         }
 
         function register(registration,remember) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.register(registration)
-                .then(
-                    function (result) {
-                        setUser(result.data);
-                        storageSvc.store("accessToken", result.data.access_token, remember);
+            return accountResource.register(registration)
+                                    .$promise
+                                    .then(
+                                        function (result) {
+                                            setUser(result);
+                                            storageSvc.store("accessToken", result.access_token, remember);
 
-                        return result;
-                    })
-                ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+                                            return result;
+                                        },
+                                            function (result) {
+                                                notifierSvc.show({
+                                                    message: createErrorString(result),
+                                                    type: "error"
+                                                });
+
+                                                return $q.reject(result);
+                                            })
+                                        ['finally'](
+                                            function () {
+                                                appActivitySvc.idle("userSvc");
+                                        });
         }
 
         function signInExternal(provider) {
             appActivitySvc.busy("userSvc");
-            
-            //TODO: return url needs to be a constant somewhere too
-            return accountClientSvc.getExternalLogin("/externalauth", provider)
+                      
+            return accountResource.externalLogin({
+                provider: provider,
+                error: error
+            }).$promise
                 ['finally'](
                     function () {
                         appActivitySvc.idle("userSvc");
@@ -216,22 +272,23 @@
         function addExternalLogin(externalLogin) {
             appActivitySvc.busy("userSvc");
 
-            return accountClientSvc.addExternalLogin(externalLogin)
-                .then(
-                    function (result) {
-                        $window.location.href = result.data.url;
-                    })
-                  ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });
+            return accountResource.addExternalLogin(externalLogin)
+                                    .$promise
+                                    .then(
+                                        function (result) {
+                                            $window.location.href = result.url;
+                                        })
+                                      ['finally'](
+                                        function () {
+                                            appActivitySvc.idle("userSvc");
+                                        });
         }
 
         function checkEmailAvailable(modelValue, viewValue) {
             var dfd = $q.defer(), email = modelValue || viewValue;
 
             if (email) {
-                dfd.promise = accountClientSvc.checkEmailAvailable(email);
+                dfd.promise = accountResource.checkEmailAvailable(email);
             } else {
                 dfd.resolve();
             }
@@ -243,7 +300,7 @@
             var dfd = $q.defer(), username = modelValue || viewValue;
 
             if (username) {
-                dfd.promise = accountClientSvc.checkUsernameAvailable(username);
+                dfd.promise = accountResource.checkUsernameAvailable(username);
             } else {
                 dfd.resolve();
             }
@@ -253,6 +310,51 @@
 
         function raiseEvent() {
             $rootScope.$broadcast("userSvc:signedInChanged", { signedIn: service.info.signedIn });
+        }
+
+        function createErrorString(result) {
+            if (typeof result === "string") {
+                return result;
+            } else {
+                var errors = "";
+
+                if (result.data && result.data.modelState) {
+                    errors += $.PropertyValuesToString(result.data.modelState);
+                } else if (result.data && result.data.error_description) {
+                    errors += result.data.error_description;
+                } else if (result.data && result.data.message) {
+                    errors += result.data.message;
+                } else if (result.error) {
+                    errors += " " + result.error_description;
+                }
+
+                return errors;
+            }
+        }
+
+        function getExternalLogin(provider, error) {
+            return accountResource.externalLogin({                
+                provider: provider,
+                error: error
+            }).$promise;
+        }
+
+        function getExternalLogins(returnUrl, provider, generateState) {
+            var args = {
+                returnUrl: returnUrl ? returnUrl : "",                
+                generateState: generateState ? "true" : "false"
+            };
+
+            if (provider) {
+                args.provider = provider;
+            }
+
+            return accountResource.externalLogins(args).$promise;
+        }        
+
+        function encodeUrlWithReturnUrl(url, returnUrl, generateState) {
+            return url + (encodeURIComponent(returnUrl)) +
+                "&generateState=" + (generateState ? "true" : "false");
         }
     }
 })();

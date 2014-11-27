@@ -63,8 +63,8 @@ namespace Angular.SecureStarter
             //TODO use one of these 2 to get the email from Google
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "73146260471-mg4u2oq0u7gh0nab3ktp0eoftk7g4eps.apps.googleusercontent.com",
-                ClientSecret = "Iz90z4FYJxXPDIsL3e1aONBX",
+                ClientId = "502536111236-a5s15cip9i0domdg35jbo7qt5mlmvmi4.apps.googleusercontent.com",
+                ClientSecret = "-brPE_813RlBKG2828pwn9cJ",
                 Provider = new GoogleOAuth2AuthenticationProvider()
                 {
                     OnAuthenticated = (context) =>
