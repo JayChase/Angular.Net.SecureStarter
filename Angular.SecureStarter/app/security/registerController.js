@@ -1,12 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'registerCtrl';
+    var controllerId = 'registerController';
 
     angular.module('app.security')
-        .controller(controllerId, ['$scope', '$location', 'notifierSvc', 'userSvc', registerCtrl]);
+        .controller(controllerId, ['$scope', '$location', 'notifierService', 'userService', registerController]);
 
-    function registerCtrl($scope, $location, notifierSvc,userSvc) {
+    function registerController($scope, $location, notifierService,userService) {
         $scope.title = 'Register';
         $scope.registration = {
             email: "",
@@ -15,39 +15,39 @@
             confirmPassword: ""            
         };
         $scope.register = register;
-        $scope.checkUsernameAvailable = userSvc.checkUsernameAvailable;
-        $scope.checkEmailAvailable = userSvc.checkEmailAvailable;
+        $scope.checkUsernameAvailable = userService.checkUsernameAvailable;
+        $scope.checkEmailAvailable = userService.checkEmailAvailable;
 
         function register() {            
-            userSvc.register($scope.registration)
+            userService.register($scope.registration)
                 .then(
                     function (result) {
 				        //success		
-				        notifierSvc.show({ message: "sucessfully registered", type: "info" });				    
+				        notifierService.show({ message: "sucessfully registered", type: "info" });				    
 				        signIn();
 				    },
 				    function (result) {
-				        notifierSvc.show({ message: result.error, type: "error" });
+				        notifierService.show({ message: result.error, type: "error" });
 				    }
 			    );           
         }
 
         function signIn() {                
-            notifierSvc.show({ message: "signing in", type: "warning" });
+            notifierService.show({ message: "signing in", type: "warning" });
 
             var user = {
                 id: $scope.registration.email,
                 password: $scope.registration.password
             };
 
-            userSvc.signIn(user)
+            userService.signIn(user)
                 .then(
                     function (result) {                      
-                        notifierSvc.show({ message: "signed in as " + userSvc.info.username, type: "info" });
+                        notifierService.show({ message: "signed in as " + userService.info.username, type: "info" });
                         $location.path("/");
                     },
                     function (result) {                        
-                        notifierSvc.show({ message: result.error, type: "error" });                        
+                        notifierService.show({ message: result.error, type: "error" });                        
                     }
                 );
         }

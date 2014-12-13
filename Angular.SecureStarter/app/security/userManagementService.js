@@ -1,13 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    var serviceId = 'userManagementSvc';
+    var serviceId = 'userManagementService';
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .factory(serviceId, ['$q','$window','userSvc','appActivitySvc','notifierSvc', userManagementSvc]);
+        .factory(serviceId, ['$q','$window','userService','appActivityService','notifierService', userManagementService]);
 
-    function userManagementSvc($q, $window, userSvc, appActivitySvc, notifierSvc) {
+    function userManagementService($q, $window, userService, appActivityService, notifierService) {
         var loaded = false;
 
         var service = {
@@ -28,9 +28,9 @@
         return service;
 
         function load() {
-            appActivitySvc.busy("userManagementSvc");
+            appActivityService.busy("userManagementService");
 
-            return userSvc.getManageInfo("/externalauth/association", false)
+            return userService.getManageInfo("/externalauth/association", false)
                 .then(
                     function (result) {
                         service.userLogins.length = 0;
@@ -51,13 +51,13 @@
                         return result;
                     },
                     function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
+                        notifierService.show({ message: result.error, type: "error" });
                         $q.reject(result);
                 })
                 ['finally'](
                     function () {
                         updateInfo();
-                        appActivitySvc.idle("userManagementSvc");
+                        appActivityService.idle("userManagementService");
                     });
 
             return deferred.promise;
@@ -65,16 +65,16 @@
 
         //returns a promise
         function changePassword(args) {
-            return userSvc.changePassword(args);
+            return userService.changePassword(args);
         }
 
         //returns a promise
         function addLocalLogin(externalLogin) {            
-            return userSvc.addLocalLogin(externalLogin)
+            return userService.addLocalLogin(externalLogin)
                 .then(
                     function (result) {
-                        notifierSvc.show({ message: "your password has been set" });
-                        service.userLogins.push({ loginProvider: service.localLoginProvider, providerKey: userSvc.info.username })
+                        notifierService.show({ message: "your password has been set" });
+                        service.userLogins.push({ loginProvider: service.localLoginProvider, providerKey: userService.info.username })
                         service.info.hasLocalLogin = true;
 
                         return result;
@@ -92,9 +92,9 @@
         }
 
         function removeLogin(userLogin) {
-            appActivitySvc.busy("userManagementSvc");
+            appActivityService.busy("userManagementService");
 
-            return userSvc.removeLogin(userLogin)
+            return userService.removeLogin(userLogin)
                 .then(
                     function (result) {
                         var i = $.arrayIndexOf(service.userLogins, function (ul) {
@@ -109,19 +109,19 @@
                             service.info.hasLocalLogin = false;
                         }
 
-                        notifierSvc.show({ message: userLogin.loginProvider + " login removed.", type: "info" });
+                        notifierService.show({ message: userLogin.loginProvider + " login removed.", type: "info" });
                         
                         return result;
                     },
                     function (result) {
-                        notifierSvc.show({ message: result.error, type: "error" });
+                        notifierService.show({ message: result.error, type: "error" });
                         
                         return $q.reject(result);
                     }
                 )
                 ['finally'](
                     function () {                        
-                        appActivitySvc.idle("userManagementSvc");
+                        appActivityService.idle("userManagementService");
                     });
         }
 

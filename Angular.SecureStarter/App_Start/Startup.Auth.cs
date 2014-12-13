@@ -12,6 +12,7 @@ using Angular.SecureStarter.Providers;
 using Angular.SecureStarter.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security.ActiveDirectory;
 
 namespace Angular.SecureStarter
 {
@@ -25,8 +26,18 @@ namespace Angular.SecureStarter
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
+
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+
+            
+
+            // Enable the application to use a cookie to store information for the signed in user
+            // and to use a cookie to temporarily store information about a user logging in with a third party login provider
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -59,28 +70,22 @@ namespace Angular.SecureStarter
             //app.UseFacebookAuthentication(
             //    appId: "",
             //    appSecret: "");
-
-            //TODO use one of these 2 to get the email from Google
+            //            
+            
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "502536111236-a5s15cip9i0domdg35jbo7qt5mlmvmi4.apps.googleusercontent.com",
-                ClientSecret = "-brPE_813RlBKG2828pwn9cJ",
-                Provider = new GoogleOAuth2AuthenticationProvider()
                 {
-                    OnAuthenticated = (context) =>
-                    {                     
-                        context.Identity.AddClaim(new Claim("urn:google:email", context.Identity.FindFirstValue(ClaimTypes.Email)));
-                        context.Identity.AddClaim(new Claim("urn:google:name", context.Identity.FindFirstValue(ClaimTypes.Name)));
-                        return Task.FromResult(0);
-                    }
-                }
-            });
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "73146260471-mg4u2oq0u7gh0nab3ktp0eoftk7g4eps.apps.googleusercontent.com",
-            //    ClientSecret = "Iz90z4FYJxXPDIsL3e1aONBX"                
-            //});
+                    ClientId = "502536111236-a5s15cip9i0domdg35jbo7qt5mlmvmi4.apps.googleusercontent.com",
+                    ClientSecret = "-brPE_813RlBKG2828pwn9cJ"
+                    //Provider = new GoogleOAuth2AuthenticationProvider()
+                    //{
+                    //    OnAuthenticated = (context) =>
+                    //    {
+                    //        context.Identity.AddClaim(new Claim("urn:google:email", context.Identity.FindFirstValue(ClaimTypes.Email)));
+                    //        context.Identity.AddClaim(new Claim("urn:google:name", context.Identity.FindFirstValue(ClaimTypes.Name)));
+                    //        return Task.FromResult(0);
+                    //    }
+                    //}
+                });
         }
     }
 }

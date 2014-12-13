@@ -1,16 +1,15 @@
 ﻿(function () {
     'use strict';
 
-    var serviceId = 'userSvc';
+    var serviceId = 'userService';
 
     angular.module('app.security')
-        .factory(serviceId, ['$rootScope','$q','$window', 'storageSvc', 'accountClientSvc','appActivitySvc','notifierSvc','accountResource', userSvc]);
+        .factory(serviceId, ['$rootScope','$q','$window', 'storageService','appActivityService','notifierService','accountResource', userService]);
 
     //TODO: these user details need to go onto an object
-    function userSvc($rootScope, $q, $window, storageSvc, accountClientSvc, appActivitySvc, notifierSvc, accountResource) {
+    function userService($rootScope, $q, $window, storageService, appActivityService, notifierService, accountResource) {
         var service = {                                   
-            signIn: signIn,
-            signInExternal: signInExternal,
+            signIn: signIn,            
             signOut: signOut,            
             setUser: setUser,            
             addLocalLogin: addLocalLogin,
@@ -19,8 +18,8 @@
             changePassword: changePassword,
             getManageInfo: getManageInfo,
             getUserInfo: getUserInfo,
-            getExternalLogin: getExternalLogin,
             getExternalLogins: getExternalLogins,
+            getExternalLogin: getExternalLogin,
             addExternalLogin: addExternalLogin,
             registerExternal: registerExternal,
             register: register,
@@ -59,28 +58,26 @@
             raiseEvent();
         }
 
-        function signIn(user,remember) {
-            appActivitySvc.busy("userSvc");
+        //args: user {id: (email or username), password, remember}
+        function signIn(user) {
+            appActivityService.busy("userService");
 
-            var args = {
-                username: user.id,
-                password: user.password,
-                grant_type: "password"
-            };
+            user = angular.extend(user, { grant_type: "password" });
+            user.userName = user.id;
 
-            args = $.param(args);
+            var xsrf = $.param(user);
 
-            return accountResource.login(args)
+            return accountResource.login(xsrf)
                                     .$promise
                                         .then(
                                             function (result) {                        
                                                 setUser(result);
-                                                storageSvc.store("accessToken", result.access_token, remember);
-
+                                                storageService.store("accessToken", result.access_token, result.remember);
+                                                notifierService.show({ message: "signed in as " + service.info.username, type: "info" });
                                                 return result;
                                             },
                                             function (result) {                                               
-                                                notifierSvc.show({
+                                                notifierService.show({
                                                     message: createErrorString(result),
                                                     type: "error"
                                                 });
@@ -89,35 +86,36 @@
                                             })
                                             ['finally'](
                                                 function () {
-                                                    appActivitySvc.idle("userSvc");
+                                                    appActivityService.idle("userService");
                                                 });
         }
 
         function signOut() {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             return accountResource.logout()
                                     .$promise
                                         ['finally'](
                                             function () {
-                                                storageSvc.remove("accessToken");
+                                                storageService.remove("accessToken");
                                                 setUser();
-                                                appActivitySvc.idle("userSvc");
+                                                appActivityService.idle("userService");
                                             });
         }
      
+        //args: {newPassword, confirmPassword}
         function setPassword(args) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             return accountResource.setPassword(args)
                                     .$promise
                                     .then(
                                         function (result) {                      
-                                            notifierSvc.show({ message: "your password has been set" });
+                                            notifierService.show({ message: "your password has been set" });
                                             return result;
                                         },
                                         function (result) {                        
-                                            notifierSvc.show({
+                                            notifierService.show({
                                                 message: createErrorString(result),
                                                 type: "error"
                                             });
@@ -126,39 +124,40 @@
                                         })
                                     ['finally'](
                                         function () {
-                                            appActivitySvc.idle("userSvc");
+                                            appActivityService.idle("userService");
                                         });
         }
 
+        //args: {oldPassword, newPassword, confirmPassword}
         function changePassword(args) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             return accountResource.changePassword(args)
                                         .$promise
                                         .then(
                                             function (result) {
-                                                notifierSvc.show({ message: "your password has been changed" });
+                                                notifierService.show({ message: "your password has been changed" });
                                                 return result;
                                             },
                                             function (result) {
-                                                notifierSvc.show({ message: createErrorString(result), type: "error" });
+                                                notifierService.show({ message: createErrorString(result), type: "error" });
                                                 return $q.reject(result);
                                             })
                                         ['finally'](
                                             function () {
-                                                appActivitySvc.idle("userSvc");
+                                                appActivityService.idle("userService");
                                             });
         }
 
         function removeLogin(data) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
      
             return accountResource.removeLogin(data)
                                     .$promise
                                     .then(
                                         null,
                                         function (result) {
-                                            notifierSvc.show({
+                                            notifierService.show({
                                                 message: createErrorString(result),
                                                 type: "error"
                                             });
@@ -166,12 +165,12 @@
                                         })
                                     ['finally'](
                                         function () {
-                                            appActivitySvc.idle("userSvc");
+                                            appActivityService.idle("userService");
                                         });
         }
 
         function getManageInfo(returnUrl, generateState) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             if (!returnUrl) {
                 returnUrl = "";
@@ -184,7 +183,7 @@
                                         .then(
                                             null,
                                             function (result) {
-                                                notifierSvc.show({
+                                                notifierService.show({
                                                     message: createErrorString(result),
                                                     type: "error"
                                                 });
@@ -192,58 +191,69 @@
                                             }
                                         )
                                         ['finally'](function () {
-                                            appActivitySvc.idle("userSvc");
+                                            appActivityService.idle("userService");
                                         });
         }
 
         function getUserInfo() {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
             
             return accountResource.getUserInfo()
                                     .$promise
                                     .then(
                                         null,
                                         function (result) {
-                                            notifierSvc.show({
+                                            notifierService.show({
                                                 message: createErrorString(result),
                                                 type: "error"
                                             });
                                             return $q.reject(result);
                                         }
                                     )['finally'](function () {
-                                        appActivitySvc.idle("userSvc");
+                                        appActivityService.idle("userService");
                                     });
         }
 
         function addLocalLogin(data) {            
             return setPassword(data);
         }
-
-        //register a new user and if the registration is successful signIn
+        
         function registerExternal(registration) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             return accountResource.registerExternal(registration)
                                         .$promise
+                                        .then(function (result) {
+                                            notifierService.show({ message: "registered successfully as " + result.username, type: "info" });
+                                            return result;
+                                        },
+                                        function (result) {                                               
+                                            notifierService.show({
+                                                message: createErrorString(result),
+                                                type: "error"
+                                            });
+
+                                            return $q.reject(result);
+                                        })
                                         ['finally'](function () {
-                                            appActivitySvc.idle("userSvc");
+                                            appActivityService.idle("userService");
                                         });
         }
 
         function register(registration,remember) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             return accountResource.register(registration)
                                     .$promise
                                     .then(
                                         function (result) {
                                             setUser(result);
-                                            storageSvc.store("accessToken", result.access_token, remember);
+                                            storageService.store("accessToken", result.access_token, remember);
 
                                             return result;
                                         },
                                             function (result) {
-                                                notifierSvc.show({
+                                                notifierService.show({
                                                     message: createErrorString(result),
                                                     type: "error"
                                                 });
@@ -252,25 +262,43 @@
                                             })
                                         ['finally'](
                                             function () {
-                                                appActivitySvc.idle("userSvc");
+                                                appActivityService.idle("userService");
                                         });
         }
 
-        function signInExternal(provider) {
-            appActivitySvc.busy("userSvc");
-                      
-            return accountResource.externalLogin({
-                provider: provider,
-                error: error
-            }).$promise
-                ['finally'](
-                    function () {
-                        appActivitySvc.idle("userSvc");
-                    });            
+        function signInExternal(provider, error) {
+            appActivityService.busy("userService");
+
+            var args = {
+                provider: provider              
+            };
+
+            if (error) {
+                args.error = error;
+            }
+          
+            return accountResource.loginExternal(args)
+                                            .$promise
+                                            .then(
+                                                function (result) {
+
+                                                },
+                                                function (result) {
+                                                    notifierService.show({
+                                                        message: "error retrieving external logins. " + createErrorString(result),
+                                                        type: "error"
+                                                    });
+
+                                                    return $q.reject(result);
+                                                })
+                                                ['finally'](
+                                                function () {
+                                                    appActivityService.idle("userService");
+                                                });
         }
 
         function addExternalLogin(externalLogin) {
-            appActivitySvc.busy("userSvc");
+            appActivityService.busy("userService");
 
             return accountResource.addExternalLogin(externalLogin)
                                     .$promise
@@ -280,8 +308,60 @@
                                         })
                                       ['finally'](
                                         function () {
-                                            appActivitySvc.idle("userSvc");
+                                            appActivityService.idle("userService");
                                         });
+        }
+
+        function getExternalLogin(returnUrl, provider, error) {
+            appActivityService.busy("userService");
+
+            var args = {
+                returnUrl: returnUrl ? returnUrl : "",
+                provider: provider
+            };
+
+            if (error) {
+                args.error = error;
+            }
+
+            return accountResource.getExternalLogin(args).$promise
+                                                .then(null,
+                                                    function (result) {
+                                                        notifierService.show({
+                                                            message: "error retrieving external login. " + createErrorString(result),
+                                                            type: "error"
+                                                        });
+
+                                                        return $q.reject(result);
+                                                    })
+                                                 ['finally'](
+                                                    function () {
+                                                        appActivityService.idle("userService");
+                                                    });
+        }
+
+        function getExternalLogins(returnUrl, generateState) {
+            appActivityService.busy("userService");
+
+            var args = {
+                returnUrl: returnUrl ? returnUrl : "",
+                generateState: generateState ? "true" : "false"
+            };
+
+            return accountResource.getExternalLogins(args).$promise
+                                                .then(null,
+                                                    function (result) {
+                                                        notifierService.show({
+                                                            message: "error retrieving external logins. " + createErrorString(result),
+                                                            type: "error"
+                                                        });
+
+                                                        return $q.reject(result);
+                                                    })
+                                                 ['finally'](
+                                                    function () {
+                                                        appActivityService.idle("userService");
+                                                    });
         }
 
         function checkEmailAvailable(modelValue, viewValue) {
@@ -309,7 +389,7 @@
         }
 
         function raiseEvent() {
-            $rootScope.$broadcast("userSvc:signedInChanged", { signedIn: service.info.signedIn });
+            $rootScope.$broadcast("userService:signedInChanged", { signedIn: service.info.signedIn });
         }
 
         function createErrorString(result) {
@@ -325,33 +405,15 @@
                 } else if (result.data && result.data.message) {
                     errors += result.data.message;
                 } else if (result.error) {
-                    errors += " " + result.error_description;
+                    errors += " " + result.error;
+                } else if (result.statusText) {
+                    errors += " " + result.statusText;
                 }
 
                 return errors;
             }
         }
-
-        function getExternalLogin(provider, error) {
-            return accountResource.externalLogin({                
-                provider: provider,
-                error: error
-            }).$promise;
-        }
-
-        function getExternalLogins(returnUrl, provider, generateState) {
-            var args = {
-                returnUrl: returnUrl ? returnUrl : "",                
-                generateState: generateState ? "true" : "false"
-            };
-
-            if (provider) {
-                args.provider = provider;
-            }
-
-            return accountResource.externalLogins(args).$promise;
-        }        
-
+     
         function encodeUrlWithReturnUrl(url, returnUrl, generateState) {
             return url + (encodeURIComponent(returnUrl)) +
                 "&generateState=" + (generateState ? "true" : "false");

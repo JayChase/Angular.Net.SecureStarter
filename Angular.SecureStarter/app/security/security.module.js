@@ -1,14 +1,14 @@
 ﻿(function () {
     'use strict';
 
-    var security = angular.module('app.security', []);
+    var security = angular.module('app.security', ['ngRoute','ngResource', 'app.core']);
 
     security.config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
         $httpProvider.interceptors.push('secureHttpInterceptor');
 
         $routeProvider.when('/register', {
             templateUrl: 'app/security/register.html',
-            controller: 'registerCtrl',
+            controller: 'registerController',
             caseInsensitiveMatch: true
         });
         $routeProvider.when('/signIn', {
@@ -18,20 +18,20 @@
         });
         $routeProvider.when('/manage', {
             templateUrl: 'app/security/manage.html',
-            controller: 'manageCtrl',
+            controller: 'manageController',
             resolve: {
-                guard: ['guardSvc', function (guardSvc) {
-                    return guardSvc.guardRoute();
+                guard: ['guardService', function (guardService) {
+                    return guardService.guardRoute();
                 }]
             },
             caseInsensitiveMatch: true
         });
         $routeProvider.when('/externalregister', {
             templateUrl: 'app/security/externalRegister.html',
-            controller: 'externalRegisterCtrl',
+            controller: 'externalRegisterController',
             resolve: {
-                appReady: ['appStatusSvc', function (appStatusSvc) {
-                    return appStatusSvc.whenReady();
+                appReady: ['appStatusService', function (appStatusService) {
+                    return appStatusService.whenReady();
                 }]
             },
             caseInsensitiveMatch: true
@@ -39,15 +39,15 @@
     }]);
    
     // Handle routing errors and success events
-    security.run(['externalAuthSvc', 'restoreUserSvc', 'appStatusSvc', function (externalAuthSvc, restoreUserSvc, appStatusSvc) {
-        externalAuthSvc.handleAuthResponse().then(
+    security.run(['externalAuthService', 'restoreUserService', 'appStatusService', function (externalAuthService, restoreUserService, appStatusService) {
+        externalAuthService.handleAuthResponse().then(
             null,
             function () {
-                return restoreUserSvc.restore();
+                return restoreUserService.restore();
             })
             ['finally'](
             function () {
-                appStatusSvc.isReady(true);
+                appStatusService.isReady(true);
             });
     }]);
 

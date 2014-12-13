@@ -36,12 +36,12 @@ namespace Angular.SecureStarter
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/app/app.js",
                 "~/app/core/core.module.js",
-                "~/app/core/appActivitySvc.js",
-                "~/app/core/appStatusSvc.js",
-                "~/app/core/notifierSvc.js",
-                "~/app/core/navigationSvc.js",
+                "~/app/core/appActivityService.js",
+                "~/app/core/appStatusService.js",
+                "~/app/core/notifierService.js",
+                "~/app/core/navigationService.js",
                 "~/app/core/skDisableWhenBusy.js",
-                "~/app/core/storageSvc.js",
+                "~/app/core/storageService.js",
                 "~/app/core/skAppReady.js",                       
                 "~/app/common/validation/skMatches.js",
                 "~/app/common/validation/skAsyncValidators.js"
@@ -49,41 +49,40 @@ namespace Angular.SecureStarter
 
             bundles.Add(new ScriptBundle("~/bundles/shell").Include(    
                 "~/app/shell/shell.module.js",
-                "~/app/shell/shellCtrl.js",
-                "~/app/shell/topNavCtrl.js",
+                "~/app/shell/shellController.js",
+                "~/app/shell/topNavController.js",
                 "~/app/shell/skNavLinks.js",
                 "~/app/shell/skBusyIndicator.js"                       
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/security").Include(
-                "~/app/security/security.module.js",
-                "~/app/security/accountClientSvc.js",
+                "~/app/security/security.module.js",                
                 "~/app/security/accountResource.js",
                 "~/app/security/signIn.js",
                 "~/app/security/signInCtrl.js",
-                "~/app/security/registerCtrl.js",
+                "~/app/security/registerController.js",
                 "~/app/security/secureHttpInterceptor.js",
-                "~/app/security/guardSvc.js",                
-                "~/app/security/userSvc.js",
+                "~/app/security/guardService.js",                
+                "~/app/security/userService.js",
                 "~/app/security/skUserInfo.js",
-                "~/app/security/externalSignInCtrl.js",
-                "~/app/security/externalRegisterCtrl.js",
-                "~/app/security/externalAuthSvc.js",
-                "~/app/security/restoreUserSvc.js",
+                "~/app/security/externalSignInController.js",
+                "~/app/security/externalRegisterController.js",
+                "~/app/security/externalAuthService.js",
+                "~/app/security/restoreUserService.js",
                 "~/app/security/skChangePassword.js",
                 "~/app/security/skCreateLocalLogin.js",
                 "~/app/security/skLoginProvider.js",
                 "~/app/security/skUserLogin.js",
-                "~/app/security/manageCtrl.js",
-                "~/app/security/userManagementSvc.js",
+                "~/app/security/manageController.js",
+                "~/app/security/userManagementService.js",
                 "~/app/security/usedLoginProviderFilter.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/content").Include(
                 "~/app/content/content.module.js",
-                "~/app/content/welcome/welcomeCtrl.js",
-                "~/app/content/features/featuresCtrl.js",
-                "~/app/content/securedWebapiDemo/securedWebapiDemoCtrl.js"
+                "~/app/content/welcome/welcomeController.js",
+                "~/app/content/features/featuresController.js",
+                "~/app/content/securedWebapiDemo/securedWebApiDemoController.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

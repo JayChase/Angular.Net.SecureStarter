@@ -4,9 +4,9 @@
     var controllerId = 'externalSignInCtrl';
 
     angular.module('app.security')
-        .controller(controllerId, ['$scope', '$window', 'userSvc', 'notifierSvc', 'appActivitySvc', externalSignInCtrl]);
+        .controller(controllerId, ['$scope', '$window', 'accountClientSvc', 'notifierSvc', 'appActivitySvc', externalSignInCtrl]);
 
-    function externalSignInCtrl($scope, $window, userSvc, notifierSvc, appActivitySvc) {
+    function externalSignInCtrl($scope, $window, accountClientSvc, notifierSvc, appActivitySvc) {
         $scope.title = "external auth providers"
         $scope.authProviders = undefined;
         $scope.login = login;
@@ -24,9 +24,9 @@
         function getAuthProviders() {
             appActivitySvc.busy("externalSignInCtrl");
 
-            userSvc.getExternalLogins("/externalauth/signin").then(
+            accountClientSvc.getExternalLogins("/externalauth/signin").then(
 				function (result) {
-				    $scope.authProviders = result;
+				    $scope.authProviders = result.data;
 				},
 				function (result) {
 				    notifierSvc.show({ message: "error retrieving external logins", type: "error" });

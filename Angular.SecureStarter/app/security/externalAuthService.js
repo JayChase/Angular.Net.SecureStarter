@@ -1,12 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    var serviceId = 'externalAuthSvc';
+    var serviceId = 'externalAuthService';
 
     angular.module('app.security')
-        .factory(serviceId, ['$location', '$q', 'storageSvc', 'appActivitySvc', 'notifierSvc','userSvc', externalAuthSvc]);
+        .factory(serviceId, ['$location', '$q', 'storageService', 'appActivityService', 'notifierService','userService', externalAuthService]);
 
-    function externalAuthSvc($location, $q, storageSvc, appActivitySvc, notifierSvc, userSvc) {
+    function externalAuthService($location, $q, storageService, appActivityService, notifierService, userService) {
         var registrationInfo, associationInfo;
 
         var service = {
@@ -18,7 +18,7 @@
         return service;
 
         function handleAuthResponse() {
-            appActivitySvc.busy("externalAuthSvc");
+            appActivityService.busy("externalAuthService");
 
             var locationPath = $location.path(), redirectPath = "/", deferred = $q.defer();
 
@@ -29,33 +29,33 @@
                 cleanUp();
 
                 if (!externalActionResult || !externalActionResult.access_token) {
-                    notifierSvc.show({ message: "something went wrong. Error: rereiving access token", type: "error" });
-                    appActivitySvc.idle("externalAuthSvc");                    
+                    notifierService.show({ message: "something went wrong. Error: rereiving access token", type: "error" });
+                    appActivityService.idle("externalAuthService");                    
                     $location.path("/signIn").hash('');
                     deferred.resolve(true);
 
                 } else if (externalActionResult.error) {
-                    notifierSvc.show({ message: "something went wrong. Error: " + externalActionResult.error, type: "error" });
-                    appActivitySvc.idle("externalAuthSvc");
+                    notifierService.show({ message: "something went wrong. Error: " + externalActionResult.error, type: "error" });
+                    appActivityService.idle("externalAuthService");
                     $location.path("/signIn").hash('');
                     deferred.resolve(true);
                 } else {
 
                     if (locationPath === "/externalauth/signin") {
-                        storageSvc.store("accessToken", externalActionResult.access_token, true);
+                        storageService.store("accessToken", externalActionResult.access_token, true);
                     } else if (locationPath === "/externalauth/register") {
-                        storageSvc.store("accessToken", externalActionResult.access_token, true);
+                        storageService.store("accessToken", externalActionResult.access_token, true);
                         registrationInfo = externalActionResult;
                     } else if (locationPath === "/externalauth/association") {
                         associationInfo = { externalAccessToken: externalActionResult.access_token };
                         redirectPath = "/manage";
                     }
 
-                    userSvc.getUserInfo()
+                    userService.getUserInfo()
                         .then(
 				            function (result) {
 				                if (result.hasRegistered) {
-				                    userSvc.setUser(result);
+				                    userService.setUser(result);
 
 				                    if (associationInfo) {
 				                        associateLogin();
@@ -69,14 +69,14 @@
 				                        username: result.userName
 				                    };
 				                    
-				                    $location.path("/externalRegister");
+				                    $location.path("/externalRegister").hash('');
 				                }
 
 				                deferred.resolve(true);
 				            },
 				            function (result) {
 				                //error	
-				                notifierSvc.show({ message: "something went wrong. " + result.error, type: "error" });
+				                notifierService.show({ message: "something went wrong. " + result.error, type: "error" });
 				                
 				                $location.path("/signIn").hash('');
 
@@ -84,40 +84,39 @@
 				            })
                         ['finally'](
                             function () {
-                                appActivitySvc.idle("externalAuthSvc");
+                                appActivityService.idle("externalAuthService");
                             });
                 }
             } else {
                 deferred.reject(false);
-                appActivitySvc.idle("externalAuthSvc");
+                appActivityService.idle("externalAuthService");
             }
             
             return deferred.promise;
         }
 
         function associateLogin() {
-            userSvc.addExternalLogin(associationInfo)
+            userService.addExternalLogin(associationInfo)
                 .then(
 				    function (result) {
 				        //success
-				        notifierSvc.show({ message: "login added successfully", type: "info" });
+				        notifierService.show({ message: "login added successfully", type: "info" });
 				        return result;
 				    },
 				    function (result) {
 				        //error
-				        notifierSvc.show({ message: "something went wrong associating login", type: "error" });
+				        notifierService.show({ message: "something went wrong associating login", type: "error" });
 				        return $q.reject(result);
 				    })
                 ['finally'](
                     function always() {
-                        appActivitySvc.idle("externalAuthSvc");
+                        appActivityService.idle("externalAuthService");
                         $location.path("/manage");
                     });
         }
 
-        function cleanUp() {
-            //$location.hash("");
-            storageSvc.remove("registrationInfo");            
+        function cleanUp() {            
+            storageService.remove("registrationInfo");            
         }
 
         function getRegistrationInfo() {  

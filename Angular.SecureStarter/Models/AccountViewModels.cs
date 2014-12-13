@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Angular.SecureStarter.Models
 {
@@ -14,13 +15,24 @@ namespace Angular.SecureStarter.Models
         public string State { get; set; }
     }
 
+    public class LoginViewModel
+    {
+        [Required]
+        public string Id { get; set; } //username or email
+
+        [Required]
+        public string Password { get; set; }
+
+        public bool Remember { get; set; }
+    }
+
     public class ManageInfoViewModel
     {
         public string LocalLoginProvider { get; set; }
 
-        public string UserName { get; set; }
-
         public string Email { get; set; }
+        
+        public string UserName { get; set; }
 
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 

@@ -1,15 +1,14 @@
 using System;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security.OAuth;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
 using Angular.SecureStarter.Models;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Angular.SecureStarter.Providers
 {
@@ -33,15 +32,15 @@ namespace Angular.SecureStarter.Providers
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
-            //TODO: move this func into userManager
             if (user == null)
             {
                 user = await userManager.FindByEmailAsync(context.UserName);
 
-                if(user != null)
+                if (user != null)
                 {
                     user = await userManager.FindAsync(user.UserName, context.Password);
                 }
+                
             }
 
             if (user == null)
@@ -106,7 +105,7 @@ namespace Angular.SecureStarter.Providers
 
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", ((ClaimsIdentity) identity).FindFirstValue(ClaimTypes.Name) },
+                { "userName", ((ClaimsIdentity) identity).FindFirst(ClaimTypes.Name).Value },
                 { "userRoles", roles }
             };
             return new AuthenticationProperties(data);

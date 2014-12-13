@@ -5,18 +5,18 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .controller(controllerId, ['$scope','$location', 'userSvc','notifierSvc', signInCtrl]);
+        .controller(controllerId, ['$scope','$location', 'userService','notifierService', signInCtrl]);
 
-    function signInCtrl($scope, $location, userSvc, notifierSvc) {
+    function signInCtrl($scope, $location, userService, notifierService) {
         $scope.title = 'Sign in';
         $scope.user = {
             id: "",
-            password: ""
+            password: "",
+            remember: false
         };
         $scope.signIn = signIn;
         $scope.result = "";
-        $scope.remember = false;
-      
+              
         activate();
 
         function activate() {
@@ -24,16 +24,17 @@
         }
                 
         function signIn() {
-            userSvc.signIn($scope.user,$scope.remember)
+
+            userService.signIn($scope.user)
                 .then(
-                    function (result) {
-                        notifierSvc.show({ message: "signed in as " + userSvc.info.username, type: "info" });
+                    function (result) {                       
                         $location.path('/');
                     },
                     function (result) {                        
                         //TODO: set focus back here
                         $scope.user.id = ""; 
-                        $scope.user.password = "";                        
+                        $scope.user.password = "";
+                        $scope.user.remember = false;
                     }
                 );
         }

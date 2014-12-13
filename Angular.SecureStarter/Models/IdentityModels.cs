@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -24,12 +24,13 @@ namespace Angular.SecureStarter.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
         }
-
+        
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            var context = new ApplicationDbContext();
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
+            return context;
         }
     }
 }

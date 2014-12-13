@@ -27,19 +27,30 @@ namespace Angular.SecureStarter.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-        private const string DefaultUserRole = "user";
-
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public AccountController()
-            : this(Startup.OAuthOptions.AccessTokenFormat)
         {
         }
 
-        public AccountController(ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public AccountController(ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
-            //
+            UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
+        }
+         
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? Request.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set 
+            { 
+                _signInManager = value; 
+            }
         }
 
         public ApplicationUserManager UserManager
@@ -75,6 +86,42 @@ namespace Angular.SecureStarter.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
                 UserRoles = roles
             };
+        }
+
+        [AllowAnonymous]
+        [Route("Login")]
+        public async Task<IHttpActionResult> Login(LoginViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest("Valid username and password required.");
+            }
+
+            var result = await this.SignInManager.PasswordSignInAsync(model.Id, model.Password, model.Remember, false);
+
+            if (result != SignInStatus.Success)
+            {
+                var user = await this.UserManager.FindByEmailAsync(model.Id);
+
+                if (user != null)
+                {
+                    result = await this.SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.Remember, false);
+                }
+            }
+
+            switch(result)
+            {
+                case SignInStatus.Success:
+                    return Ok();
+                case SignInStatus.Failure:
+                    return BadRequest("login failed");
+                case SignInStatus.LockedOut:
+                    return BadRequest("account locked out");
+                case SignInStatus.RequiresVerification:
+                    return BadRequest("verification required");
+                default:
+                    return BadRequest("unknown login error");
+            }
         }
 
         // POST api/Account/Logout
@@ -241,8 +288,7 @@ namespace Angular.SecureStarter.Controllers
         {
             if (error != null)
             {
-                //TODO put something better here for grabbbing an                
-                return Redirect(Url.Content("~/externalauth") + "#error=" + Uri.EscapeDataString(error));
+                return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
             }
 
             if (!User.Identity.IsAuthenticated)
@@ -295,8 +341,10 @@ namespace Angular.SecureStarter.Controllers
         [Route("ExternalLogins")]
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
-            //returnUrl = @"";
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
+
+            IEnumerable<AuthenticationDescription> allDs = Authentication.GetAuthenticationTypes();
+            
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
 
             string state;
@@ -321,7 +369,7 @@ namespace Angular.SecureStarter.Controllers
                         provider = description.AuthenticationType,
                         response_type = "token",
                         client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,      
+                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
                         state = state
                     }),
                     State = state
@@ -330,48 +378,6 @@ namespace Angular.SecureStarter.Controllers
             }
 
             return logins;
-        }
-
-        // GET api/Account/ExternalLogins?returnUrl=%2F&provider=name&generateState=true
-        [AllowAnonymous]
-        [Route("ExternalLogins")]
-        public IHttpActionResult GetExternalLogins(string returnUrl,string provider, bool generateState = false)
-        {
-            var description = Authentication.GetExternalAuthenticationTypes()                                    
-                                    .FirstOrDefault(ad => ad.AuthenticationType == provider);
-
-            if (description == null)
-            {
-                return NotFound();
-            }
-            
-            string state;
-
-            if (generateState)
-            {
-                const int strengthInBits = 256;
-                state = RandomOAuthStateGenerator.Generate(strengthInBits);
-            }
-            else
-            {
-                state = null;
-            }
-
-            ExternalLoginViewModel login = new ExternalLoginViewModel
-            {
-                Name = description.Caption,
-                Url = Url.Route("ExternalLogin", new
-                {
-                    provider = description.AuthenticationType,
-                    response_type = "token",
-                    client_id = Startup.PublicClientId,
-                    redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
-                    state = state
-                }),
-                State = state
-            };
-
-            return Ok(login);
         }
 
         // POST api/Account/Register
@@ -384,7 +390,7 @@ namespace Angular.SecureStarter.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -393,48 +399,7 @@ namespace Angular.SecureStarter.Controllers
                 return GetErrorResult(result);
             }
 
-            result = await UserManager.AddToRoleAsync(user.Id, DefaultUserRole);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
             return Ok();
-        }        
-
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("checkEmailAvailable")]
-        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] emailQueryBindingModel query)
-        {
-            var user = await UserManager.FindByEmailAsync(query.Email);
-
-            if (user == null)
-            {
-                return Ok("email available");             
-            }
-            else
-            {
-                return BadRequest("email already in use");
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("checkUsernameAvailable")]
-        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] usernameQueryBindingModel query)
-        {
-            var user = await UserManager.FindByNameAsync(query.Username);
-
-            if (user == null)
-            {
-                return Ok("username available");
-            }
-            else
-            {
-                return BadRequest("username already in use");
-            }
         }
 
         // POST api/Account/RegisterExternal
@@ -454,37 +419,28 @@ namespace Angular.SecureStarter.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email != null ? model.Email : "" };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
 
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-
-            result = await UserManager.AddToRoleAsync(user.Id, DefaultUserRole);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
             return Ok();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && _userManager != null)
             {
-                UserManager.Dispose();
+                _userManager.Dispose();
+                _userManager = null;
             }
 
             base.Dispose(disposing);

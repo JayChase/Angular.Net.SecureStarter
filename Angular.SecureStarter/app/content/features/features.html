@@ -8,7 +8,7 @@
                 <button class="btn btn-default" type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
             </li>
         </ul>
-        <p class="bg-info" ng-if="guardSvc.authorized()">This paragraph will only show is you are currently signed in.</p>
-        <p class="bg-info" ng-if="guardSvc.authorized(['administrator'])">This paragraph will only show is you are currently signed in and the user is in the administrator role.</p>
+        <p class="bg-info" ng-if="guardService.authorized()">This paragraph will only show is you are currently signed in.</p>
+        <p class="bg-info" ng-if="guardService.authorized(['administrator'])">This paragraph will only show is you are currently signed in and the user is in the administrator role.</p>
     </div>
 </section>

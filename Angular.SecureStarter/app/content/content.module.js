@@ -6,19 +6,19 @@
     content.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/welcome', {
             templateUrl: 'app/content/welcome/welcome.html',
-            controller: 'welcomeCtrl',
+            controller: 'welcomeController',
             caseInsensitiveMatch: true,
             showNav: 'welcome'
         });
         $routeProvider.when('/features', {
             templateUrl: 'app/content/features/features.html',
-            controller: 'featuresCtrl',
+            controller: 'featuresController',
             caseInsensitiveMatch: true,
             showNav: 'features'
         });
         $routeProvider.when('/securedWebapiDemo', {
             templateUrl: 'app/content/securedWebapiDemo/securedWebapiDemo.html',
-            controller: 'securedWebapiDemoCtrl',
+            controller: 'securedWebApiDemoController',
             caseInsensitiveMatch: true,
             showNav: 'Secured Web API demo'
         });
