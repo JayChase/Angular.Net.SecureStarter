@@ -21,6 +21,7 @@ describe('app.security guardService', function () {
             }
         });
         
+
         mockLocation = {            
             path: function (){         
             }
