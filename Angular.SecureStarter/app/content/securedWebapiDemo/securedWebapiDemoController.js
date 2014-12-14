@@ -10,25 +10,28 @@
                 { 'update': { method: 'PUT' } }
             );
         });
-
-    var controllerId = 'securedWebApiDemoController';
-
+        
     angular.module('app')
-        .controller(controllerId, ['$scope', 'notifierService', 'appActivityService', 'securedSvc', securedWebApiDemoController]);
+        .controller('securedWebApiDemoController', securedWebApiDemoController);
     
-    function securedWebApiDemoController($scope,notifierService, appActivityService, securedSvc) {
-        $scope.title = 'Secured WebAPI Demo';
-        $scope.keyPoints = ["The SecuredController requires an authenticated user.",
+    securedWebApiDemoController.$inject = ['notifierService', 'appActivityService', 'securedSvc'];
+
+    function securedWebApiDemoController(notifierService, appActivityService, securedSvc) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = 'Secured WebAPI Demo';
+        vm.keyPoints = ["The SecuredController requires an authenticated user.",
             "If an access token is available the $http interceptor secureHttpInterceptor will add an authorization header to all requests.",
             "In this demonstration if a user is logged on GetValues will succeed and return a result.",
             "If not the call will fail with a 401 error response."];
-        $scope.getValues = getValues;
-        $scope.result = "";
+        vm.getValues = getValues;
+        vm.result = "";
 
         function getValues() {
             appActivityService.busy("securedWebapiDemo");
 
-            $scope.result = "";
+            vm.result = "";
 
             notifierService.show({ message: "Calling SecuredController Get (authentication required)." });
 
@@ -36,7 +39,7 @@
                 .then(
                     function (result) {
                         notifierService.show({ message: "Call succeeded." });
-                        $scope.result = result;
+                        vm.result = result;
                     },
                     function (result) {
                         if(result.status && result.status === "401"){
@@ -45,7 +48,7 @@
                             notifierService.show({ message: "Call failed unexpectedly." });                            
                         }
 
-                        $scope.result = result;
+                        vm.result = result;
                     })
                 ['finally'](
                     function () {

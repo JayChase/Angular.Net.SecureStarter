@@ -1,19 +1,22 @@
 ﻿(function () {
     'use strict';
-
-    var controllerId = 'externalRegisterController';
-
+    
     angular.module('app.security')
-        .controller(controllerId, ['$scope','$location','$window', 'externalAuthService','appActivityService','notifierService','userService', externalRegisterController]);
+            .controller('externalRegisterController', externalRegisterController);
 
-    function externalRegisterController($scope, $location, $window, externalAuthService, appActivityService, notifierService, userService) {
-        $scope.title = 'externalRegister';
-        $scope.registration = {
+    externalRegisterController.$inject = ['$location', '$window', 'externalAuthService', 'appActivityService', 'notifierService', 'userService']
+
+    function externalRegisterController($location, $window, externalAuthService, appActivityService, notifierService, userService) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = 'externalRegister';
+        vm.registration = {
             username: "",
             email: "",
             loginProvider: ""
         };
-        $scope.register = register;
+        vm.register = register;
 
         activate();
 
@@ -23,9 +26,9 @@
             var info = externalAuthService.getRegistrationInfo();
 
             if (info) {
-                $scope.registration.username = info.username;
-                $scope.registration.email = info.email;
-                $scope.registration.loginProvider = info.loginProvider;
+                vm.registration.username = info.username;
+                vm.registration.email = info.email;
+                vm.registration.loginProvider = info.loginProvider;
                 appActivityService.idle("externalRegisterController");
             } else {
                 appActivityService.idle("externalRegisterController");
@@ -35,12 +38,20 @@
         }
 
         function register() {
-            userService.registerExternal($scope.registration).then(
-				function (result) {				    
-				    userService.getExternalLogin("/externalauth/signin", $scope.registration.loginProvider)
-				                .then(function (result) {
-				                    $window.location.href = result.url;
-				                });
+            userService.registerExternal(vm.registration).then(
+                function (result) {
+                    notifierService.show({ message: "registered successfully as " + userService.info.username, type: "info" });                    
+                    userService.signInExternal(vm.registration.loginProvider)
+                        .then(
+                            function (result) {
+				                $window.location.href = result.url;                
+                            },
+				            function (result) {				                
+				                //notifierService.show({ message: "something went wrong signing in. Error" + result.error, type: "error" });
+				            });
+                },
+				function (result) {
+				    notifierService.show({ message: result.error, type: "error" });
 				});
         }
     }

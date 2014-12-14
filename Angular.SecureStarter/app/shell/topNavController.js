@@ -1,21 +1,23 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'topNavController';
-
-    // TODO: replace app with your module name
     angular.module('app.shell')
-        .controller(controllerId, ['$scope','appSettingsService','navigationService', topNavController]);
+            .controller('topNavController', topNavController);
 
-    function topNavController($scope, appSettingsService,navigationService) {
-        $scope.title = appSettingsService.title;
-        $scope.brand = appSettingsService.brand;
-        $scope.links = [];
+    topNavController.$inject = ['appSettingsService', 'navigationService'];
+
+    function topNavController(appSettingsService, navigationService) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = appSettingsService.title;
+        vm.brand = appSettingsService.brand;
+        vm.links = [];
 
         activate();
 
         function activate() {
-            $scope.links = navigationService.getLinks();
+            vm.links = navigationService.getLinks();
         }
     }
 })();

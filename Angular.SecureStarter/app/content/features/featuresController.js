@@ -1,16 +1,18 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'featuresController';
-
-    // TODO: replace app with your module name
     angular.module('app.content')
-        .controller(controllerId, ['$scope', 'notifierService', 'appActivityService', 'guardService', featuresController]);
+        .controller('featuresController', featuresController);
 
-    function featuresController($scope, notifierService, appActivityService, guardService) {
-        $scope.title = 'features:';
-        $scope.features = [];
-        $scope.guardService = guardService;
+    featuresController.$inject = ['notifierService', 'appActivityService', 'guardService'];
+
+    function featuresController(notifierService, appActivityService, guardService) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = 'features:';
+        vm.features = [];
+        vm.guardService = guardService;
 
         activate();
 
@@ -25,7 +27,7 @@
                 }
             };
 
-            $scope.features.push(notifierFeature);            
+            vm.features.push(notifierFeature);            
 
             appActivityFeature = {
                 name: "application activity service (appActivityService)",
@@ -41,14 +43,14 @@
                 }
             };
 
-            $scope.features.push(appActivityFeature);
+            vm.features.push(appActivityFeature);
 
             navigationFeature = {
                 name: "Dynamic navbar links",
                 description: "Add the property showNav to a route to show it as a link in the navbar. eg showNav: 'linkText'"
             };
 
-            $scope.features.push(navigationFeature);
+            vm.features.push(navigationFeature);
 
             authorizationFeature = {
                 name: "Render content based on authentication and authorization",
@@ -57,7 +59,7 @@
                     + "<p ng-if='guardService.authorize()'>This paragraph will only show if you are currently signed in.</p>"                    
             };
 
-            $scope.features.push(authorizationFeature);
+            vm.features.push(authorizationFeature);
         }
     }
 })();

@@ -1,14 +1,14 @@
 ﻿'use strict';
 
 describe('app.security guardService', function () {
-    var mockLocation, mockRoute, mockNotifierSvc, mockuserService, mockStorageSvc, externalAuthSvcMock, mockEvent;
+    var mockLocation, mockRoute, mocknotifierService, mockuserService, mockStorageSvc, externalAuthSvcMock, mockEvent;
     
     beforeEach(module('app.security'));
 
     beforeEach(function () {       
         mockEvent = sinon.stub({ preventDefault: function () { } });        
         
-        mockNotifierSvc = sinon.stub({ show: function (args) { } });        
+        mocknotifierService = sinon.stub({ show: function (args) { } });        
        
         mockuserService = sinon.stub({
             signedIn: true,
@@ -19,8 +19,7 @@ describe('app.security guardService', function () {
             retrieve: function (args) {
                 return args;
             }
-        });
-        
+        });        
 
         mockLocation = {            
             path: function (){         
@@ -28,7 +27,7 @@ describe('app.security guardService', function () {
         };
         
         mockRoute = {
-            routes: JSON.parse('{"/welcome":{"reloadOnSearch":true,"templateUrl":"app/content/welcome/welcome.html","controller":"welcomeController","showNav":"welcome","originalPath":"/welcome","regexp":{},"keys":[]},"/welcome/":{"redirectTo":"/welcome","originalPath":"/welcome/","regexp":{},"keys":[]},"/features":{"reloadOnSearch":true,"templateUrl":"app/content/features/features.html","controller":"featuresController","showNav":"features","originalPath":"/features","regexp":{},"keys":[]},"/features/":{"redirectTo":"/features","originalPath":"/features/","regexp":{},"keys":[]},"/register":{"reloadOnSearch":true,"templateUrl":"app/security/register.html","controller":"registerController","originalPath":"/register","regexp":{},"keys":[]},"/register/":{"redirectTo":"/register","originalPath":"/register/","regexp":{},"keys":[]},"/signIn":{"reloadOnSearch":true,"templateUrl":"app/security/signIn.html","controller":"signInCtrl","originalPath":"/signIn","regexp":{},"keys":[]},"/signIn/":{"redirectTo":"/signIn","originalPath":"/signIn/","regexp":{},"keys":[]},"null":{"reloadOnSearch":true,"redirectTo":"/welcome"}}')
+            routes: JSON.parse('{"/welcome":{"reloadOnSearch":true,"templateUrl":"app/content/welcome/welcome.html","controller":"welcomeController","showNav":"welcome","originalPath":"/welcome","regexp":{},"keys":[]},"/welcome/":{"redirectTo":"/welcome","originalPath":"/welcome/","regexp":{},"keys":[]},"/features":{"reloadOnSearch":true,"templateUrl":"app/content/features/features.html","controller":"featuresController","showNav":"features","originalPath":"/features","regexp":{},"keys":[]},"/features/":{"redirectTo":"/features","originalPath":"/features/","regexp":{},"keys":[]},"/register":{"reloadOnSearch":true,"templateUrl":"app/security/register.html","controller":"registerController","originalPath":"/register","regexp":{},"keys":[]},"/register/":{"redirectTo":"/register","originalPath":"/register/","regexp":{},"keys":[]},"/signIn":{"reloadOnSearch":true,"templateUrl":"app/security/signIn.html","controller":"signInController","originalPath":"/signIn","regexp":{},"keys":[]},"/signIn/":{"redirectTo":"/signIn","originalPath":"/signIn/","regexp":{},"keys":[]},"null":{"reloadOnSearch":true,"redirectTo":"/welcome"}}')
         };
         
         module(function ($provide) {
@@ -72,7 +71,7 @@ describe('app.security guardService', function () {
             });
             
             $provide.value("appStatusSvc", ass);            
-            $provide.value('notifierSvc', mockNotifierSvc);
+            $provide.value('notifierService', mocknotifierService);
             $provide.value('userService', mockuserService);
             $provide.value('$route', mockRoute);
             $provide.value('$location', mockLocation);

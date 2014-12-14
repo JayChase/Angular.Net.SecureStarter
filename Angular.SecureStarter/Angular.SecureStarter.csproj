@@ -249,6 +249,7 @@
     <Content Include="app\common\validation\skAsyncValidators.js" />
     <Content Include="app\common\validation\skMatches.js" />
     <Content Include="app\content\content.module.js" />
+    <Content Include="app\content\features\controller1.js" />
     <Content Include="app\content\features\features.html" />
     <Content Include="app\content\features\featuresController.js" />
     <Content Include="app\content\securedWebapiDemo\securedWebapiDemo.html" />
@@ -277,7 +278,7 @@
     <Content Include="app\security\secureHttpInterceptor.js" />
     <Content Include="app\security\security.module.js" />
     <Content Include="app\security\signIn.html" />
-    <Content Include="app\security\signInCtrl.js" />
+    <Content Include="app\security\signInController.js" />
     <Content Include="app\security\skUserLogin.js" />
     <Content Include="app\security\skUserLogin.html" />
     <Content Include="app\security\skCreateLocalLogin.html" />

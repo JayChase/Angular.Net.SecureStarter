@@ -1,22 +1,22 @@
 ﻿<section id="signIn" class="view row" sk-disable-when-busy>
     <div class="col-md-7">
-        <h2>{{title}}</h2>
+        <h2>{{vm.title}}</h2>
         <form class="form" role="form" name="signInForm">
             <div class="form-group">
                 <label for="userId">email or username</label>
-                <input type="text" id="userId" name="userId" class="form-control" ng-model="user.id" required />
+                <input type="text" id="userId" name="userId" class="form-control" ng-model="vm.user.id" required />
                 <span class="help-block" ng-show="signInForm.userId.$error.required && signInForm.$dirty">required</span>
             </div>
             <div class="form-group">
                 <label for="userPassword">Password</label>
-                <input type="password" id="userPassword" class="form-control" ng-model="user.password" required />
+                <input type="password" id="userPassword" class="form-control" ng-model="vm.user.password" required />
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" ng-model="user.remember" />remember me
+                    <input type="checkbox" ng-model="vm.user.remember" />remember me
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="signIn()">Sign in</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="vm.signIn()">Sign in</button>
         </form>
         <ul class="list-unstyled">
             <li>Forgotten your password? Click <a href="/reminder">here</a></li>

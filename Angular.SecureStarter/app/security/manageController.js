@@ -1,19 +1,21 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'manageController';
-
-    // TODO: replace app with your module name
     angular.module('app.security')
-        .controller(controllerId, ['$scope','userManagementService', manageController]);
+        .controller('manageController', manageController);
 
-    function manageController($scope, userManagementService) {        
-        $scope.title = 'Manage';
-        $scope.loginProviders = userManagementService.loginProviders;
-        $scope.userLogins = userManagementService.userLogins;
-        $scope.manageInfo = userManagementService.info;
-        $scope.addLogin = userManagementService.addLogin;
-        $scope.removeLogin = userManagementService.removeLogin;
+    manageController.$inject = ['userManagementService'];
+
+    function manageController(userManagementService) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = 'Manage';
+        vm.loginProviders = userManagementService.loginProviders;
+        vm.userLogins = userManagementService.userLogins;
+        vm.manageInfo = userManagementService.info;
+        vm.addLogin = userManagementService.addLogin;
+        vm.removeLogin = userManagementService.removeLogin;
 
         activate();
 

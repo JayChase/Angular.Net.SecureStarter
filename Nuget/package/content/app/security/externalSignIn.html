@@ -1,0 +1,6 @@
+﻿<section id="externalSignIn" class="view" ng-controller="externalSignInCtrl">
+    <h2>{{title}}</h2>
+    <form class="form" role="form" name="signInForm" sk-disable-when-busy>
+        <button type="submit" class="btn btn-default" ng-repeat="ap in authProviders" ng-click="login(ap.url)">{{ap.name}}</button>   
+    </form>    
+</section>

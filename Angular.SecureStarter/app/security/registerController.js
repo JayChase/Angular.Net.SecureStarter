@@ -1,25 +1,28 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'registerController';
-
     angular.module('app.security')
-        .controller(controllerId, ['$scope', '$location', 'notifierService', 'userService', registerController]);
+            .controller('registerController', registerController);
 
-    function registerController($scope, $location, notifierService,userService) {
-        $scope.title = 'Register';
-        $scope.registration = {
+    registerController.$inject = ['$location', 'notifierService', 'userService'];
+
+    function registerController($location, notifierService, userService) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = 'Register';
+        vm.registration = {
             email: "",
             username: "",
             password: "",
             confirmPassword: ""            
         };
-        $scope.register = register;
-        $scope.checkUsernameAvailable = userService.checkUsernameAvailable;
-        $scope.checkEmailAvailable = userService.checkEmailAvailable;
+        vm.register = register;
+        vm.checkUsernameAvailable = userService.checkUsernameAvailable;
+        vm.checkEmailAvailable = userService.checkEmailAvailable;
 
         function register() {            
-            userService.register($scope.registration)
+            userService.register(vm.registration)
                 .then(
                     function (result) {
 				        //success		
@@ -36,8 +39,8 @@
             notifierService.show({ message: "signing in", type: "warning" });
 
             var user = {
-                id: $scope.registration.email,
-                password: $scope.registration.password
+                id: vm.registration.email,
+                password: vm.registration.password
             };
 
             userService.signIn(user)

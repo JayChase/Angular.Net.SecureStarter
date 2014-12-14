@@ -19,9 +19,10 @@
             getManageInfo: getManageInfo,
             getUserInfo: getUserInfo,
             getExternalLogins: getExternalLogins,
-            getExternalLogin: getExternalLogin,
+            getExternalLogin: getExternalLogin,            
             addExternalLogin: addExternalLogin,
             registerExternal: registerExternal,
+            signInExternal: signInExternal,
             register: register,
             checkUsernameAvailable: checkUsernameAvailable,
             checkEmailAvailable: checkEmailAvailable,
@@ -266,35 +267,17 @@
                                         });
         }
 
-        function signInExternal(provider, error) {
+        function signInExternal(provider) {
             appActivityService.busy("userService");
 
-            var args = {
-                provider: provider              
-            };
-
-            if (error) {
-                args.error = error;
-            }
-          
-            return accountResource.loginExternal(args)
-                                            .$promise
-                                            .then(
-                                                function (result) {
-
-                                                },
-                                                function (result) {
-                                                    notifierService.show({
-                                                        message: "error retrieving external logins. " + createErrorString(result),
-                                                        type: "error"
-                                                    });
-
-                                                    return $q.reject(result);
-                                                })
-                                                ['finally'](
-                                                function () {
-                                                    appActivityService.idle("userService");
-                                                });
+            return service.getExternalLogin({
+                provider: provider,
+                returnUrl: "/externalauth/signin"
+                })
+                ['finally'](
+                    function () {
+                        appActivityService.idle("userService");
+                    });
         }
 
         function addExternalLogin(externalLogin) {
@@ -312,56 +295,60 @@
                                         });
         }
 
-        function getExternalLogin(returnUrl, provider, error) {
+        function getExternalLogin(options) {
             appActivityService.busy("userService");
 
             var args = {
-                returnUrl: returnUrl ? returnUrl : "",
-                provider: provider
+                returnUrl: options.returnUrl ? options.returnUrl : "",
+                generateState: (options.generateState ? "true" : "false"),
+                provider:options.provider
             };
 
-            if (error) {
-                args.error = error;
-            }
 
-            return accountResource.getExternalLogin(args).$promise
-                                                .then(null,
-                                                    function (result) {
-                                                        notifierService.show({
-                                                            message: "error retrieving external login. " + createErrorString(result),
-                                                            type: "error"
-                                                        });
-
-                                                        return $q.reject(result);
-                                                    })
-                                                 ['finally'](
-                                                    function () {
-                                                        appActivityService.idle("userService");
+            return accountResource.getExternalLogin(args)
+                                            .$promise
+                                            .then(null,
+                                                function (result) {
+                                                    notifierService.show({
+                                                        message: "error retrieving external logins. " + createErrorString(result),
+                                                        type: "error"
                                                     });
+
+                                                    return $q.reject(result);
+                                                })
+                                                ['finally'](
+                                                function () {
+                                                    appActivityService.idle("userService");
+                                                });
         }
 
-        function getExternalLogins(returnUrl, generateState) {
+        function getExternalLogins(options) {
             appActivityService.busy("userService");
 
             var args = {
-                returnUrl: returnUrl ? returnUrl : "",
-                generateState: generateState ? "true" : "false"
+                returnUrl: options.returnUrl ? options.returnUrl : "",
+                generateState: (options.generateState ? "true" : "false")
             };
 
-            return accountResource.getExternalLogins(args).$promise
-                                                .then(null,
-                                                    function (result) {
-                                                        notifierService.show({
-                                                            message: "error retrieving external logins. " + createErrorString(result),
-                                                            type: "error"
-                                                        });
+            if (options.provider) {
+                args.provider = options.provider;
+            }
 
-                                                        return $q.reject(result);
-                                                    })
-                                                 ['finally'](
-                                                    function () {
-                                                        appActivityService.idle("userService");
+            return accountResource.getExternalLogins(args)
+                                            .$promise
+                                            .then(null,
+                                                function (result) {
+                                                    notifierService.show({
+                                                        message: "error retrieving external logins. " + createErrorString(result),
+                                                        type: "error"
                                                     });
+
+                                                    return $q.reject(result);
+                                                })
+                                                ['finally'](
+                                                function () {
+                                                    appActivityService.idle("userService");
+                                                });
         }
 
         function checkEmailAvailable(modelValue, viewValue) {

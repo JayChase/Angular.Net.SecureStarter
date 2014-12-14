@@ -1,15 +1,18 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'externalSignInController';
-
     angular.module('app.security')
-        .controller(controllerId, ['$scope', '$window', 'userService', 'notifierService', 'appActivityService', externalSignInController]);
+            .controller('externalSignInController',  externalSignInController);
 
-    function externalSignInController($scope, $window, userService, notifierService, appActivityService) {
-        $scope.title = "external auth providers"
-        $scope.authProviders = undefined;
-        $scope.login = login;
+    externalSignInController.$inject = ['$window', 'userService', 'notifierService', 'appActivityService'];
+
+    function externalSignInController($window, userService, notifierService, appActivityService) {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = "external auth providers"
+        vm.authProviders = undefined;
+        vm.login = login;
 
         activate();
 
@@ -22,10 +25,10 @@
         }
 
         function getAuthProviders() {            
-            userService.getExternalLogins("/externalauth/signin")
+            userService.getExternalLogins({returnUrl: "/externalauth/signin"})
                                     .then(
 				                        function (result) {
-				                            $scope.authProviders = result;
+				                            vm.authProviders = result;
 				                        },
 				                        function (result) {
 				                            notifierService.show({ message: "error retrieving external logins", type: "error" });

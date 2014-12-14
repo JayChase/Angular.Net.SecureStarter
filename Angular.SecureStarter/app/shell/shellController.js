@@ -1,13 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'shellController';
+    angular.module('app.shell')
+            .controller('shellController', shellController);
 
-    // TODO: replace app with your module name
-    angular.module('app.shell').controller(controllerId,
-        ['$scope', shell]);
-
-    function shell($scope) {
-           
+    function shellController() {
+        /* jshint validthis:true */
+        var vm = this;
     }
+
 })();

@@ -5,10 +5,13 @@
 
     // TODO: replace app with your module name
     angular.module('app.content')
-        .controller(controllerId, ['$scope', welcomeController]);
+        .controller(controllerId,welcomeController);
 
-    function welcomeController($scope) {
-        $scope.title = 'Angular secure starter kit';
+    function welcomeController() {
+        /* jshint validthis:true */
+        var vm = this;
+
+        vm.title = 'Angular secure starter kit';
       
         activate();
 

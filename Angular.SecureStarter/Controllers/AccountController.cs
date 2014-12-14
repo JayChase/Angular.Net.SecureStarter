@@ -342,9 +342,6 @@ namespace Angular.SecureStarter.Controllers
         public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
         {
             IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
-
-            IEnumerable<AuthenticationDescription> allDs = Authentication.GetAuthenticationTypes();
-            
             List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
 
             string state;
@@ -379,6 +376,49 @@ namespace Angular.SecureStarter.Controllers
 
             return logins;
         }
+
+        // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
+        [AllowAnonymous]
+        [Route("ExternalLogins")]
+        public IHttpActionResult GetExternalLogins(string returnUrl, string provider, bool generateState = false)
+        {
+            var description = Authentication.GetExternalAuthenticationTypes()
+                                    .FirstOrDefault(ad => ad.AuthenticationType == provider);
+
+            if (description == null)
+            {
+                return NotFound();
+            }
+
+            string state;
+
+            if (generateState)
+            {
+                const int strengthInBits = 256;
+                state = RandomOAuthStateGenerator.Generate(strengthInBits);
+            }
+            else
+            {
+                state = null;
+            }
+
+            ExternalLoginViewModel login = new ExternalLoginViewModel
+            {
+                Name = description.Caption,
+                Url = Url.Route("ExternalLogin", new
+                {
+                    provider = description.AuthenticationType,
+                    response_type = "token",
+                    client_id = Startup.PublicClientId,
+                    redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
+                    state = state
+                }),
+                State = state
+            };
+
+            return Ok(login);
+        }
+
 
         // POST api/Account/Register
         [AllowAnonymous]

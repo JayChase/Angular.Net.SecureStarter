@@ -52,7 +52,7 @@
             
 //            $provide.value("appStatusSvc", ass);
             
-//            $provide.value('notifierSvc', mockNotifierSvc);
+//            $provide.value('notifierService', mocknotifierService);
             
 //            $provide.value('appSettingsService', { siteUrl: 'testUrl' });
 //        });

@@ -59,7 +59,7 @@ namespace Angular.SecureStarter
                 "~/app/security/security.module.js",                
                 "~/app/security/accountResource.js",
                 "~/app/security/signIn.js",
-                "~/app/security/signInCtrl.js",
+                "~/app/security/signInController.js",
                 "~/app/security/registerController.js",
                 "~/app/security/secureHttpInterceptor.js",
                 "~/app/security/guardService.js",                
