@@ -7,10 +7,10 @@
     
     function skUserLogin() {
         var directive = {
-            restrict: 'A',
+            restrict: 'AE',
             replace: true,
             scope: {
-                login: '=skUserLogin',
+                login: '=',
                 action: '&'
             },        
             templateUrl: 'app/security/skUserLogin.html'

@@ -19,6 +19,7 @@ namespace Angular.SecureStarter
     public partial class Startup
     {
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
@@ -41,11 +42,12 @@ namespace Angular.SecureStarter
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions());
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
             // Configure the application for OAuth based flow
-            PublicClientId = "self";
+            PublicClientId = "self";            
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"),
@@ -56,7 +58,9 @@ namespace Angular.SecureStarter
             };
 
             // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
+            //app.UseOAuthBearerTokens(OAuthOptions);
+            app.UseOAuthAuthorizationServer(OAuthOptions);
+            app.UseOAuthBearerAuthentication(OAuthBearerOptions);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

@@ -32,6 +32,7 @@ namespace Angular.SecureStarter.Controllers
 
         public AccountController()
         {
+            AccessTokenFormat = Startup.OAuthOptions.AccessTokenFormat;
         }
 
         public AccountController(ApplicationUserManager userManager,
