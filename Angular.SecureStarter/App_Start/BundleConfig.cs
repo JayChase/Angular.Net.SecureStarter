@@ -23,7 +23,8 @@ namespace Angular.SecureStarter
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-sanitize.js",
-                "~/Scripts/angular-animate.js"
+                "~/Scripts/angular-animate.js",
+                "~/Scripts/angular-messages.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
@@ -44,7 +45,8 @@ namespace Angular.SecureStarter
                 "~/app/core/storageService.js",
                 "~/app/core/skAppReady.js",                       
                 "~/app/common/validation/skMatches.js",
-                "~/app/common/validation/skAsyncValidators.js"
+                "~/app/common/validation/skAsyncValidators.js",
+                "~/app/common/validation/skHasError.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/shell").Include(    

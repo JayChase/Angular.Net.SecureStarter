@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
@@ -35,6 +35,10 @@ namespace Angular.SecureStarter.Models
     public class RegisterBindingModel
     {
         [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -52,6 +56,10 @@ namespace Angular.SecureStarter.Models
 
     public class RegisterExternalBindingModel
     {
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -80,5 +88,15 @@ namespace Angular.SecureStarter.Models
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class emailQueryBindingModel
+    {
+        public string Email { get; set; }
+    }
+
+    public class usernameQueryBindingModel
+    {
+        public string Username { get; set; }
     }
 }

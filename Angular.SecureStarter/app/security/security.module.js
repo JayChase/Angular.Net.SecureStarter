@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var security = angular.module('app.security', ['ngRoute','ngResource', 'app.core']);
+    var security = angular.module('app.security', ['ngRoute','ngResource','ngMessages', 'app.core']);
 
     security.config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
         $httpProvider.interceptors.push('secureHttpInterceptor');
@@ -11,14 +11,14 @@
             controller: 'registerController',
             controllerAs : 'vm',
             caseInsensitiveMatch: true
-        });
-        $routeProvider.when('/signIn', {
+        })
+        .when('/signIn', {
             templateUrl: 'app/security/signIn.html',
             controller: 'signInController',
             controllerAs: 'vm',
             caseInsensitiveMatch: true
-        });
-        $routeProvider.when('/manage', {
+        })
+        .when('/manage', {
             templateUrl: 'app/security/manage.html',
             controller: 'manageController',
             controllerAs: 'vm',
@@ -28,8 +28,8 @@
                 }]
             },
             caseInsensitiveMatch: true
-        });
-        $routeProvider.when('/externalregister', {
+        })
+        .when('/externalregister', {
             templateUrl: 'app/security/externalRegister.html',
             controller: 'externalRegisterController',
             controllerAs: 'vm',

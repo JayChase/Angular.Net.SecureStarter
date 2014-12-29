@@ -445,6 +445,7 @@ namespace Angular.SecureStarter.Controllers
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
+        [AllowAnonymous]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("RegisterExternal")]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)

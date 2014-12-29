@@ -4,12 +4,17 @@
         <form class="form" role="form" name="signInForm">
             <div class="form-group">
                 <label for="userId">email or username</label>
-                <input type="text" id="userId" name="userId" class="form-control" ng-model="vm.user.id" required />
-                <span class="help-block" ng-show="signInForm.userId.$error.required && signInForm.$dirty">required</span>
-            </div>
+                <input type="text" name="userId" class="form-control" ng-model="vm.user.id" required />
+                <ng-messages for="signInForm.userId.$error" ng-if="signInForm.userId.$touched" sk-has-error>
+                    <ng-message class="help-block" when="required">required</ng-message>
+                </ng-messages>
+            </div>            
             <div class="form-group">
                 <label for="userPassword">Password</label>
-                <input type="password" id="userPassword" class="form-control" ng-model="vm.user.password" required />
+                <input type="password" name="userPassword" class="form-control" ng-model="vm.user.password" required />
+                <ng-messages for="signInForm.userPassword.$error" ng-if="signInForm.userPassword.$touched" sk-has-error>
+                    <ng-message class="help-block" when="required">required</ng-message>
+                </ng-messages>
             </div>
             <div class="checkbox">
                 <label>
