@@ -443,6 +443,40 @@ namespace Angular.SecureStarter.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("checkEmailAvailable")]
+        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] emailQueryBindingModel query)
+        {
+            var user = await UserManager.FindByEmailAsync(query.Email);
+
+            if (user == null)
+            {
+                return Ok("email available");
+            }
+            else
+            {
+                return BadRequest("email already in use");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("checkUsernameAvailable")]
+        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] usernameQueryBindingModel query)
+        {
+            var user = await UserManager.FindByNameAsync(query.Username);
+
+            if (user == null)
+            {
+                return Ok("username available");
+            }
+            else
+            {
+                return BadRequest("username already in use");
+            }
+        }
+
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [AllowAnonymous]

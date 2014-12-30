@@ -1,0 +1,27 @@
+﻿<section id="signIn" class="view row" sk-disable-when-busy>
+    <div class="col-md-7">
+        <h2>{{title}}</h2>
+        <form class="form" role="form" name="signInForm">
+            <div class="form-group">
+                <label for="userId">email or username</label>
+                <input type="text" id="userId" name="userId" class="form-control" ng-model="user.id" required />
+                <span class="help-block" ng-show="signInForm.userId.$error.required && signInForm.$dirty">required</span>
+            </div>
+            <div class="form-group">
+                <label for="userPassword">Password</label>
+                <input type="password" id="userPassword" class="form-control" ng-model="user.password" required />
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="remember" />remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="signIn()">Sign in</button>
+        </form>
+        <ul class="list-unstyled">
+            <li>Forgotten your password? Click <a href="/reminder">here</a></li>
+            <li>New here? sign up <a href="/register">here</a></li>
+        </ul>
+    </div>
+    <div data-ng-include="'app/security/externalSignIn.html'" class="col-md-5"></div>
+</section>

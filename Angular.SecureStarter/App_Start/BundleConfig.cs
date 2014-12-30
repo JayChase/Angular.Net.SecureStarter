@@ -44,9 +44,10 @@ namespace Angular.SecureStarter
                 "~/app/core/skDisableWhenBusy.js",
                 "~/app/core/storageService.js",
                 "~/app/core/skAppReady.js",                       
-                "~/app/common/validation/skMatches.js",
+                "~/app/common/validation/skMatch.js",
                 "~/app/common/validation/skAsyncValidators.js",
-                "~/app/common/validation/skHasError.js"
+                "~/app/common/validation/skHasError.js",
+                "~/app/common/validation/skUnique.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/shell").Include(    

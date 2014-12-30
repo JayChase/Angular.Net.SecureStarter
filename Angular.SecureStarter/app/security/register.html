@@ -1,30 +1,33 @@
 ﻿<section class="view">
-    <h2>{{vm.title}}</h2>        
-    <form class="form" role="form" name="registrationForm" sk-disable-when-busy>
+    <h2>{{::vm.title}}</h2>        
+    <form class="form" role="form" name="registrationForm" ng-submit="vm.register()" sk-disable-when-busy>
         <p>Create a new account.</p>
         <hr />
-        <div class="form-group" ng-class="{'has-error': registrationForm.email.$error.unique}">
+        <div class="form-group">
             <label for="email">email</label>
-            <input type="email" name="email" class="form-control" ng-model="vm.registration.email" sk-async-validators="{'unique': checkEmailAvailable}" required />
-            <ng-messages for="registrationForm.email.$error" ng-if="registrationForm.email.$touched" sk-has-error>
-                <ng-message class="help-block" when="required">required</ng-message>
+            <input type="email" name="email" class="form-control" ng-model="vm.registration.email" ng-model-options="{debounce: 500}" sk-unique="vm.checkEmailAvailable" required />
+            <ng-messages for="registrationForm.email.$error" ng-if="registrationForm.email.$dirty" sk-has-error>
+                <ng-message class="help-block" when="checking">checking email...</ng-message>
                 <ng-message class="help-block" when="unique">a user already exists with this email</ng-message>
-                <ng-message class="help-block" when="email">email is not valid</ng-message>
-            </ng-messages>            
+            </ng-messages><ng-messages for="registrationForm.email.$error" ng-if="registrationForm.email.$touched" sk-has-error>
+                <ng-message class="help-block" when="required">required</ng-message>
+                <ng-message class="help-block" when="email" ng-if="registrationForm.email.$touched">email is not valid</ng-message>
+            </ng-messages>
         </div>
         <div class="form-group" ng-class="{'has-error': registrationForm.registerUsername.$error.unique}">
-            <label for="registerUsername">username</label>
-            <input type="text" name="registerUsername" class="form-control" ng-model="registration.username" sk-async-validators="{'unique': checkUsernameAvailable}" />
-            <ng-messages for="registrationForm.username.$error" ng-if="registrationForm.username.$touched" sk-has-error>
+            <label for="username">username</label>
+            <input type="text" name="username" class="form-control" ng-model="registration.username" sk-unique="vm.checkUsernameAvailable" />
+            <ng-messages for="registrationForm.username.$error" ng-if="registrationForm.username.$dirty" sk-has-error>
+                <ng-message class="help-block" when="checking">checking username...</ng-message>
                 <ng-message class="help-block" when="unique">username already taken</ng-message>
-            </ng-messages>            
+            </ng-messages>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" class="form-control" ng-model="vm.registration.password" required />
             <ng-messages for="registrationForm.password.$error" ng-if="registrationForm.password.$touched" sk-has-error>
-                <ng-message class="help-block" when="required">required</ng-message>                
-            </ng-messages>            
+                <ng-message class="help-block" when="required">required</ng-message>
+            </ng-messages>
         </div>
         <div class="form-group">
             <label for="confirmPassword">Confirm password</label>
@@ -32,9 +35,9 @@
             <ng-messages for="registrationForm.confirmPassword.$error" ng-if="registrationForm.confirmPassword.$touched" sk-has-error>
                 <ng-message class="help-block" when="required">required</ng-message>
                 <ng-message class="help-block" when="match">passwords do not match</ng-message>
-            </ng-messages>                        
+            </ng-messages>
         </div>
-        <button type="submit" class="btn btn-default" ng-disabled="registrationForm.$invalid && registrationForm.$dirty" ng-click="vm.register()">Register</button>
+        <button type="submit" class="btn btn-default" ng-disabled="registrationForm.$invalid && registrationForm.$dirty">Register</button>
         <p><a href="/signIn">Log in</a> if you already have a local account.</p>
     </form>        
 </section>

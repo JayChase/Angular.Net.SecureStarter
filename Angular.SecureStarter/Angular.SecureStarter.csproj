@@ -249,8 +249,8 @@
     <Content Include="app\common\validation\skAsyncValidators.js" />
     <Content Include="app\common\validation\skHasError.js" />
     <Content Include="app\common\validation\skMatch.js" />
+    <Content Include="app\common\validation\skUnique.js" />
     <Content Include="app\content\content.module.js" />
-    <Content Include="app\content\features\controller1.js" />
     <Content Include="app\content\features\features.html" />
     <Content Include="app\content\features\featuresController.js" />
     <Content Include="app\content\securedWebapiDemo\securedWebapiDemo.html" />

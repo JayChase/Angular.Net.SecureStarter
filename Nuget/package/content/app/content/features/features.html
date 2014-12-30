@@ -1,0 +1,14 @@
+﻿<section id="features" class="view row">
+    <div class="col-md-12">
+        <h2>features</h2>
+        <ul class="list-unstyled">
+            <li data-ng-repeat="f in features">
+                <h3>{{f.name}}</h3>
+                <p>{{f.description}}</p>
+                <button class="btn btn-default" type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
+            </li>
+        </ul>
+        <p class="bg-info" ng-if="guardSvc.authorized()">This paragraph will only show is you are currently signed in.</p>
+        <p class="bg-info" ng-if="guardSvc.authorized(['administrator'])">This paragraph will only show is you are currently signed in and the user is in the administrator role.</p>
+    </div>
+</section>

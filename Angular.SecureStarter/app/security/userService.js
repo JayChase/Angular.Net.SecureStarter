@@ -355,7 +355,7 @@
             var dfd = $q.defer(), email = modelValue || viewValue;
 
             if (email) {
-                dfd.promise = accountResource.checkEmailAvailable(email);
+                dfd.promise = accountResource.checkEmailAvailable({ email: email }).$promise;
             } else {
                 dfd.resolve();
             }
@@ -367,7 +367,7 @@
             var dfd = $q.defer(), username = modelValue || viewValue;
 
             if (username) {
-                dfd.promise = accountResource.checkUsernameAvailable(username);
+                dfd.promise = accountResource.checkUsernameAvailable({ username: username }).$promise;
             } else {
                 dfd.resolve();
             }

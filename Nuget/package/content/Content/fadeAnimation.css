@@ -1,0 +1,20 @@
+﻿.fade-animation.ng-leave {
+  -moz-transition: 0.2s ease-in all;
+  -o-transition: 0.2s ease-in all;
+  -webkit-transition: 0.2s ease-in all;
+  transition: 0.2s ease-in all;
+  opacity: 1;
+}
+.fade-animation.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+.fade-animation.ng-enter {
+  -moz-transition: 0.2s ease-in all 0.2s;
+  -o-transition: 0.2s ease-in all 0.2s;
+  -webkit-transition: 0.2s ease-in all 0.2s;
+  transition: 0.2s ease-in all 0.2s;
+  opacity: 0;
+}
+.fade-animation.ng-enter.ng-enter-active {
+  opacity: 1;
+}

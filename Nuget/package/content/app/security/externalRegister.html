@@ -1,0 +1,23 @@
+﻿<section id="signIn" class="view">
+    <h2>{{title}}</h2>
+    <form class="form" role="form" name="registrationForm" sk-disable-when-busy>
+        <p>Associate your {{externlProvider}} account.</p>
+        <hr />
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" id="email" name="email" class="form-control" ng-model="registration.email" required />
+            <span class="help-block" ng-show="registrationForm.email.$error.required && registrationForm.$dirty">required</span>
+            <span class="help-block" ng-show="registrationForm.email.$error.email && registrationForm.$dirty">please enter a valid email address</span>
+        </div>
+        <div class="form-group">
+            <label for="registerUsername">username</label>
+            <input type="text" id="registerUsername" class="form-control" ng-model="registration.username" required/>
+            <span class="help-block" ng-show="registrationForm.username.$error.required && registrationForm.$dirty">required</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default" ng-click="register()">Sign up</button>
+            </div>
+        </div>
+    </form>
+</section>

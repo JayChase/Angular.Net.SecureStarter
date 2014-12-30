@@ -79,16 +79,16 @@ namespace Angular.SecureStarter
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
                 {
                     ClientId = "502536111236-a5s15cip9i0domdg35jbo7qt5mlmvmi4.apps.googleusercontent.com",
-                    ClientSecret = "-brPE_813RlBKG2828pwn9cJ"
-                    //Provider = new GoogleOAuth2AuthenticationProvider()
-                    //{
-                    //    OnAuthenticated = (context) =>
-                    //    {
-                    //        context.Identity.AddClaim(new Claim("urn:google:email", context.Identity.FindFirstValue(ClaimTypes.Email)));
-                    //        context.Identity.AddClaim(new Claim("urn:google:name", context.Identity.FindFirstValue(ClaimTypes.Name)));
-                    //        return Task.FromResult(0);
-                    //    }
-                    //}
+                    ClientSecret = "-brPE_813RlBKG2828pwn9cJ",
+                    Provider = new GoogleOAuth2AuthenticationProvider()
+                    {
+                        OnAuthenticated = (context) =>
+                        {
+                            context.Identity.AddClaim(new Claim("urn:google:email", context.Identity.FindFirstValue(ClaimTypes.Email)));
+                            context.Identity.AddClaim(new Claim("urn:google:name", context.Identity.FindFirstValue(ClaimTypes.Name)));
+                            return Task.FromResult(0);
+                        }
+                    }
                 });
         }
     }

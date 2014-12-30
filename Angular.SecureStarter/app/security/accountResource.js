@@ -28,7 +28,7 @@
                             'getExternalLogin': { method: 'GET', url: authUrl + 'externallogins' },
                             'getExternalLogins': { method: 'GET', url: authUrl + 'externallogins', isArray: true },
                             'checkEmailAvailable': { method: 'POST', url: authUrl + 'checkEmailAvailable' },
-                            'checkUsernameAvailable': { method: 'GET', url: authUrl + 'checkUsernameAvailable' }
+                            'checkUsernameAvailable': { method: 'POST', url: authUrl + 'checkUsernameAvailable' }
                         }, {
                             stripTrailingSlashes: true
                         });

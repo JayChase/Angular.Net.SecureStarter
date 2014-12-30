@@ -1,8 +1,7 @@
 ﻿<section class="view row" sk-disable-when-busy>
-    <h2>{{vm.title}}</h2>
+    <h2>{{::vm.title}}</h2>
     <div class="row">
         <div class="col-md-7">
-
             <sk-change-password ng-if="vm.manageInfo.hasLocalLogin"></sk-change-password>
             <sk-create-local-login ng-if="!vm.manageInfo.hasLocalLogin"></sk-create-local-login>
         </div>

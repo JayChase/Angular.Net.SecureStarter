@@ -6,31 +6,20 @@
 
     function skMatch() {
         var directive = {
-            require: 'ngModel',
-            link: link,
             restrict: 'A',
-            transclude: true
+            require: 'ngModel',
+            link: link
         };
 
         return directive;
 
-        function skMatch() {
-            var directive = {
-                restrict: 'A',
-                require: 'ngModel',
-                link: link
-            };
-
-            return directive;
-
-            function link(scope, element, attrs, ctrl) {
-                scope.$watchGroup([
-                  attrs.ngModel,
-                  attrs.ngMatch
-                ], function (newValues) {
-                    ctrl.$setValidity('match', newValues[0] === newValues[1]);
-                });
-            }
-        }        
-    }
+        function link(scope, element, attrs, ctrl) {
+            scope.$watchGroup([
+              attrs.ngModel,
+              attrs.skMatch
+            ], function (newValues) {
+                ctrl.$setValidity('match', newValues[0] === newValues[1]);
+            });
+        }
+    }    
 })();

@@ -10,7 +10,7 @@
         /* jshint validthis:true */
         var vm = this;
 
-        vm.title = 'features:';
+        vm.title = 'features';
         vm.features = [];
         vm.guardService = guardService;
 
