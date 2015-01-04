@@ -16,18 +16,22 @@
         return service;
 
         function guardRoute(requiredRoles) {
-            return appStatusService.whenReady()
-                ['finally'](function (requiredRoles) {
-                    var deferred = $q.defer(), authResult = authorize(requiredRoles);
+            return appStatusService
+                            .whenReady()
+                            .finally(
+                                function (requiredRoles) {
+                                    var authResult = authorize(requiredRoles);
 
-                    if (authResult.authorized) {
-                        return deferred.resolve(authResult.authorized);
-                    } else {
-                        notifierService.show({ message: authResult.message, info: 'error' });
-                        $location.path("/signIn");
-                        return $q.reject(authResult.authorized);
-                    }
-                });
+                                    return $q(function (resolve, reject) {
+                                        if (authResult.authorized) {
+                                            resolve(authResult.authorized);
+                                        } else {
+                                            notifierService.show({ message: authResult.message, info: 'error' });
+                                            $location.path("/signIn");
+                                            reject(authResult.authorized);
+                                        }
+                                    });
+                                });
         }
 
         function authorized(requiredRoles) {

@@ -31,9 +31,9 @@
                         ngModel.$setValidity('checking', false);
 
                         return validator(modelValue, viewValue)
-                                    ['finally'](function () {
-                                        ngModel.$setValidity('checking', true);
-                                    });
+                                            .finally(function () {
+                                                ngModel.$setValidity('checking', true);
+                                            });
                     };
 
                     ngModel.$asyncValidators.unique = wrappedValidator;

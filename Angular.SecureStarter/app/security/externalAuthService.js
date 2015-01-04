@@ -82,7 +82,7 @@
 
 				                deferred.reject(true);
 				            })
-                        ['finally'](
+                        .finally(
                             function () {
                                 appActivityService.idle("externalAuthService");
                             });
@@ -108,7 +108,7 @@
 				        notifierService.show({ message: "something went wrong associating login", type: "error" });
 				        return $q.reject(result);
 				    })
-                ['finally'](
+                .finally(
                     function always() {
                         appActivityService.idle("externalAuthService");
                         $location.path("/manage");

@@ -7,10 +7,10 @@
     
     function skLoginProvider() {
         var directive = {            
-            restrict: 'A',
+            restrict: 'AE',
             replace: true,
             scope: {
-                provider: '=skLoginProvider',
+                provider: '=',
                 action: '&'
             },
             templateUrl: 'app/security/skLoginProvider.html'

@@ -25,7 +25,7 @@
                 updateDisabled();
             });
 
-            $rootScope.$on("appActivitySvc:isBusyChanged", function (event, args) {
+            $rootScope.$on("appActivityService:isBusyChanged", function (event, args) {
                 busy = args.busy;
                 updateDisabled();
             });

@@ -16,6 +16,7 @@ echo D | xcopy /Y /E ..\%sourceDir%\app %destinationDir%\app
 echo F | xcopy /Y ..\%sourceDir%\scripts\jquery.utilities.js %destinationDir%\scripts\jquery.utilities.js
 
 echo F | xcopy /Y ..\%sourceDir%\App_Start\BundleConfig.cs "%destinationDir%\App_Start\BundleConfig.cs.pp"
+echo F | xcopy /Y ..\%sourceDir%\App_Start\IdentityConfig.cs "%destinationDir%\App_Start\IdentityConfig.cs.pp"
 echo F | xcopy /Y ..\%sourceDir%\App_Start\WebApiConfig.cs "%destinationDir%\App_Start\WebApiConfig.cs.pp"
 echo F | xcopy /Y ..\%sourceDir%\App_Start\RouteConfig.cs "%destinationDir%\App_Start\RouteConfig.cs.pp"
 

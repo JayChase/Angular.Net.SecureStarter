@@ -38,13 +38,14 @@
     <Folder Include="specs\" />
     <Folder Include="specs\Common\" />
     <Folder Include="specs\Core\" />
+    <Folder Include="specs\Shared\" />
     <Folder Include="specs\Security\" />
     <Folder Include="specs\Shell\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="karma.conf.js" />
-    <Compile Include="specs\Common\fakeToastr.js" />
-    <Compile Include="specs\Common\testHelpers.js" />
+    <Compile Include="specs\Shared\fakeToastr.js" />
+    <Compile Include="specs\Shared\testHelpers.js" />
     <Compile Include="specs\Core\storageServiceSpec.js" />
     <Compile Include="specs\Core\notifierServiceSpec.js" />
     <Compile Include="specs\Core\navigationServiceSpec.js" />

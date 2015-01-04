@@ -1,24 +1,20 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module('app', ['ngRoute', 'ngAnimate', 'app.core', 'app.shell', 'app.content', 'app.security']);
+    var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngResource', 'app.core', 'app.shell', 'app.content', 'app.security']);
 
-    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode(true);
-                
-        $routeProvider.otherwise({
-            redirectTo: '/welcome'
-        });
+    app.config(['$locationProvider', function ($locationProvider) {
+        $locationProvider.html5Mode().enabled = true;                
     }]);
 
-    app.value('appSettingsSvc', {
+    app.value('appSettingsService', {
         base: '',
         brand: 'StarterKit',
         title: 'Angular StarterKit',
         siteUrl: ''
     });
     
-    app.run(['$route','$window', 'appSettingsSvc', function ($route, $window, appSettingsSvc) {
-        appSettingsSvc.siteUrl = $window.location.origin;
+    app.run(['$route','$window', 'appSettingsService', function ($route, $window, appSettingsService) {
+        appSettingsService.siteUrl = $window.location.origin;
     }]);
 })();

@@ -19,7 +19,7 @@
         function controller($rootScope, $scope) {
             $scope.isBusy = false;
 
-            $rootScope.$on("appActivitySvc:isBusyChanged", function (event, args) {
+            $rootScope.$on("appActivityService:isBusyChanged", function (event, args) {
                 $scope.isBusy = args.busy;
             });
         }

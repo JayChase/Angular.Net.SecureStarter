@@ -44,15 +44,16 @@
    
     // Handle routing errors and success events
     security.run(['externalAuthService', 'restoreUserService', 'appStatusService', function (externalAuthService, restoreUserService, appStatusService) {
-        externalAuthService.handleAuthResponse().then(
-            null,
-            function () {
-                return restoreUserService.restore();
-            })
-            ['finally'](
-            function () {
-                appStatusService.isReady(true);
-            });
+        externalAuthService.handleAuthResponse()
+                            .then(
+                                null,
+                                function () {
+                                    return restoreUserService.restore();
+                                })
+                            .finally(
+                                function () {
+                                    appStatusService.isReady(true);
+                                });
     }]);
 
 })();

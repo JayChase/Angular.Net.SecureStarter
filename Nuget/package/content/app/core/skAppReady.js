@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('app')
-        .directive('skAppReady', ['appStatusSvc', skAppReady]);
+        .directive('skAppReady', ['appStatusService', skAppReady]);
     
-    function skAppReady(appStatusSvc) {
+    function skAppReady(appStatusService) {
         
         var directive = {
             link: link,
@@ -16,7 +16,7 @@
         return directive;
 
         function link(scope, element, attr) {
-            appStatusSvc.isReady(attr.skAppReady);
+            appStatusService.isReady(attr.skAppReady);
         }
     }
 

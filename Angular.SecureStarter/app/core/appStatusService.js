@@ -31,15 +31,13 @@
         }
 
         function whenReady() {
-            var deferred = $q.defer();
-             
-            if (service.info.ready) {
-                deferred.resolve();
-            } else {
-                deferreds.push(deferred);
-            }
-
-            return deferred.promise;
+            return $q(function (resolve, reject) {
+                if (service.info.ready) {
+                    resolve();
+                } else {
+                    deferreds.push(deferred);
+                }
+            });
         }
 
         function resolvePromises() {

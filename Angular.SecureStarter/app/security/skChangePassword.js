@@ -27,11 +27,13 @@
                     confirmPassword: scope.newPasswordConfirm
                 };
 
-                userManagementService.changePassword(data)['finally'](function() {
-                    scope.password = "";
-                    scope.newPassword = "";
-                    scope.newPasswordConfirm = "";
-                });
+                userManagementService.changePassword(data)
+                                        .finally(
+                                            function () {
+                                                scope.password = "";
+                                                scope.newPassword = "";
+                                                scope.newPasswordConfirm = "";
+                                            });
             };
         }
     }

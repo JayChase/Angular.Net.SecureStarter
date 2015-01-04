@@ -54,7 +54,7 @@
                         notifierService.show({ message: result.error, type: "error" });
                         $q.reject(result);
                 })
-                ['finally'](
+                .finally(
                     function () {
                         updateInfo();
                         appActivityService.idle("userManagementService");
@@ -119,7 +119,7 @@
                         return $q.reject(result);
                     }
                 )
-                ['finally'](
+                .finally(
                     function () {                        
                         appActivityService.idle("userManagementService");
                     });

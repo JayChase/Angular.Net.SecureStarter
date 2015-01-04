@@ -3,9 +3,9 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .directive('skChangePassword', ['userManagementSvc', skChangePassword]);
+        .directive('skChangePassword', ['userManagementService', skChangePassword]);
     
-    function skChangePassword(userManagementSvc) {
+    function skChangePassword(userManagementService) {
         
         var directive = {
             link: link,
@@ -27,7 +27,7 @@
                     confirmPassword: scope.newPasswordConfirm
                 };
 
-                userManagementSvc.changePassword(data)['finally'](function() {
+                userManagementService.changePassword(data)['finally'](function() {
                     scope.password = "";
                     scope.newPassword = "";
                     scope.newPasswordConfirm = "";

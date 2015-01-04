@@ -3,9 +3,9 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .directive('skUserInfo', ['$rootScope','$location','userSvc','appStatusSvc',skUserInfo]);
+        .directive('skUserInfo', ['$rootScope','$location','userService','appStatusService',skUserInfo]);
     
-    function skUserInfo($rootScope,$location, userSvc, appStatusSvc) {
+    function skUserInfo($rootScope,$location, userService, appStatusService) {
         var directive = {            
             restrict: 'E',
             replace: true,
@@ -16,16 +16,16 @@
 
         //TODO: evaluate whether it is best just to watch the sigedIn and user properties
         function link($scope, $element, attrs, ctrl) {
-            $scope.username = userSvc.info.username;
-            $scope.signedIn = userSvc.info.signedIn;
+            $scope.username = userService.info.username;
+            $scope.signedIn = userService.info.signedIn;
             $scope.signOut = function () {
-                userSvc.signOut();
+                userService.signOut();
                 $location.path('/');
             };
 
-            $rootScope.$on("userSvc:signedInChanged", function (event, args) {
-                $scope.signedIn = userSvc.info.signedIn;
-                $scope.username = userSvc.info.username;
+            $rootScope.$on("userService:signedInChanged", function (event, args) {
+                $scope.signedIn = userService.info.signedIn;
+                $scope.username = userService.info.username;
             });                
         }
         
