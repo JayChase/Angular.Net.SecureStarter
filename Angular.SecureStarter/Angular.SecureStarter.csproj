@@ -247,6 +247,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\common\validation\skAsyncValidators.js" />
+    <Content Include="app\core\skFocusOnSetPristine.js" />
     <Content Include="app\common\validation\skHasError.js" />
     <Content Include="app\common\validation\skMatch.js" />
     <Content Include="app\common\validation\skUnique.js" />

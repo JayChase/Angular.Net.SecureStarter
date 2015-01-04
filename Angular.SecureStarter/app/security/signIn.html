@@ -4,7 +4,7 @@
         <form class="form" role="form" name="signInForm">
             <div class="form-group">
                 <label for="userId">email or username</label>
-                <input type="text" name="userId" class="form-control" ng-model="vm.user.id" required />
+                <input type="text" name="userId" class="form-control" ng-model="vm.user.id" required sk-focus-on-set-pristine/>
                 <ng-messages for="signInForm.userId.$error" ng-if="signInForm.userId.$touched" sk-has-error>
                     <ng-message class="help-block" when="required">required</ng-message>
                 </ng-messages>
