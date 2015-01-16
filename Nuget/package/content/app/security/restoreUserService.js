@@ -35,12 +35,10 @@
                           $location.path("/signIn");                          
                       });
             } else {
-                var deferred = $q.defer();
-                deferred.resolve(false);
-
-                appActivityService.idle("restoreUserService");
-
-                return deferred.promise;
+                return $q(function (resolve, reject) {
+                    appActivityService.idle("restoreUserService");
+                    resolve(false);
+                });                
             }
             
         }

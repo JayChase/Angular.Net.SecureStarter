@@ -431,7 +431,7 @@ namespace Angular.SecureStarter.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.UserName, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -446,7 +446,7 @@ namespace Angular.SecureStarter.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("checkEmailAvailable")]
-        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] emailQueryBindingModel query)
+        public async Task<IHttpActionResult> CheckEmailAvailable([FromBody] EmailQueryBindingModel query)
         {
             var user = await UserManager.FindByEmailAsync(query.Email);
 
@@ -463,7 +463,7 @@ namespace Angular.SecureStarter.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("checkUsernameAvailable")]
-        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] usernameQueryBindingModel query)
+        public async Task<IHttpActionResult> CheckUsernameAvailable([FromBody] UsernameQueryBindingModel query)
         {
             var user = await UserManager.FindByNameAsync(query.Username);
 

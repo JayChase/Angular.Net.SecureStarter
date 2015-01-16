@@ -4,18 +4,19 @@
     angular.module('app.security')
             .controller('signInController', signInController);
 
-    signInController.$inject = ['$location', 'userService', 'notifierService'];
+    signInController.$inject = ['$scope', '$location', 'userService', 'notifierService'];
 
-    function signInController($location, userService, notifierService) {
+    function signInController($scope, $location, userService, notifierService) {
         /* jshint validthis:true */
-        var vm = this;
+        var vm = this,
+            user = {
+                id: "",
+                password: "",
+                remember: false
+            };
 
         vm.title = 'Sign in';
-        vm.user = {
-            id: "",
-            password: "",
-            remember: false
-        };
+        vm.user = angular.copy(user);
         vm.signIn = signIn;
         vm.result = "";
               
@@ -33,10 +34,9 @@
                         $location.path('/');
                     },
                     function (result) {                        
-                        //TODO: set focus back here
-                        vm.user.id = ""; 
-                        vm.user.password = "";
-                        vm.user.remember = false;
+                        vm.user = angular.copy(user);                        
+                        $scope.signInForm.$setPristine();
+                        $scope.signInForm.$setUntouched();
                     }
                 );
         }

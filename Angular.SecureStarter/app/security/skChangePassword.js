@@ -28,13 +28,25 @@
                 };
 
                 userManagementService.changePassword(data)
+                                        .then(
+                                            null,
+                                            function (result) {
+                                                reset();
+                                            })
                                         .finally(
                                             function () {
-                                                scope.password = "";
-                                                scope.newPassword = "";
-                                                scope.newPasswordConfirm = "";
+                                                reset();
                                             });
             };
+
+            function reset() {
+                scope.password = "";
+                scope.newPassword = "";
+                scope.newPasswordConfirm = "";
+                scope.passwordForm.$setPristine();
+                scope.passwordForm.$setUntouched();
+            }
+
         }
     }
 

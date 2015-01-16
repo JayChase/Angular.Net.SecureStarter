@@ -26,10 +26,11 @@
                     confirmPassword: $scope.newPasswordConfirm
                 };
 
-                userManagementService.addLocalLogin(data)['finally'](function() {
-                    $scope.newPassword = "";
-                    $scope.newPasswordConfirm = "";
-                });
+                userManagementService.addLocalLogin(data)
+                                        .finally(function () {
+                                                    $scope.newPassword = "";
+                                                    $scope.newPasswordConfirm = "";
+                                                });
             };            
         };
     }

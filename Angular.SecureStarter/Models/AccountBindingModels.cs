@@ -90,12 +90,12 @@ namespace Angular.SecureStarter.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class emailQueryBindingModel
+    public class EmailQueryBindingModel
     {
         public string Email { get; set; }
     }
 
-    public class usernameQueryBindingModel
+    public class UsernameQueryBindingModel
     {
         public string Username { get; set; }
     }

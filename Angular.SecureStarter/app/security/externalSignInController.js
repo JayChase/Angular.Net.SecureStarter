@@ -4,9 +4,9 @@
     angular.module('app.security')
             .controller('externalSignInController',  externalSignInController);
 
-    externalSignInController.$inject = ['$window', 'userService', 'notifierService', 'appActivityService'];
+    externalSignInController.$inject = ['$window', 'userService', 'notifierService', 'appActivityService', 'appSettingsService'];
 
-    function externalSignInController($window, userService, notifierService, appActivityService) {
+    function externalSignInController($window, userService, notifierService, appActivityService, appSettingsService) {
         /* jshint validthis:true */
         var vm = this;
 
@@ -20,12 +20,12 @@
             getAuthProviders();
         }
 
-        function login(url){            
-            $window.location.href = url;
+        function login(url) {            
+            $window.location.href = userService.authServer + url;
         }
 
         function getAuthProviders() {            
-            userService.getExternalLogins({returnUrl: "/externalauth/signin"})
+            userService.getExternalLogins({returnUrl: appSettingsService.siteUrl + "/externalauth/signin"})
                                     .then(
 				                        function (result) {
 				                            vm.authProviders = result;

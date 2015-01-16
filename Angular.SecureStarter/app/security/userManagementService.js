@@ -5,9 +5,9 @@
 
     // TODO: replace app with your module name
     angular.module('app.security')
-        .factory(serviceId, ['$q','$window','userService','appActivityService','notifierService', userManagementService]);
+        .factory(serviceId, ['$q','$window','userService','appActivityService','notifierService', 'appSettingsService', userManagementService]);
 
-    function userManagementService($q, $window, userService, appActivityService, notifierService) {
+    function userManagementService($q, $window, userService, appActivityService, notifierService, appSettingsService) {
         var loaded = false;
 
         var service = {
@@ -30,7 +30,7 @@
         function load() {
             appActivityService.busy("userManagementService");
 
-            return userService.getManageInfo("/externalauth/association", false)
+            return userService.getManageInfo(appSettingsService.siteUrl + "/externalauth/association", false)
                 .then(
                     function (result) {
                         service.userLogins.length = 0;
@@ -88,7 +88,7 @@
         }
 
         function addLogin(provider) {
-            $window.location.href = provider.url;
+            $window.location.href = userService.authServer + provider.url;
         }
 
         function removeLogin(userLogin) {

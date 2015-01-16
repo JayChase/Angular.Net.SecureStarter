@@ -44,7 +44,8 @@
                     userService.signInExternal(vm.registration.loginProvider)
                         .then(
                             function (result) {
-				                $window.location.href = result.url;                
+                                //point to auth server
+                                $window.location.href = userService.authServer + result.url;                                
                             },
 				            function (result) {				                
 				                //notifierService.show({ message: "something went wrong signing in. Error" + result.error, type: "error" });

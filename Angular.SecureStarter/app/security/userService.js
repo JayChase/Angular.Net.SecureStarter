@@ -26,6 +26,7 @@
             register: register,
             checkUsernameAvailable: checkUsernameAvailable,
             checkEmailAvailable: checkEmailAvailable,
+            authServer: accountResource.authServer,
             info: {
                 username: "",
                 email: "",
@@ -69,7 +70,7 @@
             return accountResource.login(xsrf)
                                     .$promise
                                         .then(
-                                            function(result) {                        
+                                            function (result) {                                       
                                                 setUser(result);
                                                 storageService.store("accessToken", result.access_token, result.remember);
                                                 notifierService.show({ message: "signed in as " + service.info.username, type: "info" });
@@ -170,14 +171,8 @@
 
         function getManageInfo(returnUrl, generateState) {
             appActivityService.busy("userService");
-
-            if (!returnUrl) {
-                returnUrl = "";
-            }
-
-            returnUrl = encodeURIComponent(returnUrl);
-
-            return accountResource.getManageInfo({returnUrl: "/externalauth/association", generateState: generateState})
+                        
+            return accountResource.getManageInfo({returnUrl: returnUrl, generateState: generateState})
                                         .$promise
                                         .then(
                                             null,
@@ -324,7 +319,7 @@
 
         function getExternalLogins(options) {
             appActivityService.busy("userService");
-
+                        
             var args = {
                 returnUrl: options.returnUrl ? options.returnUrl : "",
                 generateState: (options.generateState ? "true" : "false")
@@ -351,9 +346,7 @@
                                                     });
         }
 
-        function checkEmailAvailable(modelValue, viewValue) {
-            var email = modelValue || viewValue;
-
+        function checkEmailAvailable(email) {            
             if (email) {
                 return accountResource.checkEmailAvailable({ email: email }).$promise;
             } else {
@@ -363,9 +356,7 @@
             }
         }
 
-        function checkUsernameAvailable(modelValue, viewValue) {
-            var username = modelValue || viewValue;
-
+        function checkUsernameAvailable(username) {            
             if (username) {
                 return accountResource.checkUsernameAvailable({ username: username }).$promise;
             } else {
@@ -395,6 +386,10 @@
                     errors += " " + result.error;
                 } else if (result.statusText) {
                     errors += " " + result.statusText;
+                }
+
+                if (!errors) {
+                    errors = "something went wrong";
                 }
 
                 return errors;

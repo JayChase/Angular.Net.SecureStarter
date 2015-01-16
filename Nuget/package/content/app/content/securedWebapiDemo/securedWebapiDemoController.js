@@ -3,13 +3,13 @@
 
     //create the securedSvc resource.
     angular.module('app.content')
-        .factory('securedSvc', function ($resource) {
+        .factory('securedSvc',['$resource', function ($resource) {
             return $resource(
                 '/api/secured/:Id',
                 { Id: '@Id' },
                 { 'update': { method: 'PUT' } }
             );
-        });
+        }]);
         
     angular.module('app')
         .controller('securedWebApiDemoController', securedWebApiDemoController);
@@ -49,11 +49,13 @@
                         }
 
                         vm.result = result;
-                    })
-                ['finally'](
+                    }
+                )
+                .finally(
                     function () {
                         appActivityService.idle("securedWebapiDemo");
-                    });
+                    }
+                );
         }
     }
 })();

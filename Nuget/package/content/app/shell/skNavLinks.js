@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('app.shell')
         .directive('skNavLinks', skNavLinks);
 
     skNavLinks.$inject = ['$window', '$rootScope', '$location'];

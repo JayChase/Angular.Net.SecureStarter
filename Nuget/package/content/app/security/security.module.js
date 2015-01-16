@@ -3,8 +3,10 @@
 
     var security = angular.module('app.security', ['ngRoute','ngResource','ngMessages', 'app.core']);
 
-    security.config(['$httpProvider', '$routeProvider', function ($httpProvider, $routeProvider) {
+    security.config(['$httpProvider', '$routeProvider', 'accountResourceProvider', function ($httpProvider, $routeProvider, accountResourceProvider) {
         $httpProvider.interceptors.push('secureHttpInterceptor');
+
+        //accountResourceProvider.setAuthServer('https://externalauthserver/');
 
         $routeProvider.when('/register', {
             templateUrl: 'app/security/register.html',            
@@ -44,15 +46,16 @@
    
     // Handle routing errors and success events
     security.run(['externalAuthService', 'restoreUserService', 'appStatusService', function (externalAuthService, restoreUserService, appStatusService) {
-        externalAuthService.handleAuthResponse().then(
-            null,
-            function () {
-                return restoreUserService.restore();
-            })
-            ['finally'](
-            function () {
-                appStatusService.isReady(true);
-            });
+        externalAuthService.handleAuthResponse()
+                            .then(
+                                null,
+                                function () {
+                                    return restoreUserService.restore();
+                                })
+                            .finally(
+                                function () {
+                                    appStatusService.isReady(true);
+                                });
     }]);
 
 })();

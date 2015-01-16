@@ -30,13 +30,12 @@
         return service;
 
         function show(options) {
-            var opns;
+            var opns = angular.copy(defaults);
 
-            if (typeof options === "string") {
-                opns = defaults;
+            if (typeof options === "string") {                
                 opns.message = options;
             } else {
-                opns = angular.extend(defaults, options);
+                opns = angular.extend(opns, options);
             }
             
             if (service.verbose && opns.detail.length > 0) {

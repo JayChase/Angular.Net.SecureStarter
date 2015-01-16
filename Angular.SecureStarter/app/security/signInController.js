@@ -34,9 +34,9 @@
                         $location.path('/');
                     },
                     function (result) {                        
-                        vm.user = angular.copy(user);
-                        $scope.signInForm.$setUntouched();
+                        vm.user = angular.copy(user);                        
                         $scope.signInForm.$setPristine();
+                        $scope.signInForm.$setUntouched();
                     }
                 );
         }
