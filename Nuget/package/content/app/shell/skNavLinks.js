@@ -2,21 +2,17 @@
     'use strict';
 
     angular
-        .module('app.shell')
-        .directive('skNavLinks', skNavLinks);
+      .module('app.shell')
+      .directive('skNavLinks', skNavLinks);
 
-    skNavLinks.$inject = ['$window', '$rootScope', '$location'];
+    skNavLinks.$inject = ['$rootScope', '$location'];
 
-    function skNavLinks($window, $rootScope, $location) {
-        // Usage:
-        //     <skNavLinks></skNavLinks>
-        // Creates:
-        // 
+    function skNavLinks($rootScope, $location) {
         var directive = {
             link: link,
             restrict: 'E',
             scope: {
-                links: '='
+                navLinks: '='
             },
             replace: true,
             templateUrl: 'app/shell/skNavLinks.html'
@@ -24,21 +20,20 @@
         return directive;
 
         function link(scope, element, attrs) {
-            //set the initial active link
-            setActive(scope.links, $location.path().substring(1));
+            scope.isTopLevel = function (link) {
+                return !link.parent;
+            };
 
-            //listen for changes
-            $rootScope.$on('$routeChangeSuccess', function (event, next, current) {           
-                if (scope.links && next.$$route) {
-                    setActive(scope.links, next.$$route.originalPath.substring(1));
+            setInitialActive();
+
+            function setInitialActive() {
+                if (scope.navLinks) {
+                    var activePath = $location.path().substring(1);
+                    scope.navLinks.forEach(function (navLink) {
+                        navLink.isActive = navLink.url === activePath;
+                    });
                 }
-            });
-        }
-
-        function setActive(links, activePath) {
-            links.forEach(function (link) {
-                link.isActive = link.url === activePath;
-            });
+            }
         }
     }
 })();
