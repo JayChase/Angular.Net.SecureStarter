@@ -450,14 +450,7 @@ namespace Angular.SecureStarter.Controllers
         {
             var user = await UserManager.FindByEmailAsync(query.Email);
 
-            if (user == null)
-            {
-                return Ok("email available");
-            }
-            else
-            {
-                return BadRequest("email already in use");
-            }
+            return Ok(new { available = user == null });
         }
 
         [AllowAnonymous]
@@ -467,14 +460,7 @@ namespace Angular.SecureStarter.Controllers
         {
             var user = await UserManager.FindByNameAsync(query.Username);
 
-            if (user == null)
-            {
-                return Ok("username available");
-            }
-            else
-            {
-                return BadRequest("username already in use");
-            }
+            return Ok(new { available = user == null });
         }
 
         // POST api/Account/RegisterExternal
