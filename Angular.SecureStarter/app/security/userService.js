@@ -72,7 +72,7 @@
                                         .then(
                                             function (result) {                                       
                                                 setUser(result);
-                                                storageService.store("accessToken", result.access_token, result.remember);
+                                                storageService.store("accessToken", result.access_token, user.remember);
                                                 notifierService.show({ message: "signed in as " + service.info.username, type: "info" });
                                                 return result;
                                             },
