@@ -72,7 +72,7 @@
                                         .then(
                                             function (result) {                                       
                                                 setUser(result);
-                                                storageService.store("accessToken", result.access_token, result.remember);
+                                                storageService.store("accessToken", result.access_token, user.remember);
                                                 notifierService.show({ message: "signed in as " + service.info.username, type: "info" });
                                                 return result;
                                             },
@@ -348,7 +348,20 @@
 
         function checkEmailAvailable(email) {            
             if (email) {
-                return accountResource.checkEmailAvailable({ email: email }).$promise;
+                return $q(function (resolve, reject) {
+                    accountResource.checkEmailAvailable({ email: email })
+                                            .$promise
+                                            .then(function (result) {
+                                                if (result.available) {
+                                                    resolve(result);
+                                                } else {
+                                                    reject(result);
+                                                }
+                                            },
+                                            function (result) {
+                                                resolve("unexpected error");
+                                            });
+                });                
             } else {
                 return $q(function (resolve, reject) {             
                     resolve();
@@ -358,7 +371,20 @@
 
         function checkUsernameAvailable(username) {            
             if (username) {
-                return accountResource.checkUsernameAvailable({ username: username }).$promise;
+                return $q(function (resolve, reject) {
+                    accountResource.checkUsernameAvailable({ username: username })
+                                            .$promise
+                                            .then(function (result) {
+                                                if (result.available) {
+                                                    resolve(result);
+                                                } else {
+                                                    reject(result);
+                                                }
+                                            },
+                                            function (result) {
+                                                resolve("unexpected error");
+                                            });
+                });                
             } else {
                 return $q(function (resolve, reject) {
                     resolve();

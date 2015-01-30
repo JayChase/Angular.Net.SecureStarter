@@ -1,5 +1,5 @@
 ﻿<section id="signIn" class="view row" sk-disable-when-busy>
-    <div class="col-md-7">
+    <div class="col-md-6">
         <h2>{{::vm.title}}</h2>
         <form class="form" role="form" name="signInForm">
             <div class="form-group">
@@ -28,5 +28,5 @@
             <li>New here? sign up <a href="/register">here</a></li>
         </ul>
     </div>
-    <div data-ng-include="'app/security/externalSignIn.html'" class="col-md-5"></div>
+    <div data-ng-include="'app/security/externalSignIn.html'" class="col-md-offset-1 col-md-5"></div>
 </section>

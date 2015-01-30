@@ -13,12 +13,16 @@
             getLinks: getLinks
         };
 
-        activate();
+        createLinks();
 
-        function activate() {
+        function createLinks() {
             angular.forEach($route.routes, function (route) {
                 if (route.showNav) {
-                    links.push({ name: route.showNav, url: (removeStartSlash(route.navPath) || removeStartSlash(route.originalPath)) });
+                    links.push({
+                        name: route.showNav,
+                        url: (removeStartSlash(route.navPath) || removeStartSlash(route.originalPath)),
+                        parent: route.parent
+                    });
                 }
             });
         }
