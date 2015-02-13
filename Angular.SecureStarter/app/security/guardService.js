@@ -41,7 +41,7 @@
         function authorize(requiredRoles) {
             if (userService.info.signedIn) {
                 if (requiredRoles && requiredRoles.length > 0) {
-                    if ($.arrayIntersect(requiredRoles, userService.roles).length > 0) {
+                    if ($.arrayIntersect(requiredRoles, userService.info.roles).length > 0) {
                         return {
                             authorized: true,
                             message: ""

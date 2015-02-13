@@ -44,7 +44,7 @@
                 service.info.email = user.email;
                 service.info.signedIn = true;
 
-                if (user.userRoles && angular.isArray(user.userRoles)) {
+                if (user.userRoles) {
                     service.info.roles = user.userRoles.split(",");
                 } else {
                     service.info.roles = [];

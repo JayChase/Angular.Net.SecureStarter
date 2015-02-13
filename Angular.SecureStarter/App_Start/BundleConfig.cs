@@ -22,7 +22,6 @@ namespace Angular.SecureStarter
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-resource.js",
-                "~/Scripts/angular-sanitize.js",
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-messages.js"
                 ));
