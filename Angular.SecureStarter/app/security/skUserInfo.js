@@ -1,7 +1,6 @@
 ﻿(function() {
     'use strict';
 
-    // TODO: replace app with your module name
     angular.module('app.security')
         .directive('skUserInfo', ['$rootScope','$location','userSvc','appStatusSvc',skUserInfo]);
     
@@ -13,8 +12,7 @@
             link: link
 
         };
-
-        //TODO: evaluate whether it is best just to watch the sigedIn and user properties
+    
         function link($scope, $element, attrs, ctrl) {
             $scope.username = userSvc.info.username;
             $scope.signedIn = userSvc.info.signedIn;

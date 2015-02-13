@@ -18,7 +18,11 @@
         function activate() {
             angular.forEach($route.routes, function (route) {
                 if (route.showNav) {
-                    links.push({ name: route.showNav, url: (removeStartSlash(route.navPath) || removeStartSlash(route.originalPath)) });
+                    links.push({
+                        name: route.showNav,
+                        url: (removeStartSlash(route.navPath) || removeStartSlash(route.originalPath)),
+                        showForRoles: route.showForRoles
+                    });
                 }
             });
         }

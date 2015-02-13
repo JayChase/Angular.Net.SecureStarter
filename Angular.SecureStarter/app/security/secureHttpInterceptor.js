@@ -3,7 +3,6 @@
 
     var id = 'secureHttpInterceptor';
 
-    // TODO: replace app with your module name
     angular.module('app.security')
         .factory(id, ['storageSvc', secureHttpInterceptor]);
 

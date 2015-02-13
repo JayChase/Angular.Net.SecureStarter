@@ -1,5 +1,5 @@
 ﻿<ul class="nav navbar-nav">
-    <li ng-repeat="link in links" ng-class="{active: link.isActive}">
+    <li ng-repeat="link in links" ng-hide="link.showForRoles && !guardSvc.authorized(link.showForRoles)" ng-class="{active: link.isActive}">
         <a ng-href="{{link.url}}" ng-bind="link.name"></a>
     </li>
 </ul>

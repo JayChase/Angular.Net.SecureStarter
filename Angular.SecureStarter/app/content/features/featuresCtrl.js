@@ -2,8 +2,7 @@
     'use strict';
 
     var controllerId = 'featuresCtrl';
-
-    // TODO: replace app with your module name
+    
     angular.module('app.content')
         .controller(controllerId, ['$scope', 'notifierSvc', 'appActivitySvc', 'guardSvc', featuresCtrl]);
 

@@ -5,8 +5,7 @@
 
     angular.module('app.security')
         .factory(serviceId, ['$rootScope','$q','$window', 'storageSvc', 'accountClientSvc','appActivitySvc','notifierSvc', userSvc]);
-
-    //TODO: these user details need to go onto an object
+    
     function userSvc($rootScope, $q, $window, storageSvc, accountClientSvc, appActivitySvc, notifierSvc) {
         var service = {                                   
             signIn: signIn,
@@ -43,7 +42,7 @@
                 service.info.email = user.email;
                 service.info.signedIn = true;
 
-                if (user.userRoles && angular.isArray(user.userRoles)) {
+                if (user.userRoles) {
                     service.info.roles = user.userRoles.split(",");
                 } else {
                     service.info.roles = [];
@@ -204,9 +203,8 @@
 
         function signInExternal(provider) {
             appActivitySvc.busy("userSvc");
-            
-            //TODO: return url needs to be a constant somewhere too
-            return accountClientSvc.getExternalLogin("/externalauth", provider)
+                        
+            return accountClientSvc.getExternalLogin("/externalauth/signin", provider)
                 ['finally'](
                     function () {
                         appActivitySvc.idle("userSvc");

@@ -2,8 +2,7 @@
     'use strict';
 
     var serviceId = 'appStatusSvc';
-
-    // TODO: replace app with your module name
+   
     angular.module('app.core')
         .factory(serviceId, ['$q', appStatusSvc]);
 

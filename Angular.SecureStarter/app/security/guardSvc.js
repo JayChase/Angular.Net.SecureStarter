@@ -3,7 +3,6 @@
 
     var serviceId = 'guardSvc';
 
-    // TODO: replace app with your module name
     angular.module('app.security')
         .factory(serviceId, ['$route', '$location', '$q', 'userSvc', 'notifierSvc', 'appStatusSvc', guardSvc]);
 
@@ -37,7 +36,7 @@
         function authorize(requiredRoles) {
             if (userSvc.info.signedIn) {
                 if (requiredRoles && requiredRoles.length > 0) {
-                    if ($.arrayIntersect(requiredRoles, userSvc.roles).length > 0) {
+                    if (userIsInRole(requiredRoles)) {
                         return {
                             authorized: true,
                             message: ""
@@ -45,7 +44,7 @@
                     } else {
                         return {
                             authorized: false,
-                            message: "you do not have the required permissions to view this page."
+                            message: "you do not have the required permissions."
                         };
                     }
                 } else {
@@ -60,6 +59,17 @@
                     message: "you need to sign in first."
                 };
             }
+        }
+
+        function userIsInRole(requiredRoles) {
+            var result = false;
+            requiredRoles.forEach(function (role) {
+                if ($.arrayContains(userSvc.info.roles, role)) {
+                    result = true;
+                }
+            });
+
+            return result;
         }
     }
 })();

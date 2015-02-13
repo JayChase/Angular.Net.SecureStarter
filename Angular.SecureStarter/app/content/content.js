@@ -13,6 +13,7 @@
         $routeProvider.when('/features', {
             templateUrl: 'app/content/features/features.html',
             controller: 'featuresCtrl',
+            showForRoles: ['administrator'],
             caseInsensitiveMatch: true,
             showNav: 'features'
         });

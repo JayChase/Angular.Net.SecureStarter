@@ -4,7 +4,7 @@
     var app = angular.module('app', ['ngRoute', 'ngAnimate', 'app.core', 'app.shell', 'app.content', 'app.security']);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode().enabled = true;
                 
         $routeProvider.otherwise({
             redirectTo: 'welcome'

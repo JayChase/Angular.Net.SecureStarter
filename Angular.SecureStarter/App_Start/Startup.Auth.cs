@@ -60,11 +60,11 @@ namespace Angular.SecureStarter
             //    appId: "",
             //    appSecret: "");
 
-            //TODO use one of these 2 to get the email from Google
+           
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "73146260471-mg4u2oq0u7gh0nab3ktp0eoftk7g4eps.apps.googleusercontent.com",
-                ClientSecret = "Iz90z4FYJxXPDIsL3e1aONBX",
+                ClientId = "yourClientId.apps.googleusercontent.com",
+                ClientSecret = "yourClientSecret",
                 Provider = new GoogleOAuth2AuthenticationProvider()
                 {
                     OnAuthenticated = (context) =>
@@ -75,12 +75,6 @@ namespace Angular.SecureStarter
                     }
                 }
             });
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "73146260471-mg4u2oq0u7gh0nab3ktp0eoftk7g4eps.apps.googleusercontent.com",
-            //    ClientSecret = "Iz90z4FYJxXPDIsL3e1aONBX"                
-            //});
         }
     }
 }

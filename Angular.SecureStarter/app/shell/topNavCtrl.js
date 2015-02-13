@@ -3,7 +3,6 @@
 
     var controllerId = 'topNavCtrl';
 
-    // TODO: replace app with your module name
     angular.module('app.shell')
         .controller(controllerId, ['$scope','appSettingsSvc','navigationSvc', topNavCtrl]);
 

@@ -1,7 +1,6 @@
 ﻿(function() {
     'use strict';
 
-    // TODO: replace app with your module name
     angular.module('app.security')
         .directive('skLoginProvider', [skLoginProvider]);
     

@@ -2,8 +2,7 @@
     'use strict';
 
     var serviceId = 'restoreUserSvc';
-
-    // TODO: replace app with your module name
+    
     angular.module('app.security')
         .factory(serviceId, ['$location','$q', 'storageSvc', 'appActivitySvc', 'notifierSvc', 'userSvc', restoreUserSvc]);
 

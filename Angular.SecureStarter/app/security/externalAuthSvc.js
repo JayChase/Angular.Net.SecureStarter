@@ -31,13 +31,13 @@
                 if (!externalActionResult || !externalActionResult.access_token) {
                     notifierSvc.show({ message: "something went wrong. Error: rereiving access token", type: "error" });
                     appActivitySvc.idle("externalAuthSvc");                    
-                    $location.path("/signIn");
+                    $location.path("/signIn").hash('');
                     deferred.resolve(true);
 
                 } else if (externalActionResult.error) {
                     notifierSvc.show({ message: "something went wrong. Error: " + externalActionResult.error, type: "error" });
                     appActivitySvc.idle("externalAuthSvc");
-                    $location.path("/signIn");
+                    $location.path("/signIn").hash('');
                     deferred.resolve(true);
                 } else {
 
@@ -60,7 +60,7 @@
 				                    if (associationInfo) {
 				                        associateLogin();
 				                    } else {				                        
-				                        $location.path(redirectPath);
+				                        $location.path(redirectPath).hash('');
 				                    }
 				                } else {
 				                    registrationInfo = {
@@ -69,7 +69,7 @@
 				                        username: result.data.userName
 				                    };
 				                    
-				                    $location.path("/externalRegister");
+				                    $location.path("/externalRegister").hash('');
 				                }
 
 				                deferred.resolve(true);
@@ -78,7 +78,7 @@
 				                //error	
 				                notifierSvc.show({ message: "something went wrong. " + result.error, type: "error" });
 				                
-				                $location.path("/signIn");
+				                $location.path("/signIn").hash('');
 
 				                deferred.reject(true);
 				            })
@@ -115,8 +115,7 @@
                     });
         }
 
-        function cleanUp() {
-            $location.hash("");
+        function cleanUp() {    
             storageSvc.remove("registrationInfo");            
         }
 

@@ -237,7 +237,7 @@
 				}                
 			);                         
         }
-        //TODO: need to combine these two methods right?
+        
         function getExternalLogins(returnUrl, generateState) {            
             if (!returnUrl) {
                 returnUrl = "";
@@ -279,7 +279,10 @@
                 url: url
             }).then(
 				function (result) {
-				    return { result: "success" };
+				    return {
+				        result: "success",
+				        data: result.data
+				    };
 				},
 				function (result) {
 				    return $q.reject({

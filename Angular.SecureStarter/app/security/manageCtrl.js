@@ -2,8 +2,7 @@
     'use strict';
 
     var controllerId = 'manageCtrl';
-
-    // TODO: replace app with your module name
+    
     angular.module('app.security')
         .controller(controllerId, ['$scope','userManagementSvc', manageCtrl]);
 

@@ -4,9 +4,9 @@
     var controllerId = 'externalRegisterCtrl';
 
     angular.module('app.security')
-        .controller(controllerId, ['$scope','$location','externalAuthSvc','appActivitySvc','notifierSvc','userSvc', externalRegisterCtrl]);
+        .controller(controllerId, ['$scope','$location', '$window', 'externalAuthSvc','appActivitySvc','notifierSvc','userSvc', externalRegisterCtrl]);
 
-    function externalRegisterCtrl($scope, $location, externalAuthSvc, appActivitySvc, notifierSvc, userSvc) {
+    function externalRegisterCtrl($scope, $location, $window, externalAuthSvc, appActivitySvc, notifierSvc, userSvc) {
         $scope.title = 'externalRegister';
         $scope.registration = {
             username: "",
@@ -39,7 +39,9 @@
 				function (result) {
 				    notifierSvc.show({ message: "registered successfully as " + userSvc.info.username, type: "info" });
 				    userSvc.signInExternal($scope.registration.loginProvider).then(
-				            null,
+				            function (result) {
+				                $window.location.href = result.data.url;
+				            },
 				            function (result) {
 				                //error
 				                notifierSvc.show({ message: "something went wrong signing in. Error" + result.error, type: "error" });

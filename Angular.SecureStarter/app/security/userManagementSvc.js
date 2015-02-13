@@ -3,7 +3,6 @@
 
     var serviceId = 'userManagementSvc';
 
-    // TODO: replace app with your module name
     angular.module('app.security')
         .factory(serviceId, ['$q','$window','userSvc','appActivitySvc','notifierSvc', userManagementSvc]);
 

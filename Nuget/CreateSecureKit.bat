@@ -41,7 +41,7 @@ echo F | xcopy /Y ..\%sourceDir%\Views\Home\Index.cshtml "%destinationDir%\Views
 
 ::sort out the namespace in cs files
 
-PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& 'C:\Users\Jon\Documents\USS Work\AwesomeWeb\Angular\Workshop\Angular.SecureStarter\Nuget\transformations.ps1'"
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& 'C:\Work\AwesomeWeb\AskCurrent\Angular.Net.SecureStarter-ee18d8c4cb1dce690c4558fa6b1712eeaab8732b\Nuget\transformations.ps1'"
 
 ::create the nuget package
 nuget pack package\Angular.SecureStarter.nuspec

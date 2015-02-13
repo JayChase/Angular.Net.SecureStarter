@@ -3,7 +3,6 @@
 
     var controllerId = 'signInCtrl';
 
-    // TODO: replace app with your module name
     angular.module('app.security')
         .controller(controllerId, ['$scope','$location', 'userSvc','notifierSvc', signInCtrl]);
 
