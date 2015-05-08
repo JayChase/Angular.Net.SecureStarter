@@ -322,9 +322,9 @@
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jasmine-html.js" />
     <Content Include="Scripts\jasmine.js" />
-    <Content Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\sinon-1.9.1.js" />
     <Content Include="Tests\Common\testHelpers.js" />
     <Content Include="Tests\Core\appStatusSvcSpec.js" />
@@ -358,7 +358,7 @@
     <None Include="Scripts\angular-touch.min.js.map" />
     <None Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\errors.json" />
-    <None Include="Scripts\jquery-2.1.1.min.map" />
+    <None Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup />

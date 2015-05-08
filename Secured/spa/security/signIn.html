@@ -1,0 +1,33 @@
+﻿<section id="signIn" class="row" sk-disable-when-busy>
+    <div class="col-md-5 col-md-offset-1">
+        <h2>{{::vm.title}}</h2>
+        <form class="form" role="form" name="signInForm">
+            <div class="form-group">
+                <label for="userId">email or username</label>
+                <input type="text" name="userId" class="form-control" ng-model="vm.user.id" required sk-focus-on-set-pristine />
+                <ng-messages for="signInForm.userId.$error" ng-if="signInForm.userId.$touched" sk-has-error>
+                    <ng-message class="help-block" when="required">required</ng-message>
+                </ng-messages>
+            </div>
+            <div class="form-group">
+                <label for="userPassword">Password</label>
+                <input type="password" name="userPassword" class="form-control" ng-model="vm.user.password" required />
+                <ng-messages for="signInForm.userPassword.$error" ng-if="signInForm.userPassword.$touched" sk-has-error>
+                    <ng-message class="help-block" when="required">required</ng-message>
+                </ng-messages>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="vm.user.remember" />remember me
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="vm.signIn()">Sign in</button>
+        </form>
+        <br/>
+        <ul class="list-unstyled">
+            <li>Forgotten your password? Click <a href="reminder">here</a></li>
+            <li>New here? sign up <a href="register">here</a></li>
+        </ul>
+    </div>
+    <div data-ng-include="'security/externalSignIn.html'" class="col-md-offset-1 col-md-5"></div>
+</section>

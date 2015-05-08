@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>AngularJs.StarterKit.Spa.Secured.Client</id>
+    <version>2.0.2-alpha</version>
+    <title>AngularJS starter kit Spa Secured client</title>
+    <authors>JayChase</authors>
+    <owners>JayChase</owners>
+    <licenseUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	  <summary>AngularJS starter kit Spa secured client</summary>
+    <description>AngularJS starter kit Spa secured client</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015 Useful Software Solutions Ltd</copyright>
+    <tags>angularjs angular spa authentication OAuth OWIN "ASP.NET Identity"</tags>	 
+	 <dependencies>
+     <dependency id="Newtonsoft.Json" version="6.0.8" />
+     <dependency id="WebActivatorEx" version=""/>
+	 </dependencies>
+  </metadata>
+</package>

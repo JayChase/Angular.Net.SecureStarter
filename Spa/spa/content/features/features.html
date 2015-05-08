@@ -1,0 +1,12 @@
+﻿<section id="features" class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <h2>{{::vm.title}}</h2>
+        <ul class="list-unstyled">
+            <li data-ng-repeat="f in vm.features">
+                <h3>{{f.name}}</h3>
+                <p>{{f.description}}</p>
+                <button class="btn btn-default" type="button" ng-if="f.demo" ng-click="f.demo()">demo</button>
+            </li>
+        </ul>        
+    </div>    
+</section>

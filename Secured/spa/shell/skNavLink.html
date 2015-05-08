@@ -1,0 +1,7 @@
+﻿<li ng-class="{active: navLink.isActive, dropdown: hasChildren}">
+    <a ng-if="!hasChildren" ng-href="{{navLink.url}}" ng-bind="navLink.name"></a>
+    <a ng-if="hasChildren" ng-href="{{navLink.url}}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{navLink.name}}<span class="caret"></span></a>
+    <ul class="dropdown-menu child-nav-links" role="menu">
+        <sk-nav-link ng-repeat="link in navLinks | filter:{parent: navLink.name}" nav-link="link"></sk-nav-link>
+    </ul>
+</li>

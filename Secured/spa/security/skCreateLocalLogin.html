@@ -1,0 +1,22 @@
+﻿<div id="skCreateLocalLogin">
+    <h4>Create a local login</h4>
+    <form class="form" role="form" name="passwordForm">
+        <hr />
+        <div class="form-group">
+            <label for="newPassword">new password</label>               
+            <input type="password" name="newPassword" class="form-control" ng-model="newPassword" required />
+            <ng-messages for="passwordForm.password.$error" ng-if="passwordForm.password.$touched" sk-has-error>
+                <ng-message class="help-block" when="required">required</ng-message>
+            </ng-messages>            
+        </div>
+        <div class="form-group">
+            <label for="newPasswordConfirm">confirm new password</label>
+            <input type="password" name="newPasswordConfirm" class="form-control" ng-model="newPasswordConfirm" sk-match="newPassword" required />
+            <ng-messages for="passwordForm.newPasswordConfirm.$error" ng-if="passwordForm.newPasswordConfirm.$touched" sk-has-error>
+                <ng-message class="help-block" when="required">required</ng-message>
+                <ng-message class="help-block" when="match">passwords do not match</ng-message>
+            </ng-messages>             
+        </div>
+        <button type="submit" class="btn btn-default" ng-disabled="passwordForm.$invalid && passwordForm.$dirty" ng-click="create()">create</button>
+    </form>
+</div>
