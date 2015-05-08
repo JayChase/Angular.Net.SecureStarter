@@ -16,14 +16,6 @@ $provide.value("$locale", {
       "Dydd Gwener",
       "Dydd Sadwrn"
     ],
-    "ERANAMES": [
-      "Cyn Crist",
-      "Oed Crist"
-    ],
-    "ERAS": [
-      "CC",
-      "OC"
-    ],
     "MONTH": [
       "Ionawr",
       "Chwefror",

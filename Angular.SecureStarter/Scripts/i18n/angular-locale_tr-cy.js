@@ -16,14 +16,6 @@ $provide.value("$locale", {
       "Cuma",
       "Cumartesi"
     ],
-    "ERANAMES": [
-      "Milattan \u00d6nce",
-      "Milattan Sonra"
-    ],
-    "ERAS": [
-      "M\u00d6",
-      "MS"
-    ],
     "MONTH": [
       "Ocak",
       "\u015eubat",

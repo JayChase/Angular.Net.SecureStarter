@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "vienres",
       "s\u00e1badu"
     ],
-    "ERANAMES": [
-      "a.C.",
-      "d.C."
-    ],
-    "ERAS": [
-      "a.C.",
-      "d.C."
-    ],
     "MONTH": [
       "de xineru",
       "de febreru",

@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Orwakataano",
       "Orwamukaaga"
     ],
-    "ERANAMES": [
-      "Kurisito Atakaijire",
-      "Kurisito Yaijire"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Okwokubanza",
       "Okwakabiri",

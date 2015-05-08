@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "venerdi",
       "sabbato"
     ],
-    "ERANAMES": [
-      "ante Christo",
-      "post Christo"
-    ],
-    "ERAS": [
-      "a.Chr.",
-      "p.Chr."
-    ],
     "MONTH": [
       "januario",
       "februario",

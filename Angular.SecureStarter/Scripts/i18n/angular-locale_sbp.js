@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Ijumaa",
       "Jumamosi"
     ],
-    "ERANAMES": [
-      "Ashanali uKilisito",
-      "Pamwandi ya Kilisto"
-    ],
-    "ERAS": [
-      "AK",
-      "PK"
-    ],
     "MONTH": [
       "Mupalangulwa",
       "Mwitope",

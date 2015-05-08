@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Falaite",
       "Tokonaki"
     ],
-    "ERANAMES": [
-      "ki mu\u02bba",
-      "ta\u02bbu \u02bbo S\u012bs\u016b"
-    ],
-    "ERAS": [
-      "KM",
-      "TS"
-    ],
     "MONTH": [
       "S\u0101nuali",
       "F\u0113pueli",

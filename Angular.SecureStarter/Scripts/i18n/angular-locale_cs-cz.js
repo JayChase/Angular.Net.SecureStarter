@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "p\u00e1tek",
       "sobota"
     ],
-    "ERANAMES": [
-      "p\u0159. n. l.",
-      "n. l."
-    ],
-    "ERAS": [
-      "p\u0159. n. l.",
-      "n. l."
-    ],
     "MONTH": [
       "ledna",
       "\u00fanora",

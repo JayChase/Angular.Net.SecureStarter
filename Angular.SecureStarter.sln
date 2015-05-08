@@ -3,61 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular.SecureStarter", "Angular.SecureStarter\Angular.SecureStarter.csproj", "{122C26AC-B8E9-44D1-8DA0-EB7F46DF2068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular.SecureStarter.Tests", "Angular.SecureStarter.Tests\Angular.SecureStarter.Tests.csproj", "{E99CEEED-A9A1-4A6F-9536-F96025CC288A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PackageFiles", "PackageFiles", "{9E7D5209-E0E5-47DC-BF1C-F1C291C6E853}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\package\Angular.SecureStarter.nuspec = Nuget\package\Angular.SecureStarter.nuspec
+		Nuget\CreateSecureKit.bat = Nuget\CreateSecureKit.bat
+		Nuget\package\tools\install.ps1 = Nuget\package\tools\install.ps1
+		Nuget\transformations.ps1 = Nuget\transformations.ps1
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8014CAD5-437E-4D15-AE31-55570C6F9D4E}"
 	ProjectSection(SolutionItems) = preProject
 		License.txt = License.txt
 		readme.md = readme.md
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spa", "Spa\Spa.csproj", "{15CC8D08-6829-4BA6-8670-5A8BCE490796}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secured", "Secured\Secured.csproj", "{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{52394876-D835-48C6-A74A-ADCC1ADD6322}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\MakeAll.bat = Nuget\MakeAll.bat
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spa", "Spa", "{5E063AAB-FF5A-49D3-9C48-D6F2E546B997}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\Spa\AngularJs.StarterKit.Spa.nuspec = Nuget\Spa\AngularJs.StarterKit.Spa.nuspec
-		Nuget\Spa\CreatePackage.bat = Nuget\Spa\CreatePackage.bat
-		Nuget\Spa\transformations.ps1 = Nuget\Spa\transformations.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecureStarter", "SecureStarter", "{EAF5504C-04B5-4EA1-B3A6-499F77F319E3}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\SecureStarter\AngularJs.StarterKit.SecureStarter.nuspec = Nuget\SecureStarter\AngularJs.StarterKit.SecureStarter.nuspec
-		Nuget\SecureStarter\CreatePackage.bat = Nuget\SecureStarter\CreatePackage.bat
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Secured.Server", "Secured.Server", "{A35B267E-FF4F-490D-B733-2574B601A615}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\Secured.Server\AngularJs.StarterKit.Spa.Secured.Server.nuspec = Nuget\Secured.Server\AngularJs.StarterKit.Spa.Secured.Server.nuspec
-		Nuget\Secured.Server\CreatePackage.bat = Nuget\Secured.Server\CreatePackage.bat
-		Nuget\Secured.Server\transformations.ps1 = Nuget\Secured.Server\transformations.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Secured.Client", "Secured.Client", "{7094F371-BCF2-4001-B121-47C89C0FD6EB}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\Secured.Client\AngularJs.StarterKit.Spa.Secured.Client.nuspec = Nuget\Secured.Client\AngularJs.StarterKit.Spa.Secured.Client.nuspec
-		Nuget\Secured.Client\CreatePackage.bat = Nuget\Secured.Client\CreatePackage.bat
-		Nuget\Secured.Client\transformations.ps1 = Nuget\Secured.Client\transformations.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{008BEE5E-3534-40B0-9A93-0719A6FF9A83}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\Secured.Client\tools\install.ps1 = Nuget\Secured.Client\tools\install.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{78F326FA-18E5-4FE7-86FA-199C6204E419}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\Secured.Server\tools\install.ps1 = Nuget\Secured.Server\tools\install.ps1
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{E8E20488-D0EC-4B90-92C5-1C181829D431}"
-	ProjectSection(SolutionItems) = preProject
-		Nuget\Spa\tools\install.ps1 = Nuget\Spa\tools\install.ps1
 	EndProjectSection
 EndProject
 Global
@@ -66,25 +27,16 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{122C26AC-B8E9-44D1-8DA0-EB7F46DF2068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{122C26AC-B8E9-44D1-8DA0-EB7F46DF2068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{122C26AC-B8E9-44D1-8DA0-EB7F46DF2068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{122C26AC-B8E9-44D1-8DA0-EB7F46DF2068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E99CEEED-A9A1-4A6F-9536-F96025CC288A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E99CEEED-A9A1-4A6F-9536-F96025CC288A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E99CEEED-A9A1-4A6F-9536-F96025CC288A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E99CEEED-A9A1-4A6F-9536-F96025CC288A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{5E063AAB-FF5A-49D3-9C48-D6F2E546B997} = {52394876-D835-48C6-A74A-ADCC1ADD6322}
-		{EAF5504C-04B5-4EA1-B3A6-499F77F319E3} = {52394876-D835-48C6-A74A-ADCC1ADD6322}
-		{A35B267E-FF4F-490D-B733-2574B601A615} = {52394876-D835-48C6-A74A-ADCC1ADD6322}
-		{7094F371-BCF2-4001-B121-47C89C0FD6EB} = {52394876-D835-48C6-A74A-ADCC1ADD6322}
-		{008BEE5E-3534-40B0-9A93-0719A6FF9A83} = {7094F371-BCF2-4001-B121-47C89C0FD6EB}
-		{78F326FA-18E5-4FE7-86FA-199C6204E419} = {A35B267E-FF4F-490D-B733-2574B601A615}
-		{E8E20488-D0EC-4B90-92C5-1C181829D431} = {5E063AAB-FF5A-49D3-9C48-D6F2E546B997}
 	EndGlobalSection
 EndGlobal

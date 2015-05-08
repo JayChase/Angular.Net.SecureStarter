@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "venderdi",
       "sonda"
     ],
-    "ERANAMES": [
-      "avant Cristus",
-      "suenter Cristus"
-    ],
-    "ERAS": [
-      "av. Cr.",
-      "s. Cr."
-    ],
     "MONTH": [
       "schaner",
       "favrer",

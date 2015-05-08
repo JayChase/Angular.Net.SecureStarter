@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Ng\u00f2vya",
       "Lubingu"
     ],
-    "ERANAMES": [
-      "Kumpala kwa Yezu Kli",
-      "Kunyima kwa Yezu Kli"
-    ],
-    "ERAS": [
-      "kmp. Y.K.",
-      "kny. Y. K."
-    ],
     "MONTH": [
       "Ciongo",
       "L\u00f9ishi",

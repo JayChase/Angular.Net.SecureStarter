@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "\u1e3cavhu\u1e71anu",
       "Mugivhela"
     ],
-    "ERANAMES": [
-      "BCE",
-      "CE"
-    ],
-    "ERAS": [
-      "BCE",
-      "CE"
-    ],
     "MONTH": [
       "Phando",
       "Luhuhi",

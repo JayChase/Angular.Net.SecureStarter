@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "reede",
       "laup\u00e4ev"
     ],
-    "ERANAMES": [
-      "enne meie aega",
-      "meie aja j\u00e4rgi"
-    ],
-    "ERAS": [
-      "e.m.a.",
-      "m.a.j."
-    ],
     "MONTH": [
       "jaanuar",
       "veebruar",

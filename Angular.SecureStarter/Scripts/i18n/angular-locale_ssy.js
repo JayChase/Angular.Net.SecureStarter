@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Jumqata",
       "Qunxa Sambat"
     ],
-    "ERANAMES": [
-      "Yaasuusuk Duma",
-      "Yaasuusuk Wadir"
-    ],
-    "ERAS": [
-      "Yaasuusuk Duma",
-      "Yaasuusuk Wadir"
-    ],
     "MONTH": [
       "Qunxa Garablu",
       "Kudo",

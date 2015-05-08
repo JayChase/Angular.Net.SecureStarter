@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "aijima",
       "si\u0253iti"
     ],
-    "ERANAMES": [
-      "BCE",
-      "CE"
-    ],
-    "ERAS": [
-      "BCE",
-      "CE"
-    ],
     "MONTH": [
       "luukao kem\u00e3",
       "\u0253anda\u0253u",

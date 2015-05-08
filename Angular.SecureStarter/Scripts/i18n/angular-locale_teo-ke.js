@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Nakakany",
       "Nakasabiti"
     ],
-    "ERANAMES": [
-      "Kabla ya Christo",
-      "Baada ya Christo"
-    ],
-    "ERAS": [
-      "KK",
-      "BK"
-    ],
     "MONTH": [
       "Orara",
       "Omuk",

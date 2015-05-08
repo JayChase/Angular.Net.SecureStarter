@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Ijumaa",
       "Jumaamosi"
     ],
-    "ERANAMES": [
-      "Kabla ya Klisto",
-      "Baada ya Klisto"
-    ],
-    "ERAS": [
-      "KK",
-      "BK"
-    ],
     "MONTH": [
       "Januali",
       "Febluali",

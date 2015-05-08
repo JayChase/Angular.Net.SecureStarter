@@ -16,14 +16,6 @@ $provide.value("$locale", {
       "Gwener",
       "Sadorn"
     ],
-    "ERANAMES": [
-      "BCE",
-      "CE"
-    ],
-    "ERAS": [
-      "BCE",
-      "CE"
-    ],
     "MONTH": [
       "Genver",
       "C\u02bchwevrer",

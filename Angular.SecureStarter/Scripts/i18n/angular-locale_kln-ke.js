@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Betutab mut",
       "Betutab lo"
     ],
-    "ERANAMES": [
-      "Amait kesich Jesu",
-      "Kokakesich Jesu"
-    ],
-    "ERAS": [
-      "AM",
-      "KO"
-    ],
     "MONTH": [
       "Mulgul",
       "Ng\u2019atyato",

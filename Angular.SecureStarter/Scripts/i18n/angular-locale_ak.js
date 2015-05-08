@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Fida",
       "Memeneda"
     ],
-    "ERANAMES": [
-      "Ansa Kristo",
-      "Kristo Ekyiri"
-    ],
-    "ERAS": [
-      "AK",
-      "KE"
-    ],
     "MONTH": [
       "Sanda-\u0186p\u025bp\u0254n",
       "Kwakwar-\u0186gyefuo",

@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "DihAoine",
       "DiSathairne"
     ],
-    "ERANAMES": [
-      "Ro Chr\u00ecosta",
-      "An d\u00e8idh Chr\u00ecosta"
-    ],
-    "ERAS": [
-      "RC",
-      "AD"
-    ],
     "MONTH": [
       "dhen Fhaoilleach",
       "dhen Ghearran",

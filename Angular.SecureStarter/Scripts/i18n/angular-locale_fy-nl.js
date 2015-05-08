@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "freed",
       "sneon"
     ],
-    "ERANAMES": [
-      "Foar Kristus",
-      "nei Kristus"
-    ],
-    "ERAS": [
-      "f.Kr.",
-      "n.Kr."
-    ],
     "MONTH": [
       "jannewaris",
       "febrewaris",

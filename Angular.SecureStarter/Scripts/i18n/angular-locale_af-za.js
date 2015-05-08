@@ -16,14 +16,6 @@ $provide.value("$locale", {
       "Vrydag",
       "Saterdag"
     ],
-    "ERANAMES": [
-      "voor Christus",
-      "na Christus"
-    ],
-    "ERAS": [
-      "v.C.",
-      "n.C."
-    ],
     "MONTH": [
       "Januarie",
       "Februarie",

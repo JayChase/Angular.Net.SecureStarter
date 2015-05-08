@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Ijumaa",
       "Jumamosi"
     ],
-    "ERANAMES": [
-      "Hinapiya yesu",
-      "Yopia yesu"
-    ],
-    "ERAS": [
-      "HY",
-      "YY"
-    ],
     "MONTH": [
       "Mweri wo kwanza",
       "Mweri wo unayeli",

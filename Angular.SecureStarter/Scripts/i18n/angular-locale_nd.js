@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Sihlanu",
       "Mgqibelo"
     ],
-    "ERANAMES": [
-      "UKristo angakabuyi",
-      "Ukristo ebuyile"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Zibandlela",
       "Nhlolanja",

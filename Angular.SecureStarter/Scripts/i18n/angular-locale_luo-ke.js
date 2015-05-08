@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Tich Abich",
       "Ngeso"
     ],
-    "ERANAMES": [
-      "Kapok Kristo obiro",
-      "Ka Kristo osebiro"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Dwe mar Achiel",
       "Dwe mar Ariyo",

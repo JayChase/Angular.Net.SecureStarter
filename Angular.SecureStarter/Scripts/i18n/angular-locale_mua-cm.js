@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Comgaisuu",
       "Comzye\u0253suu"
     ],
-    "ERANAMES": [
-      "K\u01ddPel Kristu",
-      "Pel Kristu"
-    ],
-    "ERAS": [
-      "KK",
-      "PK"
-    ],
     "MONTH": [
       "F\u0129i Loo",
       "Cokcwakla\u014bne",

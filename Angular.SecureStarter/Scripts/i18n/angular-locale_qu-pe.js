@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Viernes",
       "S\u00e1bado"
     ],
-    "ERANAMES": [
-      "BCE",
-      "d.C."
-    ],
-    "ERAS": [
-      "BCE",
-      "d.C."
-    ],
     "MONTH": [
       "Qulla puquy",
       "Hatun puquy",

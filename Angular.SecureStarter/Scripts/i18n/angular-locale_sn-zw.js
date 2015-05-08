@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Chishanu",
       "Mugovera"
     ],
-    "ERANAMES": [
-      "Kristo asati auya",
-      "Kristo ashaya"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Ndira",
       "Kukadzi",

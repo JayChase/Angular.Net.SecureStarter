@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Zoma",
       "Asabotsy"
     ],
-    "ERANAMES": [
-      "Alohan\u2019i JK",
-      "Aorian\u2019i JK"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Janoary",
       "Febroary",

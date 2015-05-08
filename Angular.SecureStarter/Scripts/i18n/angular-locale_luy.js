@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "Murwa wa Katano",
       "Jumamosi"
     ],
-    "ERANAMES": [
-      "Imberi ya Kuuza Kwa",
-      "Muhiga Kuvita Kuuza"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Januari",
       "Februari",

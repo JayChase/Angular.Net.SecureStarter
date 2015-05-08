@@ -34,14 +34,6 @@ $provide.value("$locale", {
       "S\u1e0disass",
       "Sayass"
     ],
-    "ERANAMES": [
-      "send talalit n \u0190isa",
-      "seld talalit n \u0190isa"
-    ],
-    "ERAS": [
-      "snd. T.\u0190",
-      "sld. T.\u0190"
-    ],
     "MONTH": [
       "Yennayer",
       "Fu\u1e5bar",

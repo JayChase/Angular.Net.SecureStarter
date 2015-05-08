@@ -16,14 +16,6 @@ $provide.value("$locale", {
       "Lwesihlanu",
       "Mgqibelo"
     ],
-    "ERANAMES": [
-      "BC",
-      "AD"
-    ],
-    "ERAS": [
-      "BC",
-      "AD"
-    ],
     "MONTH": [
       "Januwari",
       "Februwari",

@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.15
+ * @license AngularJS v1.3.4
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -180,7 +180,7 @@ function $RouteProvider() {
    * @description
    *
    * A boolean property indicating if routes defined
-   * using this provider should be matched using a case insensitive
+   * using this provider should be matched using a case sensitive
    * algorithm. Defaults to `false`.
    */
   this.caseInsensitiveMatch = false;
@@ -482,15 +482,21 @@ function $RouteProvider() {
            * definitions will be interpolated into the location's path, while
            * remaining properties will be treated as query params.
            *
-           * @param {!Object<string, string>} newParams mapping of URL parameter names to values
+           * @param {Object} newParams mapping of URL parameter names to values
            */
           updateParams: function(newParams) {
             if (this.current && this.current.$$route) {
+              var searchParams = {}, self=this;
+
+              angular.forEach(Object.keys(newParams), function(key) {
+                if (!self.current.pathParams[key]) searchParams[key] = newParams[key];
+              });
+
               newParams = angular.extend({}, this.current.params, newParams);
               $location.path(interpolate(this.current.$$route.originalPath, newParams));
-              // interpolate modifies newParams, only query params are left
-              $location.search(newParams);
-            } else {
+              $location.search(angular.extend({}, $location.search(), searchParams));
+            }
+            else {
               throw $routeMinErr('norout', 'Tried updating route when with no current route');
             }
           }
@@ -782,6 +788,7 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
         .view-animate-container {
           position:relative;
           height:100px!important;
+          position:relative;
           background:white;
           border:1px solid black;
           height:40px;

@@ -1,6 +1,0 @@
-﻿<?xml version="1.0"?>
-<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <connectionStrings xdt:Transform="InsertIfMissing">
-    <add name="AuthConnection" connectionString="Data Source=(LocalDb)\mssqllocaldb;AttachDbFilename=|DataDirectory|\$rootnamespace$-auth-db.mdf;Initial Catalog=$rootnamespace$-auth-db;Integrated Security=True" providerName="System.Data.SqlClient" xdt:Transform="InsertIfMissing"/>    
-  </connectionStrings>
-</configuration>
