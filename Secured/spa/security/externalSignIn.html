@@ -1,0 +1,8 @@
+﻿<section id="externalSignIn" class="view" ng-controller="ExternalSignInController as vm">
+    <h2>{{::vm.title}}</h2>
+    <ul class="list-unstyled">
+        <li ng-repeat="ap in vm.authProviders">
+            <button type="submit" class="btn btn-default"ng-click="vm.login(ap.url)">{{::ap.name}}</button>   
+        </li>
+    </ul>     
+</section>

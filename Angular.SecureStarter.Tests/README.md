@@ -1,3 +1,0 @@
-﻿# Angular.SecureStarter.Tests
-
-

@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spa", "Spa\Spa.csproj", "{15CC8D08-6829-4BA6-8670-5A8BCE490796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secured", "Secured\Secured.csproj", "{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CC8D08-6829-4BA6-8670-5A8BCE490796}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
