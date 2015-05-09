@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>Angular.SecureStarter</id>
-    <version>2.0.2-alpha</version>
+    <version>2.0.3-alpha</version>
     <title>Angular.SecureStarter</title>
     <authors>JayChase</authors>
     <owners>JayChase</owners>
     <licenseUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter/blob/master/License.txt</licenseUrl>
     <projectUrl>https://github.com/Useful-Software-Solutions-Ltd/Angular.Net.SecureStarter</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-	  <summary>AngularJS starter kit Spa secured server</summary>
-    <description>AngularJS starter kit Spa secured server</description>
+	  <summary>An Angular starter kit secured with ASP.NET Identity/OAuth</summary>
+    <description>An Angular starter kit with authentication (ASP.NET Identity 2.1.0). To get started create a new empty web application, then install the package. To use build and run the application then navigate to http://your-url/spa. For more information please see the wiki on the project site.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015 Useful Software Solutions Ltd</copyright>
     <tags>angularjs angular spa authentication OAuth OWIN "ASP.NET Identity"</tags>	 
