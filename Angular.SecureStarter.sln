@@ -7,6 +7,53 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spa", "Spa\Spa.csproj", "{1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Secured", "Secured\Secured.csproj", "{3FFDB4D5-ACD5-4362-A0FB-AC21278E152D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{A51539A5-C246-42B4-884B-903F1805DD8E}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\MakeAll.bat = Nuget\MakeAll.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spa", "Spa", "{2942D2EF-E3FA-461F-BBA2-7DCF255BD2CA}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Spa\AngularJs.StarterKit.Spa.nuspec = Nuget\Spa\AngularJs.StarterKit.Spa.nuspec
+		Nuget\Spa\CreatePackage.bat = Nuget\Spa\CreatePackage.bat
+		Nuget\Spa\transformations.ps1 = Nuget\Spa\transformations.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8D413AEF-7362-4148-BB5E-B689A567C5C6}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Spa\tools\install.ps1 = Nuget\Spa\tools\install.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SecureStarter", "SecureStarter", "{DAC068CA-FC75-452C-9E58-6FB75E73480C}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\SecureStarter\AngularJs.StarterKit.SecureStarter.nuspec = Nuget\SecureStarter\AngularJs.StarterKit.SecureStarter.nuspec
+		Nuget\SecureStarter\CreatePackage.bat = Nuget\SecureStarter\CreatePackage.bat
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Secured.Server", "Secured.Server", "{B9A050D5-E558-4966-8F06-CA2367C3176E}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Secured.Server\AngularJs.StarterKit.Spa.Secured.Server.nuspec = Nuget\Secured.Server\AngularJs.StarterKit.Spa.Secured.Server.nuspec
+		Nuget\Secured.Server\CreatePackage.bat = Nuget\Secured.Server\CreatePackage.bat
+		Nuget\Secured.Server\transformations.ps1 = Nuget\Secured.Server\transformations.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{826DEDAE-94D9-4286-8F28-D7961C37431B}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Secured.Server\tools\install.ps1 = Nuget\Secured.Server\tools\install.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Secured.Client", "Secured.Client", "{C73CE4C9-7894-4ADD-85A1-D72607DFB18A}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Secured.Client\AngularJs.StarterKit.Spa.Secured.Client.nuspec = Nuget\Secured.Client\AngularJs.StarterKit.Spa.Secured.Client.nuspec
+		Nuget\Secured.Client\CreatePackage.bat = Nuget\Secured.Client\CreatePackage.bat
+		Nuget\Secured.Client\transformations.ps1 = Nuget\Secured.Client\transformations.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8A494397-363F-41AD-9398-6610040B78E2}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\Secured.Client\tools\install.ps1 = Nuget\Secured.Client\tools\install.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +71,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2942D2EF-E3FA-461F-BBA2-7DCF255BD2CA} = {A51539A5-C246-42B4-884B-903F1805DD8E}
+		{8D413AEF-7362-4148-BB5E-B689A567C5C6} = {2942D2EF-E3FA-461F-BBA2-7DCF255BD2CA}
+		{DAC068CA-FC75-452C-9E58-6FB75E73480C} = {A51539A5-C246-42B4-884B-903F1805DD8E}
+		{B9A050D5-E558-4966-8F06-CA2367C3176E} = {A51539A5-C246-42B4-884B-903F1805DD8E}
+		{826DEDAE-94D9-4286-8F28-D7961C37431B} = {B9A050D5-E558-4966-8F06-CA2367C3176E}
+		{C73CE4C9-7894-4ADD-85A1-D72607DFB18A} = {A51539A5-C246-42B4-884B-903F1805DD8E}
+		{8A494397-363F-41AD-9398-6610040B78E2} = {C73CE4C9-7894-4ADD-85A1-D72607DFB18A}
 	EndGlobalSection
 EndGlobal
